@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Artesano - Poncho Digital</title>
+</head>
+<body>
+
+    <!-- ENCABEZADO Y MENU PRINCIPAL -->
+    <header>
+        <h1>Solicitud de participación en la feria</h1>
+        <p>Fiesta Nacional e Internacional del Poncho</p>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="registro_artesano.html">Registrarse como artesano</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="stands.html">Stands</a></li>
+                <li><a href="mapa.html">Plano de la feria</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Datos de la solicitud</h2>
+            <p>
+                Completá el formulario con tus datos personales y los de tu emprendimiento.
+                Un administrador revisará la solicitud y podrá aprobarla, rechazarla o
+                pedirte modificaciones antes de habilitar tu cuenta.
+            </p>
+
+            <form action="#" method="post">
+
+                <!-- DATOS PERSONALES -->
+                <fieldset>
+                    <legend>Datos personales</legend>
+
+                    <p>
+                        <label for="nombre">Nombre y apellido</label>
+                        <input type="text" id="nombre" name="nombre" maxlength="100"
+                               placeholder="Ej.: María Elena Quiroga" required>
+                    </p>
+
+                    <p>
+                        <label for="dni">DNI</label>
+                        <input type="text" id="dni" name="dni" inputmode="numeric"
+                               pattern="[0-9]{7,8}" maxlength="8"
+                               placeholder="Sin puntos ni espacios" required>
+                    </p>
+
+                    <p>
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" maxlength="150"
+                               placeholder="nombre@correo.com" required>
+                    </p>
+
+                    <p>
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" maxlength="20"
+                               placeholder="Ej.: 3834 123456" required>
+                    </p>
+
+                    <p>
+                        <label for="localidad">Localidad</label>
+                        <select id="localidad" name="localidad" required>
+                            <option value="">Seleccioná una localidad</option>
+                            <option value="san_fernando">San Fernando del Valle de Catamarca</option>
+                            <option value="valle_viejo">Valle Viejo</option>
+                            <option value="fray_mamerto_esquiu">Fray Mamerto Esquiú</option>
+                            <option value="belen">Belén</option>
+                            <option value="santa_maria">Santa María</option>
+                            <option value="tinogasta">Tinogasta</option>
+                            <option value="andalgala">Andalgalá</option>
+                            <option value="otra">Otra</option>
+                        </select>
+                    </p>
+                </fieldset>
+
+                <!-- DATOS DEL EMPRENDIMIENTO -->
+                <fieldset>
+                    <legend>Datos del emprendimiento</legend>
+
+                    <p>
+                        <label for="nombre_taller">Nombre del taller</label>
+                        <input type="text" id="nombre_taller" name="nombre_taller"
+                               maxlength="100" placeholder="Ej.: Telares del Ambato" required>
+                    </p>
+
+                    <p>
+                        <label for="rubro">Rubro artesanal</label>
+                        <select id="rubro" name="rubro" required>
+                            <option value="">Seleccioná un rubro</option>
+                            <option value="textil">Textil y telar</option>
+                            <option value="ceramica">Cerámica y alfarería</option>
+                            <option value="cuero">Talabartería y cuero</option>
+                            <option value="platerea">Platería y orfebrería</option>
+                            <option value="madera">Trabajos en madera</option>
+                            <option value="tejido">Tejido en lana y fibras</option>
+                            <option value="regional">Productos regionales</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="anios_trayectoria">Años de trayectoria</label>
+                        <input type="number" id="anios_trayectoria" name="anios_trayectoria"
+                               min="0" max="80" step="1" placeholder="0" required>
+                    </p>
+
+                    <p>
+                        <label for="descripcion">Descripción del emprendimiento</label>
+                        <textarea id="descripcion" name="descripcion" rows="6" cols="50"
+                                  maxlength="500"
+                                  placeholder="Contá qué productos elaborás, con qué técnicas y materiales trabajás."
+                                  required></textarea>
+                    </p>
+                </fieldset>
+
+                <p>
+                    <button type="submit">Enviar solicitud</button>
+                    <button type="reset">Borrar datos</button>
+                </p>
+
+            </form>
+        </section>
+    </main>
+
+    <!-- PIE DE PAGINA -->
+    <footer>
+        <p>Poncho Digital &mdash; Ministerio de Cultura de la Provincia de Catamarca</p>
+        <p>Programación III &mdash; Facultad de Tecnología y Cs. Aplicadas, U.N.Ca. &mdash; 2026</p>
+    </footer>
+
+</body>
+</html>
