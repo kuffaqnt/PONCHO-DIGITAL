@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos</title>
+</head>
+<body>
+
+    <header>
+        <h1>Poncho Digital</h1>
+        <p>Plataforma de Artesanos - Fiesta del Poncho</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="registro-artesano.html">Registro</a>
+        <a href="gestion-productos.html">Productos</a>
+    </nav>
+
+    <hr>
+
+    <h1>Gestión de Productos</h1>
+
+    <h2>Cargar Producto</h2>
+
+    <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Ej: Poncho de lana">
+        <br><br>
+
+        <label for="rubro">Rubro:</label>
+        <select id="rubro">
+            <option>Textil</option>
+            <option>Cerámica</option>
+            <option>Madera</option>
+            <option>Joyería</option>
+        </select>
+        <br><br>
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" placeholder="0">
+        <br><br>
+
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" placeholder="0">
+        <br><br>
+
+        <label for="imagen">Imagen:</label>
+        <input type="file" id="imagen">
+        <br><br>
+
+        <button type="submit">Guardar</button>
+        <button type="reset">Limpiar</button>
+    </form>
+
+    <hr>
+
+    <h2>Productos Publicados</h2>
+
+    <table border="1">
+        <tr>
+            <th>Producto</th>
+            <th>Rubro</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td>Poncho de lana</td>
+            <td>Textil</td>
+            <td>$12.500</td>
+            <td>15</td>
+            <td>
+                <button>Editar</button>
+                <button>Eliminar</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Jarrón cerámico</td>
+            <td>Cerámica</td>
+            <td>$8.200</td>
+            <td>7</td>
+            <td>
+                <button>Editar</button>
+                <button>Eliminar</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Mesa de madera</td>
+            <td>Madera</td>
+            <td>$45.000</td>
+            <td>3</td>
+            <td>
+                <button>Editar</button>
+                <button>Eliminar</button>
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <footer>
+        <p>&copy; 2026 Poncho Digital</p>
+    </footer>
+
+</body>
+</html>
