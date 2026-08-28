@@ -3,105 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Productos</title>
+    <title>Gestión de productos - Poncho Digital</title>
 </head>
 <body>
 
+    <!-- ENCABEZADO Y MENU PRINCIPAL -->
     <header>
-        <h1>Poncho Digital</h1>
-        <p>Plataforma de Artesanos - Fiesta del Poncho</p>
+        <h1>Gestión de productos</h1>
+        <p>Fiesta Nacional e Internacional del Poncho</p>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="registro_artesano.html">Registrarse como artesano</a></li>
+                <li><a href="gestion-productos.html">Gestión de productos</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="registro-artesano.html">Registro</a>
-        <a href="gestion-productos.html">Productos</a>
-    </nav>
+    <main>
 
-    <hr>
+        <!-- ALTA DE PRODUCTO -->
+        <section>
+            <h2>Cargar producto</h2>
+            <p>
+                Completá los datos del producto que querés publicar en tu stand.
+                Podés modificarlo o eliminarlo en cualquier momento desde la lista
+                de productos publicados.
+            </p>
 
-    <h1>Gestión de Productos</h1>
+            <form action="#" method="post">
 
-    <h2>Cargar Producto</h2>
+                <fieldset>
+                    <legend>Datos del producto</legend>
 
-    <form>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" placeholder="Ej: Poncho de lana">
-        <br><br>
+                    <p>
+                        <label for="nombre_producto">Nombre del producto</label>
+                        <input type="text" id="nombre_producto" name="nombre_producto"
+                               maxlength="100" placeholder="Ej.: Poncho de lana de llama" required>
+                    </p>
 
-        <label for="rubro">Rubro:</label>
-        <select id="rubro">
-            <option>Textil</option>
-            <option>Cerámica</option>
-            <option>Madera</option>
-            <option>Joyería</option>
-        </select>
-        <br><br>
+                    <p>
+                        <label for="rubro">Rubro</label>
+                        <select id="rubro" name="rubro" required>
+                            <option value="">Seleccioná un rubro</option>
+                            <option value="textil">Textil y telar</option>
+                            <option value="ceramica">Cerámica y alfarería</option>
+                            <option value="cuero">Talabartería y cuero</option>
+                            <option value="plateria">Platería y orfebrería</option>
+                            <option value="madera">Trabajos en madera</option>
+                            <option value="tejido">Tejido en lana y fibras</option>
+                            <option value="regional">Productos regionales</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </p>
 
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio" placeholder="0">
-        <br><br>
+                    <p>
+                        <label for="precio">Precio (en pesos)</label>
+                        <input type="number" id="precio" name="precio"
+                               min="0" step="0.01" placeholder="0.00" required>
+                    </p>
 
-        <label for="stock">Stock:</label>
-        <input type="number" id="stock" placeholder="0">
-        <br><br>
+                    <p>
+                        <label for="stock">Stock disponible</label>
+                        <input type="number" id="stock" name="stock"
+                               min="0" step="1" placeholder="0" required>
+                    </p>
 
-        <label for="imagen">Imagen:</label>
-        <input type="file" id="imagen">
-        <br><br>
+                    <p>
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" rows="4" cols="50"
+                                  maxlength="300"
+                                  placeholder="Contá brevemente las características del producto."></textarea>
+                    </p>
 
-        <button type="submit">Guardar</button>
-        <button type="reset">Limpiar</button>
-    </form>
+                    <p>
+                        <label for="imagen">Imagen del producto</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*">
+                    </p>
+                </fieldset>
 
-    <hr>
+                <p>
+                    <button type="submit">Guardar producto</button>
+                    <button type="reset">Limpiar formulario</button>
+                </p>
 
-    <h2>Productos Publicados</h2>
+            </form>
+        </section>
 
-    <table border="1">
-        <tr>
-            <th>Producto</th>
-            <th>Rubro</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Acciones</th>
-        </tr>
-        <tr>
-            <td>Poncho de lana</td>
-            <td>Textil</td>
-            <td>$12.500</td>
-            <td>15</td>
-            <td>
-                <button>Editar</button>
-                <button>Eliminar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Jarrón cerámico</td>
-            <td>Cerámica</td>
-            <td>$8.200</td>
-            <td>7</td>
-            <td>
-                <button>Editar</button>
-                <button>Eliminar</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Mesa de madera</td>
-            <td>Madera</td>
-            <td>$45.000</td>
-            <td>3</td>
-            <td>
-                <button>Editar</button>
-                <button>Eliminar</button>
-            </td>
-        </tr>
-    </table>
+        <!-- LISTADO, MODIFICACION Y ELIMINACION -->
+        <section>
+            <h2>Productos publicados</h2>
 
-    <hr>
+            <table>
+                <caption>Listado de productos publicados por el artesano</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Rubro</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Poncho de lana</td>
+                        <td>Textil y telar</td>
+                        <td>$12.500</td>
+                        <td>15</td>
+                        <td>
+                            <button type="button">Editar</button>
+                            <button type="button">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jarrón cerámico</td>
+                        <td>Cerámica y alfarería</td>
+                        <td>$8.200</td>
+                        <td>7</td>
+                        <td>
+                            <button type="button">Editar</button>
+                            <button type="button">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mesa de algarrobo</td>
+                        <td>Trabajos en madera</td>
+                        <td>$45.000</td>
+                        <td>3</td>
+                        <td>
+                            <button type="button">Editar</button>
+                            <button type="button">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
+    </main>
+
+    <!-- PIE DE PAGINA -->
     <footer>
-        <p>&copy; 2026 Poncho Digital</p>
+        <p>Poncho Digital &mdash; Ministerio de Cultura de la Provincia de Catamarca</p>
+        <p>Programación III &mdash; Facultad de Tecnología y Cs. Aplicadas, U.N.Ca. &mdash; 2026</p>
     </footer>
 
 </body>
