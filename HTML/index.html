@@ -1,60 +1,87 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poncho Digital - Fiesta Nacional e Internacional del Poncho</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilos.css">
 </head>
 <body>
 
-    <!-- ENCABEZADO Y MENU PRINCIPAL -->
     <header>
-        <h1>Poncho Digital</h1>
-        <p>Plataforma de artesanos de la Fiesta Nacional e Internacional del Poncho</p>
-
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="registro_artesano.html">Registrarse como artesano</a></li>
-                <li><a href="gestion-productos.html">Gestión de productos</a></li>
-            </ul>
-        </nav>
+        <h1><a href = index.html> Poncho Digital</a></h1>
+        <p>Plataforma Oficial de la Fiesta Nacional e Internacional del Poncho</p>
     </header>
 
-    <main>
+    <nav>
+    </nav>
 
-        <!-- BIENVENIDA -->
-        <section>
-            <h2>Bienvenidos</h2>
-            <p>
-                Cada año, miles de personas recorren los pabellones y stands de la
-                Fiesta Nacional e Internacional del Poncho para conocer y adquirir
-                productos artesanales, textiles, regionales y culturales de Catamarca.
-            </p>
-            <p>
-                <strong>Poncho Digital</strong> es la plataforma oficial del Ministerio
-                de Cultura de la Provincia para difundir a los artesanos y productores
-                que forman parte de la feria, antes, durante y después del evento.
+    <main class="container my-5">
+
+        <section class="text-center mb-5">
+            <h2 class="titulo-principal">Bienvenidos a la experiencia digital del Poncho</h2>
+            <p class="lead mx-auto" style="max-width: 800px;">
+                Descubrí la mayor fiesta artesanal y cultural de Catamarca. Elegí cómo querés ingresar a la plataforma:
             </p>
         </section>
 
-        <!-- DESCRIPCION GENERAL -->
-        <section>
-            <h2>¿Qué podés hacer en Poncho Digital?</h2>
-            <ul>
-                <li>Conocer a los artesanos participantes, su trayectoria, localidad de origen y rubro.</li>
-                <li>Consultar los productos publicados por cada emprendimiento.</li>
-                <li>Ubicar los stands dentro del predio ferial.</li>
-                <li>Si sos artesano, solicitar tu participación en la feria registrando tus datos y los de tu emprendimiento.</li>
-            </ul>
+        <div class="row mb-5">
+
+            <section class="col-12 col-md-6">
+                <div class="tarjeta-acceso portal-visitante">
+                    <div class="icono-portal">🏺</div>
+                    <h3>Espacio para Visitantes</h3>
+                    <p>
+                        Explorá los stands, conocé a los maestros artesanos de toda la provincia y descubrí sus productos antes de recorrer el predio ferial.
+                    </p>
+                    <ul class="lista-portal">
+                        <li>Consultar artesanos por localidad y rubro</li>
+                        <li>Ver catálogo de productos destacados</li>
+                        <li>Ubicación de stands y pabellones</li>
+                    </ul>
+                    <div class="mt-auto">
+                        <a href="#" class="btn-poncho-principal w-100 text-center">Explorar Feria y Artesanos</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="col-12 col-md-6">
+                <div class="tarjeta-acceso portal-artesano">
+                    <div class="icono-portal">🧶</div>
+                    <h3>Espacio para Artesanos</h3>
+                    <p>
+                        Si elaborás artesanías, textiles o productos regionales, gestioná tu presencia oficial en la feria y exhibí tu trabajo al país.
+                    </p>
+                    <ul class="lista-portal">
+                        <li>Solicitar inscripción y asignación de stand</li>
+                        <li>Publicar y actualizar tus productos</li>
+                        <li>Ver estado de tu solicitud con el Ministerio</li>
+                    </ul>
+                    <div class="d-flex flex-column gap-2 mt-auto">
+                        <a href="registro_artesano.html" class="btn-poncho-principal text-center">Registrarme como Artesano</a>
+                        <a href="gestion-productos.html" class="btn-poncho-secundario text-center">Panel de Gestión de Productos</a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <section class="tarjeta-info-evento text-center">
+            <h4>Información del Predio Ferial</h4>
+            <p class="mb-0">
+                <strong>Ubicación:</strong> San Fernando del Valle de Catamarca &bull; 
+                <strong>Entrada:</strong> Libre y gratuita &bull; 
+                <strong>Pabellones:</strong> Artesanías, Diseño, Institucional y Productos Regionales
+            </p>
         </section>
 
     </main>
 
-    <!-- PIE DE PAGINA -->
     <footer>
         <p>Poncho Digital &mdash; Ministerio de Cultura de la Provincia de Catamarca</p>
-        <p>Programación III &mdash; Facultad de Tecnología y Cs. Aplicadas, U.N.Ca. &mdash; 2026</p>
+        <p>Programación III &mdash; Facultad de Tecnología y Cs. Aplicadas, U.N.Ca &mdash; 2026</p>
     </footer>
 
 </body>
