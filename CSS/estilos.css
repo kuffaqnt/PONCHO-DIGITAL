@@ -84,6 +84,9 @@ nav ul li a:hover {
 .titulo-principal, h2 {
     color: #9e5331;
     font-weight: 700;
+    text-align: center;
+    margin: 18px 0;
+
 }
 
 
@@ -182,3 +185,5 @@ footer p {
     font-size: 0.9rem;
     color: #ffffff;
 }
+
+
