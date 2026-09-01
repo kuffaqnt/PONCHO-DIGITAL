@@ -27,16 +27,16 @@
                 pedirte modificaciones antes de habilitar tu cuenta.
             </p>
 
+
+
             <form action="#" method="post">
 
-                
-                <fieldset>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                <fieldset class="tarjeta-formulario">
                     <legend>Datos personales</legend>
-
-
                     <div class="row">
-                        
-                        <div  class= "col-md-6 mb-3">
+                        <div class="col-md-6 mb-3">
 
                             <label for="nombre" class="form-label">Nombre y apellido</label>
                             <input type="text" id="nombre" name="nombre" maxlength="100"
@@ -77,15 +77,21 @@
                                 <option value="otra">Otra</option>
                             </select>
                         </div>
-                    </div>
-                </fieldset>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+
+
 
                 
-                <fieldset>
+            <div class="row">
+                <div class="col-lg-6 mb-4">    
+                <fieldset class="tarjeta-formulario">
                     <legend>Datos del emprendimiento</legend>
                     <div class="row">
-
-                        <div class="col-md-6 mb-3">
+                        
+                        <div class="mb-3">
                             <label for="nombre_taller" class="form-label">Nombre del taller</label>
                             <input type="text" id="nombre_taller" name="nombre_taller"
                             maxlength="100" placeholder="Ej.: Telares del Ambato" required class="form-control">
@@ -114,19 +120,21 @@
                         
                         <div class="col-md-6 mb-3">
                             <label for="descripcion" class="form-label">Descripción del emprendimiento</label>
-                            <br>
+                            
                             <textarea id="descripcion" name="descripcion" rows="6" cols="50"
                             maxlength="500"
                             placeholder="Contá qué productos elaborás, con qué técnicas y materiales trabajás."
                             required class="form-control"></textarea>
                         </div>
- 
+                        
                     </div>
                 </fieldset>
+                </div>
+            </div>    
                 
-                        <div class="col-md-12 text-center mt-4 my-3">
-                            <button type="submit" class="btn-poncho-principal">Enviar solicitud</button>
-                            <button type="reset" class="btn-poncho-secundario">Borrar datos</button>
+                <div class="text-center mt-4 ">
+                    <button type="submit" class="btn-poncho-principal">Enviar solicitud</button>
+                    <button type="reset" class="btn-poncho-secundario">Borrar datos</button>
                         </div>
 
             </form>
