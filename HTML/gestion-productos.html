@@ -31,7 +31,7 @@
 
             <form action="#" method="post">
                 <div class="row">
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-lg-6 mb-4 mx-auto">
                         <fieldset class="tarjeta-formulario">
                             <legend>Datos del producto</legend>
 
@@ -80,62 +80,67 @@
                                 <label for="imagen" class="form-label">Imagen del producto</label>
                                 <input type="file" id="imagen" name="imagen" accept="image/*" class="form-control">
                             </div>
+                              </fieldset>
+                    </div>
+                </div>
 
-                        </fieldset>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn-poncho-principal">Guardar producto</button>
+                    <button type="reset" class="btn-poncho-secundario">Limpiar formulario</button>
+                </div>
 
-                        <p>
-                            <button type="submit" class="btn-poncho-principal">Guardar producto</button>
-                        </p>
-             
+            </form>
+        </section>
 
-        <!-- LISTADO, MODIFICACION Y ELIMINACION -->
         <section>
             <h2>Productos publicados</h2>
 
-            <table>
-                <caption>Listado de productos publicados por el artesano</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Rubro</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Poncho de lana</td>
-                        <td>Textil y telar</td>
-                        <td>$12.500</td>
-                        <td>15</td>
-                        <td>
-                            <button type="button">Editar</button>
-                            <button type="button">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jarrón cerámico</td>
-                        <td>Cerámica y alfarería</td>
-                        <td>$8.200</td>
-                        <td>7</td>
-                        <td>
-                            <button type="button">Editar</button>
-                            <button type="button">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Mesa de algarrobo</td>
-                        <td>Trabajos en madera</td>
-                        <td>$45.000</td>
-                        <td>3</td>
-                        <td>
-                            <button type="button">Editar</button>
-                            <button type="button">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <caption>Listado de productos publicados por el artesano</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Rubro</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Poncho de lana</td>
+                            <td>Textil y telar</td>
+                            <td>$12.500</td>
+                            <td>15</td>
+                            <td>
+                                <button type="button" class="btn-poncho-secundario">Editar</button>
+                                <button type="button" class="btn-poncho-secundario">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jarrón cerámico</td>
+                            <td>Cerámica y alfarería</td>
+                            <td>$8.200</td>
+                            <td>7</td>
+                            <td>
+                                <button type="button" class="btn-poncho-secundario">Editar</button>
+                                <button type="button" class="btn-poncho-secundario">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Mesa de algarrobo</td>
+                            <td>Trabajos en madera</td>
+                            <td>$45.000</td>
+                            <td>3</td>
+                            <td>
+                                <button type="button" class="btn-poncho-secundario">Editar</button>
+                                <button type="button" class="btn-poncho-secundario">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
     </main>
