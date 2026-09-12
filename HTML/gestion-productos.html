@@ -11,19 +11,24 @@
 
     <!-- ENCABEZADO Y MENU PRINCIPAL -->
     <header>
-        <h1><a href = "index.html">Poncho Digital</a></h1>
+        <h1><a href="index.html">Poncho Digital</a></h1>
         <p>Gestión de Productos - Nacional e Internacional del Poncho</p>
     </header>
 
     <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="registro_artesano.html">Registro Artesano</a></li>
+            <li><a href="gestion-productos.html" class="active">Gestión Productos</a></li>
+        </ul>
     </nav>
 
     <main class="container my-5">
 
         <!-- ALTA DE PRODUCTO -->
-        <section>
+        <section class="mb-5">
             <h2>Cargar producto</h2>
-            <p>
+            <p class="text-center mx-auto mb-4" style="max-width: 700px;">
                 Completá los datos del producto que querés publicar en tu stand.
                 Podés modificarlo o eliminarlo en cualquier momento desde la lista
                 de productos publicados.
@@ -42,7 +47,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="rubro"class="form-label">Rubro</label>
+                                <label for="rubro" class="form-label">Rubro</label>
                                 <select id="rubro" name="rubro" required class="form-select">
                                     <option value="">Seleccioná un rubro</option>
                                     <option value="textil">Textil y telar</option>
@@ -70,10 +75,9 @@
 
                             <div class="mb-3">
                                 <label for="descripcion" class="form-label">Descripción</label>
-                                <br>
-                                <textarea id="descripcion" name="descripcion" rows="4" cols="50"
+                                <textarea id="descripcion" name="descripcion" rows="4"
                                           maxlength="300"
-                                          placeholder="Contá brevemente las características del producto."></textarea>
+                                          placeholder="Contá brevemente las características del producto." class="form-control"></textarea>
                             </div>
 
                             <div class="mb-3">
@@ -84,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="text-center mt-4">
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
                     <button type="submit" class="btn-poncho-principal">Guardar producto</button>
                     <button type="reset" class="btn-poncho-secundario">Limpiar formulario</button>
                 </div>
@@ -113,9 +117,11 @@
                             <td>Textil y telar</td>
                             <td>$12.500</td>
                             <td>15</td>
-                            <td>
-                                <button type="button" class="btn-poncho-secundario">Editar</button>
-                                <button type="button" class="btn-poncho-secundario">Eliminar</button>
+                            <td class="text-nowrap">
+                                <div class="d-inline-flex gap-2 flex-wrap">
+                                <button type="button" class="btn-poncho-secundario btn-sm">Editar</button>
+                                <button type="button" class="btn-poncho-secundario btn-sm">Eliminar</button>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -123,9 +129,11 @@
                             <td>Cerámica y alfarería</td>
                             <td>$8.200</td>
                             <td>7</td>
-                            <td>
-                                <button type="button" class="btn-poncho-secundario">Editar</button>
-                                <button type="button" class="btn-poncho-secundario">Eliminar</button>
+                            <td class="text-nowrap">
+                                <div class="d-inline-flex gap-2 flex-wrap">
+                                <button type="button" class="btn-poncho-secundario btn-sm">Editar</button>
+                                <button type="button" class="btn-poncho-secundario btn-sm">Eliminar</button>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -133,9 +141,11 @@
                             <td>Trabajos en madera</td>
                             <td>$45.000</td>
                             <td>3</td>
-                            <td>
-                                <button type="button" class="btn-poncho-secundario">Editar</button>
-                                <button type="button" class="btn-poncho-secundario">Eliminar</button>
+                            <td class="text-nowrap">
+                                <div class="d-inline-flex gap-2 flex-wrap">
+                                <button type="button" class="btn-poncho-secundario btn-sm">Editar</button>
+                                <button type="button" class="btn-poncho-secundario btn-sm">Eliminar</button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

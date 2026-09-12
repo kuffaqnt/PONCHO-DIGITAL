@@ -10,18 +10,23 @@
 <body>
 
     <header>
-        <h1><a href = "index.html">Poncho Digital</a></h1>
+        <h1><a href="index.html">Poncho Digital</a></h1>
         <p>Solicitud de participación en la feria - Fiesta Nacional e Internacional del Poncho</p>
     </header>
 
     <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="registro_artesano.html" class="active">Registro Artesano</a></li>
+            <li><a href="gestion-productos.html">Gestión Productos</a></li>
+        </ul>
     </nav>
 
 
     <main class="container my-5">
-        <section>
+        <section class="mb-4">
             <h2>Datos de la solicitud</h2>
-            <p class="lead mx-auto" style="max-width: 800px;">
+            <p class="lead mx-auto text-center mb-4" style="max-width: 800px;">
                 Completá el formulario con tus datos personales y los de tu emprendimiento.
                 Un administrador revisará la solicitud y podrá aprobarla, rechazarla o
                 pedirte modificaciones antes de habilitar tu cuenta.
@@ -31,9 +36,9 @@
 
             <form action="#" method="post">
 
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                <fieldset class="tarjeta-formulario">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                <fieldset class="tarjeta-formulario h-100">
                     <legend>Datos personales</legend>
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -44,26 +49,26 @@
                     
                         </div>
 
-                        <div class= "col-md-6 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="dni" class="form-label">DNI</label>
                             <input type="text" id="dni" name="dni" inputmode="numeric"
                                    pattern="[0-9]{7,8}" maxlength="8"
                                    placeholder="Sin puntos ni espacios" required class="form-control">
                         </div>
 
-                        <div class= "col-md-6 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="email" class="form-label">Correo electrónico</label>
                             <input type="email" id="email" name="email" maxlength="150"
                                    placeholder="nombre@correo.com" required class="form-control">
                         </div>
 
-                        <div class= "col-md-6 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="telefono" class="form-label">Teléfono</label>
                             <input type="tel" id="telefono" name="telefono" maxlength="20"
                                 placeholder="Ej.: 3834 123456" required class="form-control">
                         </div>
 
-                        <div class= " col-md-6mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="localidad" class="form-label">Localidad</label>
                             <select id="localidad" name="localidad" required class="form-select">
                                 <option value="">Seleccioná una localidad</option>
@@ -87,8 +92,8 @@
 
                 
            
-                <div class="col-lg-6 mb-4">    
-                <fieldset class="tarjeta-formulario">
+                <div class="col-lg-6">    
+                <fieldset class="tarjeta-formulario h-100">
                     <legend>Datos del emprendimiento</legend>
                     <div class="row">
                         
@@ -119,10 +124,9 @@
                             min="0" max="80" step="1" placeholder="0" required class="form-control">
                         </div>
                         
-                        <div class="col-md-6 mb-3">
+                        <div class="col-12 mb-3">
                             <label for="descripcion" class="form-label">Descripción del emprendimiento</label>
-                            
-                            <textarea id="descripcion" name="descripcion" rows="6" cols="50"
+                            <textarea id="descripcion" name="descripcion" rows="4"
                             maxlength="500"
                             placeholder="Contá qué productos elaborás, con qué técnicas y materiales trabajás."
                             required class="form-control"></textarea>
@@ -133,10 +137,10 @@
                 </div>
             </div>    
                 
-                <div class="text-center mt-4 ">
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
                     <button type="submit" class="btn-poncho-principal">Enviar solicitud</button>
                     <button type="reset" class="btn-poncho-secundario">Borrar datos</button>
-                        </div>
+                </div>
 
             </form>
         </section>
