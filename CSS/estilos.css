@@ -23,8 +23,83 @@ header {
     padding: 30px 15px;
     color: #ffffff;
     margin: 0;
-    border-bottom: 20px solid #833f21;
 }
+
+/* Barra horizontal con color de contraste y altura compacta */
+.barra-nav {
+    background-color: #833f21; /* Color marrón oscuro que hace contraste con el header */
+    width: 100%;
+    margin: 0;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 48px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* Enlaces de la izquierda en una sola línea */
+.nav-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-container ul li a {
+    display: inline-block;
+    color: #ffffff;
+    padding: 8px 14px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.nav-container ul li a:hover {
+    background-color: #9e5331; /* Vuelve al terracota al pasar el cursor */
+    color: #ffffff;
+}
+
+/* Bloque derecho de acceso para artesanos */
+.nav-acceso {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.pregunta-artesano {
+    color: #f7d5c5;
+    font-weight: 500;
+    margin-right: 4px;
+}
+
+.nav-btn-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.nav-btn-link:hover {
+    background-color: #9e5331;
+    color: #ffffff;
+}
+
+.separador {
+    color: rgba(255, 255, 255, 0.4);
+    user-select: none;
+}
+
 
 header h1 {
     font-size: 2.3rem;
@@ -51,6 +126,9 @@ header p {
 .titulo-principal, h2 {
     color: #9e5331;
     font-weight: 700;
+    text-align: center;
+    margin: 18px 0;
+
 }
 
 
@@ -149,3 +227,5 @@ footer p {
     font-size: 0.9rem;
     color: #ffffff;
 }
+
+
