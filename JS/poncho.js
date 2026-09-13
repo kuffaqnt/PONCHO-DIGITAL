@@ -530,3 +530,20 @@ document.addEventListener('DOMContentLoaded', function () {
     btnLimpiar.addEventListener('click', limpiarFiltros);
     inputBuscar.addEventListener('keyup', filtrarArtesanos);
 });
+
+
+var contenedorEstado = document.getElementById('estado-predio');
+
+if (contenedorEstado) {
+    var horaActual = new Date().getHours();
+    var horaApertura = 14;
+    var horaCierre = 23;
+
+    if (horaActual >= horaApertura && horaActual < horaCierre) {
+        contenedorEstado.className = 'alert alert-success d-inline-block px-4 py-2 my-2 fw-bold';
+        contenedorEstado.textContent = '🟢 Predio Ferial Abierto (Horario de visita: 14:00 a 23:00 hs)';
+    } else {
+        contenedorEstado.className = 'alert alert-danger d-inline-block px-4 py-2 my-2 fw-bold';
+        contenedorEstado.textContent = '🔴 Predio Cerrado. Horario de apertura: 14:00 hs';
+    }
+}

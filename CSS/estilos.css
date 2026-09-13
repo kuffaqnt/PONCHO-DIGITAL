@@ -17,6 +17,7 @@
     box-sizing: border-box;
 }
 
+
 body { 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #fbf8f4;
@@ -35,12 +36,20 @@ main {
 }
 
 header {
-    background: linear-gradient(180deg, var(--poncho) 0%, var(--poncho-dark) 100%);
+    background: linear-gradient(180deg, rgba(158, 83, 49, 0.60) 0%, rgba(131, 63, 33, 0.70) 100%), 
+                url("../IMG/poncho.jpeg");
+    background-size: cover;
+    background-position: center 25%;
+    background-repeat: no-repeat;
     text-align: center;
-    padding: 30px 15px;
+    padding: 55px 15px;
     color: #ffffff;
     margin: 0;
     box-shadow: 0 2px 8px var(--sombra-media);
+}
+
+header h1, header p {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 header h1 {
