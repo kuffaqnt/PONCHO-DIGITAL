@@ -14,27 +14,26 @@
         <p>Espacio para Visitantes - Fiesta Nacional e Internacional del Poncho</p>
     </header>
 
-    <nav class ="barra-nav"> 
-    <div class="nav-container">  
-        <ul>
-            <li> <a href="index.html"> Inicio </a></li>
-            <li> <a href="visitantes.html">Visitantes</a></li>
-            <li> <a href="registro_artesano.html">Artesanos</a></li>
-        </ul>
-    </div>
+    <nav class="barra-nav"> 
+        <div class="nav-container">  
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="visitantes.html">Visitantes</a></li>
+                <li><a href="registro_artesano.html">Artesanos</a></li>
+            </ul>
+        </div>
     </nav>
 
     <main class="container my-5">
 
-        <!-- SECCIÓN 1: BUSCADOR Y FILTROS -->
         <section class="tarjeta-formulario mb-5">
             <h2>Explorar Feria y Artesanos</h2>
             <p class="texto-bajada">Encontrá artesanos, stands y productos tradicionales de toda la provincia.</p>
             
-            <form action="#" method="get" class="row g-3">
+            <form id="form-buscar" class="row g-3">
                 <div class="col-12 col-md-5">
                     <label for="buscar" class="form-label">Buscar por artesano o producto:</label>
-                    <input type="text" id="buscar" name="buscar" class="form-control" placeholder="Ej: Ruanas, Cuero, Belén...">
+                    <input type="text" id="buscar" name="buscar" class="form-control" placeholder="Ej: Rosa, Alfarería, Belén...">
                 </div>
 
                 <div class="col-12 col-md-3">
@@ -59,30 +58,46 @@
                         <option value="tinogasta">Tinogasta</option>
                         <option value="andalgala">Andalgalá</option>
                         <option value="valle_central">San Fernando del Valle</option>
+                        <option value="el_rodeo">El Rodeo</option>
                     </select>
                 </div>
 
                 <div class="col-12 text-end mt-3">
-                    <button type="submit" class="btn-poncho-principal">Filtrar resultados</button>
-                    <button type="reset" class="btn-poncho-secundario">Limpiar</button>
+                    <button type="button" id="btn-filtrar" class="btn-poncho-principal">Filtrar resultados</button>
+                    <button type="button" id="btn-limpiar" class="btn-poncho-secundario">Limpiar</button>
                 </div>
             </form>
         </section>
 
-        <!-- SECCIÓN 2: GRILLA DE ARTESANOS Y STANDS -->
+        <section id="caja-edificio" class="alert alert-info text-center d-none mb-4" role="alert">
+            <h4 class="mb-1" id="titulo-edificio">Edificio encontrado</h4>
+            <p class="mb-0" id="texto-edificio"></p>
+        </section>
+
+        <section class="mb-5">
+            <h3 class="text-center mb-3">Plano del Predio Ferial</h3>
+            <div class="text-center">
+                <img src="../IMG/Plano-Poncho-2024-scaled.jpg" alt="Plano del Predio Ferial" class="img-fluid rounded border shadow-sm" style="max-height: 450px;">
+            </div>
+        </section>
+
         <section>
             <h2 class="titulo-principal mb-4">Artesanos y Productores Destacados</h2>
             
-            <div class="row g-4">
+            <div class="row g-4" id="contenedor-artesanos">
                 
-                <!-- Tarjeta Artesano 1 -->
-                <article class="col-12 col-md-6 col-lg-4">
+                <article class="col-12 col-md-6 col-lg-4 tarjeta-item" 
+                         data-edificio="Pabellón de Artesanías I" 
+                         data-rubro="textil" 
+                         data-localidad="belen"
+                         data-texto="telares de belen rosa gutierrez ponchos vicuña oveja">
                     <div class="tarjeta-acceso h-100">
-                        <span class="badge bg-secondary mb-2 align-self-start">Pabellón de Artesanías &bull; Stand 42</span>
+                        <span class="badge bg-secondary mb-2 align-self-start">Pabellón de Artesanías I &bull; Stand 42</span>
                         <div class="icono-portal"></div>
                         <h3>Telares de Belén</h3>
                         <p><strong>Artesana:</strong> Rosa Gutiérrez</p>
                         <p><strong>Origen:</strong> Belén, Catamarca</p>
+                        <p><strong>Ubicación en el predio:</strong> <span class="fw-bold text-danger">Pabellón de Artesanías I</span></p>
                         <p class="small text-muted">Especialidad en ponchos tejidos en telar criollo de vicuña y oveja con tintes naturales.</p>
                         <div class="mt-auto pt-3">
                             <a href="#" class="btn-poncho-principal w-100">Ver Productos del Stand</a>
@@ -90,14 +105,18 @@
                     </div>
                 </article>
 
-                <!-- Tarjeta Artesano 2 -->
-                <article class="col-12 col-md-6 col-lg-4">
+                <article class="col-12 col-md-6 col-lg-4 tarjeta-item" 
+                         data-edificio="Pabellón de Artesanías II" 
+                         data-rubro="ceramica" 
+                         data-localidad="santa_maria"
+                         data-texto="alfareria calchaqui juan carlos mamani ceramica vasijas aguada">
                     <div class="tarjeta-acceso h-100">
-                        <span class="badge bg-secondary mb-2 align-self-start">Pabellón de Artesanías &bull; Stand 15</span>
+                        <span class="badge bg-secondary mb-2 align-self-start">Pabellón de Artesanías II &bull; Stand 15</span>
                         <div class="icono-portal"></div>
                         <h3>Alfarería Calchaquí</h3>
                         <p><strong>Artesano:</strong> Juan Carlos Mamani</p>
                         <p><strong>Origen:</strong> Santa María, Catamarca</p>
+                        <p><strong>Ubicación en el predio:</strong> <span class="fw-bold text-danger">Pabellón de Artesanías II</span></p>
                         <p class="small text-muted">Cerámica tradicional inspirada en la cultura Aguada y piezas utilitarias horneadas a leña.</p>
                         <div class="mt-auto pt-3">
                             <a href="#" class="btn-poncho-principal w-100">Ver Productos del Stand</a>
@@ -105,14 +124,18 @@
                     </div>
                 </article>
 
-                <!-- Tarjeta Artesano 3 -->
-                <article class="col-12 col-md-6 col-lg-4">
+                <article class="col-12 col-md-6 col-lg-4 tarjeta-item" 
+                         data-edificio="Pabellón de Productos Regionales" 
+                         data-rubro="regional" 
+                         data-localidad="el_rodeo"
+                         data-texto="sabores del ambato familia carrizo dulces nuez arrope">
                     <div class="tarjeta-acceso h-100">
                         <span class="badge bg-secondary mb-2 align-self-start">Pabellón Regional &bull; Stand 08</span>
                         <div class="icono-portal"></div>
                         <h3>Sabores del Ambato</h3>
                         <p><strong>Productor:</strong> Familia Carrizo</p>
                         <p><strong>Origen:</strong> El Rodeo, Catamarca</p>
+                        <p><strong>Ubicación en el predio:</strong> <span class="fw-bold text-danger">Pabellón de Productos Regionales</span></p>
                         <p class="small text-muted">Dulces caseros de higo, nuez confitada y arrope de chañar de producción local.</p>
                         <div class="mt-auto pt-3">
                             <a href="#" class="btn-poncho-principal w-100">Ver Productos del Stand</a>
@@ -130,5 +153,6 @@
         <p>Programación III &mdash; Facultad de Tecnología y Cs. Aplicadas, U.N.Ca &mdash; 2026</p>
     </footer>
 
+    <script src="../JS/poncho.js"></script>
 </body>
 </html>
