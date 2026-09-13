@@ -6,16 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poncho Digital - Fiesta Nacional e Internacional del Poncho</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../CSS/estilos.css">
 </head>
 <body>
 
     <header>
-        <h1><a href = "index.html">Poncho Digital</a></h1>
+        <h1><a href="index.html">Poncho Digital</a></h1>
         <p>Plataforma Oficial de la Fiesta Nacional e Internacional del Poncho</p>
     </header>
 
     <nav>
+        <ul>
+            <li><a href="index.html" class="active">Inicio</a></li>
+            <li><a href="registro_artesano.html">Registro Artesano</a></li>
+            <li><a href="gestion-productos.html">Gestión Productos</a></li>
+        </ul>
     </nav>
 
     <main class="container my-5">
@@ -27,10 +32,10 @@
             </p>
         </section>
 
-        <div class="row mb-5">
+        <div class="row g-4 mb-5">
 
             <section class="col-12 col-md-6">
-                <div class="tarjeta-acceso portal-visitante">
+                <div class="tarjeta-acceso portal-visitante h-100">
                     <div class="icono-portal">🏺</div>
                     <h3>Espacio para Visitantes</h3>
                     <p>
@@ -41,14 +46,14 @@
                         <li>Ver catálogo de productos destacados</li>
                         <li>Ubicación de stands y pabellones</li>
                     </ul>
-                    <div class="mt-auto">
+                    <div class="mt-auto pt-3">
                         <a href="#" class="btn-poncho-principal w-100 text-center">Explorar Feria y Artesanos</a>
                     </div>
                 </div>
             </section>
 
             <section class="col-12 col-md-6">
-                <div class="tarjeta-acceso portal-artesano">
+                <div class="tarjeta-acceso portal-artesano h-100">
                     <div class="icono-portal">🧶</div>
                     <h3>Espacio para Artesanos</h3>
                     <p>
@@ -59,7 +64,7 @@
                         <li>Publicar y actualizar tus productos</li>
                         <li>Ver estado de tu solicitud con el Ministerio</li>
                     </ul>
-                    <div class="d-flex flex-column gap-2 mt-auto">
+                    <div class="d-flex flex-column gap-2 mt-auto pt-3">
                         <a href="registro_artesano.html" class="btn-poncho-principal text-center">Registrarme como Artesano</a>
                         <a href="gestion-productos.html" class="btn-poncho-secundario text-center">Panel de Gestión de Productos</a>
                     </div>
@@ -84,5 +89,6 @@
         <p>Programación III &mdash; Facultad de Tecnología y Cs. Aplicadas, U.N.Ca &mdash; 2026</p>
     </footer>
 
+    <script src="../JS/poncho.js"></script>
 </body>
 </html>
