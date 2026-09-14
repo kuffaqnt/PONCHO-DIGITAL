@@ -6,38 +6,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!formRegistro) return;
 
-    // campo fecha de nacimiento, se crea por JS si no existe
-    let inputFechaTitular = document.getElementById('fechaNacimiento');
-    if (!inputFechaTitular) {
-        const fieldset = inputDniTitular.closest('fieldset');
-        const divCol = document.createElement('div');
-        divCol.className = 'col-md-6 mb-3';
+    // campo fecha de nacimiento, no esta en el HTML y se crea por JS
+    const divCol = document.createElement('div');
+    divCol.className = 'col-md-6 mb-3';
 
-        const label = document.createElement('label');
-        label.setAttribute('for', 'fechaNacimiento');
-        label.className = 'form-label';
-        label.textContent = 'Fecha de nacimiento';
-        divCol.appendChild(label);
+    const label = document.createElement('label');
+    label.setAttribute('for', 'fechaNacimiento');
+    label.className = 'form-label';
+    label.textContent = 'Fecha de nacimiento';
+    divCol.appendChild(label);
 
-        inputFechaTitular = document.createElement('input');
-        inputFechaTitular.type = 'date';
-        inputFechaTitular.id = 'fechaNacimiento';
-        inputFechaTitular.name = 'fechaNacimiento';
-        inputFechaTitular.required = true;
-        inputFechaTitular.className = 'form-control';
-        divCol.appendChild(inputFechaTitular);
+    const inputFechaTitular = document.createElement('input');
+    inputFechaTitular.type = 'date';
+    inputFechaTitular.id = 'fechaNacimiento';
+    inputFechaTitular.name = 'fechaNacimiento';
+    inputFechaTitular.required = true;
+    inputFechaTitular.className = 'form-control';
+    divCol.appendChild(inputFechaTitular);
 
-        const localidad = document.getElementById('localidad');
-        if (localidad && localidad.parentElement.parentElement) {
-            localidad.parentElement.parentElement.appendChild(divCol);
-        } else {
-            fieldset.appendChild(divCol);
-        }
+    // se agrega en la misma fila que la localidad
+    const localidad = document.getElementById('localidad');
+    localidad.parentElement.parentElement.appendChild(divCol);
 
-        inputFechaTitular.addEventListener('input', () => {
-            mostrarError(inputFechaTitular, validarFechaNacimiento(inputFechaTitular.value));
-        });
-    }
+    inputFechaTitular.addEventListener('input', () => {
+        mostrarError(inputFechaTitular, validarFechaNacimiento(inputFechaTitular.value));
+    });
 
     inputDniTitular.addEventListener('input', () => {
         mostrarError(inputDniTitular, validarDNI(inputDniTitular.value));
