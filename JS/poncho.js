@@ -5,49 +5,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   // ============================================================
-  // EJERCICIO Nº 1 - Validar fecha de nacimiento
-  // No se permite fecha posterior a la actual.
-  // ============================================================
-  function validarFechaNacimiento(fechaStr) {
-    if (!fechaStr) {
-      return 'Debe ingresar la fecha de nacimiento.';
-    }
-    var hoy = new Date();
-    hoy.setHours(0, 0, 0, 0);
-    var fecha = new Date(fechaStr + 'T00:00:00');
-    if (isNaN(fecha.getTime())) {
-      return 'Fecha de nacimiento inválida.';
-    }
-    if (fecha > hoy) {
-      return 'La fecha de nacimiento no puede ser posterior a la fecha actual.';
-    }
-    return '';
-  }
-
-  // ============================================================
-  // EJERCICIO Nº 2 - Validar DNI con exactamente 8 dígitos
-  // ============================================================
-  function validarDNI(dni) {
-    if (!/^[0-9]{8}$/.test(String(dni || '').trim())) {
-      return 'El DNI debe contener 8 dígitos.';
-    }
-    return '';
-  }
-
-  // Muestra un mensaje de error debajo de un campo (crea el <small> si no existe).
-  function mostrarError(input, mensaje) {
-    var small = input.parentElement.querySelector('.error-js');
-    if (!small) {
-      small = document.createElement('small');
-      small.className = 'error-js text-danger d-block mt-1';
-      input.parentElement.appendChild(small);
-    }
-    small.textContent = mensaje;
-    input.classList.toggle('is-invalid', mensaje !== '');
-    input.classList.toggle('is-valid', mensaje === '' && input.value !== '');
-  }
-
-  // ============================================================
   // EJERCICIO Nº 3.1 - Función constructora Stand
   // Adaptación: antes "Actividad deportiva", ahora "Stand del Poncho".
   // Guarda: nombre, tipo, pabellon, responsable, cupo, estado.
