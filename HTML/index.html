@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,12 +14,21 @@
         <p>Plataforma Oficial de la Fiesta Nacional e Internacional del Poncho</p>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="index.html" class="active">Inicio</a></li>
-            <li><a href="registro_artesano.html">Registro Artesano</a></li>
-            <li><a href="gestion-productos.html">Gestión Productos</a></li>
-        </ul>
+    <nav class="barra-nav"> 
+        <div class="nav-container">  
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="visitantes.html">Visitantes</a></li>
+                <li><a href="registro_artesano.html">Artesanos</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-acceso">  
+            <span class="pregunta-artesano">¿Sos artesano?</span>
+            <a href="registro_artesano.html" class="nav-btn-link">Registrarse</a>
+            <span class="separador">|</span>
+            <a href="login.html" class="nav-btn-link">Iniciar sesion</a>
+        </div>
     </nav>
 
     <main class="container my-5">
@@ -36,7 +44,7 @@
 
             <section class="col-12 col-md-6">
                 <div class="tarjeta-acceso portal-visitante h-100">
-                    <div class="icono-portal">🏺</div>
+                    <div class="icono-portal"></div>
                     <h3>Espacio para Visitantes</h3>
                     <p>
                         Explorá los stands, conocé a los maestros artesanos de toda la provincia y descubrí sus productos antes de recorrer el predio ferial.
@@ -47,14 +55,14 @@
                         <li>Ubicación de stands y pabellones</li>
                     </ul>
                     <div class="mt-auto pt-3">
-                        <a href="#" class="btn-poncho-principal w-100 text-center">Explorar Feria y Artesanos</a>
+                        <a href="visitantes.html" class="btn-poncho-principal w-100 text-center">Explorar Feria y Artesanos</a>
                     </div>
                 </div>
             </section>
 
             <section class="col-12 col-md-6">
                 <div class="tarjeta-acceso portal-artesano h-100">
-                    <div class="icono-portal">🧶</div>
+                    <div class="icono-portal"></div>
                     <h3>Espacio para Artesanos</h3>
                     <p>
                         Si elaborás artesanías, textiles o productos regionales, gestioná tu presencia oficial en la feria y exhibí tu trabajo al país.
@@ -80,6 +88,8 @@
                 <strong>Entrada:</strong> Libre y gratuita &bull; 
                 <strong>Pabellones:</strong> Artesanías, Diseño, Institucional y Productos Regionales
             </p>
+                        <div id="estado-predio" class="alert alert-secondary d-inline-block px-4 py-2 my-2 fw-bold"></div>
+
         </section>
 
     </main>

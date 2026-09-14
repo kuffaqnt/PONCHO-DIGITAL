@@ -459,3 +459,91 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var btnFiltrar = document.getElementById('btn-filtrar');
+    var btnLimpiar = document.getElementById('btn-limpiar');
+    var inputBuscar = document.getElementById('buscar');
+    var selectRubro = document.getElementById('filtro-rubro');
+    var selectLocalidad = document.getElementById('filtro-localidad');
+
+    var cajaEdificio = document.getElementById('caja-edificio');
+    var textoEdificio = document.getElementById('texto-edificio');
+    var tarjetas = document.querySelectorAll('.tarjeta-item');
+
+    if (!btnFiltrar || !cajaEdificio) return;
+
+    function filtrarArtesanos() {
+        var texto = inputBuscar.value.toLowerCase().trim();
+        var rubro = selectRubro.value;
+        var localidad = selectLocalidad.value;
+
+        var edificiosEncontrados = [];
+        var visibles = 0;
+
+        for (var i = 0; i < tarjetas.length; i++) {
+            var tarjeta = tarjetas[i];
+            var datosTexto = tarjeta.getAttribute('data-texto');
+            var datosRubro = tarjeta.getAttribute('data-rubro');
+            var datosLocalidad = tarjeta.getAttribute('data-localidad');
+            var edificio = tarjeta.getAttribute('data-edificio');
+
+            var coincideTexto = (texto === '' || datosTexto.indexOf(texto) !== -1);
+            var coincideRubro = (rubro === '' || datosRubro === rubro);
+            var coincideLocalidad = (localidad === '' || datosLocalidad === localidad);
+
+            if (coincideTexto && coincideRubro && coincideLocalidad) {
+                tarjeta.classList.remove('d-none');
+                visibles++;
+                if (edificiosEncontrados.indexOf(edificio) === -1) {
+                    edificiosEncontrados.push(edificio);
+                }
+            } else {
+                tarjeta.classList.add('d-none');
+            }
+        }
+
+        if (visibles > 0 && (texto !== '' || rubro !== '' || localidad !== '')) {
+            cajaEdificio.classList.remove('d-none');
+            textoEdificio.textContent = 'Los resultados están ubicados en: ' + edificiosEncontrados.join(', ');
+        } else if (visibles === 0) {
+            cajaEdificio.classList.remove('d-none');
+            textoEdificio.textContent = 'No se encontraron artesanos con ese criterio en el predio.';
+        } else {
+            cajaEdificio.classList.add('d-none');
+        }
+    }
+
+    function limpiarFiltros() {
+        inputBuscar.value = '';
+        selectRubro.value = '';
+        selectLocalidad.value = '';
+
+        for (var i = 0; i < tarjetas.length; i++) {
+            tarjetas[i].classList.remove('d-none');
+        }
+        cajaEdificio.classList.add('d-none');
+    }
+
+    btnFiltrar.addEventListener('click', filtrarArtesanos);
+    btnLimpiar.addEventListener('click', limpiarFiltros);
+    inputBuscar.addEventListener('keyup', filtrarArtesanos);
+});
+
+
+var contenedorEstado = document.getElementById('estado-predio');
+
+if (contenedorEstado) {
+    var horaActual = new Date().getHours();
+    var horaApertura = 14;
+    var horaCierre = 23;
+
+    if (horaActual >= horaApertura && horaActual < horaCierre) {
+        contenedorEstado.className = 'alert alert-success d-inline-block px-4 py-2 my-2 fw-bold';
+        contenedorEstado.textContent = '🟢 Predio Ferial Abierto (Horario de visita: 14:00 a 23:00 hs)';
+    } else {
+        contenedorEstado.className = 'alert alert-danger d-inline-block px-4 py-2 my-2 fw-bold';
+        contenedorEstado.textContent = '🔴 Predio Cerrado. Horario de apertura: 14:00 hs';
+    }
+}

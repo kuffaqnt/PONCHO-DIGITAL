@@ -8,26 +8,32 @@
     <link rel="stylesheet" href="../CSS/estilos.css">
 </head>
 <body>
-
-    <!-- ENCABEZADO Y MENU PRINCIPAL -->
     <header>
         <h1><a href="index.html">Poncho Digital</a></h1>
         <p>Gestión de Productos - Nacional e Internacional del Poncho</p>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="registro_artesano.html">Registro Artesano</a></li>
-            <li><a href="gestion-productos.html" class="active">Gestión Productos</a></li>
-        </ul>
+    <nav class="barra-nav"> 
+        <div class="nav-container">  
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="visitantes.html">Visitantes</a></li>
+                <li><a href="registro_artesano.html">Artesanos</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-acceso">  
+            <span class="pregunta-artesano">¿Sos artesano?</span>
+            <a href="registro_artesano.html" class="nav-btn-link">Registrarse</a>
+            <span class="separador">|</span>
+            <a href="login.html" class="nav-btn-link">Iniciar sesion</a>
+        </div>
     </nav>
 
     <main class="container my-5">
 
-        <!-- ALTA DE PRODUCTO -->
         <section class="mb-5">
-            <h2>Cargar producto</h2>
+            <h2 class="titulo-principal">Cargar producto</h2>
             <p class="text-center mx-auto mb-4" style="max-width: 700px;">
                 Completá los datos del producto que querés publicar en tu stand.
                 Podés modificarlo o eliminarlo en cualquier momento desde la lista
@@ -35,10 +41,10 @@
             </p>
 
             <form action="#" method="post">
-                <div class="row">
-                    <div class="col-lg-6 mb-4 mx-auto">
-                        <fieldset class="tarjeta-formulario">
-                            <legend>Datos del producto</legend>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <fieldset class="tarjeta-formulario p-4 border rounded">
+                            <legend class="float-none w-auto px-2 fw-bold fs-5">Datos del producto</legend>
 
                             <div class="mb-3">
                                 <label for="nombre_producto" class="form-label">Nombre del producto</label>
@@ -61,16 +67,18 @@
                                 </select>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="precio" class="form-label">Precio (en pesos)</label>
-                                <input type="number" id="precio" name="precio"
-                                       min="0" step="0.01" placeholder="0.00" required class="form-control">
-                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="precio" class="form-label">Precio (en pesos)</label>
+                                    <input type="number" id="precio" name="precio"
+                                           min="0" step="0.01" placeholder="0.00" required class="form-control">
+                                </div>
 
-                            <div class="mb-3">
-                                <label for="stock" class="form-label">Stock disponible</label>
-                                <input type="number" id="stock" name="stock"
-                                       min="0" step="1" placeholder="0" required class="form-control">
+                                <div class="col-md-6 mb-3">
+                                    <label for="stock" class="form-label">Stock disponible</label>
+                                    <input type="number" id="stock" name="stock"
+                                           min="0" step="1" placeholder="0" required class="form-control">
+                                </div>
                             </div>
 
                             <div class="mb-3">
@@ -84,7 +92,7 @@
                                 <label for="imagen" class="form-label">Imagen del producto</label>
                                 <input type="file" id="imagen" name="imagen" accept="image/*" class="form-control">
                             </div>
-                              </fieldset>
+                        </fieldset>
                     </div>
                 </div>
 
@@ -97,10 +105,10 @@
         </section>
 
         <section>
-            <h2>Productos publicados</h2>
+            <h2 class="titulo-principal">Productos publicados</h2>
 
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover align-middle">
                     <caption>Listado de productos publicados por el artesano</caption>
                     <thead>
                         <tr>
@@ -108,7 +116,7 @@
                             <th scope="col">Rubro</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Stock</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col" class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -117,11 +125,9 @@
                             <td>Textil y telar</td>
                             <td>$12.500</td>
                             <td>15</td>
-                            <td class="text-nowrap">
-                                <div class="d-inline-flex gap-2 flex-wrap">
+                            <td class="text-center text-nowrap">
                                 <button type="button" class="btn-poncho-secundario btn-sm">Editar</button>
                                 <button type="button" class="btn-poncho-secundario btn-sm">Eliminar</button>
-                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -129,11 +135,9 @@
                             <td>Cerámica y alfarería</td>
                             <td>$8.200</td>
                             <td>7</td>
-                            <td class="text-nowrap">
-                                <div class="d-inline-flex gap-2 flex-wrap">
+                            <td class="text-center text-nowrap">
                                 <button type="button" class="btn-poncho-secundario btn-sm">Editar</button>
                                 <button type="button" class="btn-poncho-secundario btn-sm">Eliminar</button>
-                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -141,11 +145,9 @@
                             <td>Trabajos en madera</td>
                             <td>$45.000</td>
                             <td>3</td>
-                            <td class="text-nowrap">
-                                <div class="d-inline-flex gap-2 flex-wrap">
+                            <td class="text-center text-nowrap">
                                 <button type="button" class="btn-poncho-secundario btn-sm">Editar</button>
                                 <button type="button" class="btn-poncho-secundario btn-sm">Eliminar</button>
-                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -155,7 +157,6 @@
 
     </main>
 
-    <!-- PIE DE PAGINA -->
     <footer>
         <p>Poncho Digital &mdash; Ministerio de Cultura de la Provincia de Catamarca</p>
         <p>Programación III &mdash; Facultad de Tecnología y Cs. Aplicadas, U.N.Ca &mdash; 2026</p>
