@@ -1,7 +1,7 @@
 // ACA SOLO HAY LOGICA PARA GESTION-PRODUCTOS.HTML
 
 document.addEventListener('DOMContentLoaded', () => {
-    const formProducto = document.querySelector('form[action="#"]');
+    const formProducto = document.getElementById('form-producto');
     const inputPrecio = document.getElementById('precio');
     const inputStock = document.getElementById('stock');
 
