@@ -547,3 +547,56 @@ if (contenedorEstado) {
         contenedorEstado.textContent = '🔴 Predio Cerrado. Horario de apertura: 14:00 hs';
     }
 }
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var formProducto = document.querySelector('form[action="#"]');
+    var inputPrecio = document.getElementById('precio');
+    var inputStock = document.getElementById('stock');
+
+    if (inputPrecio && inputStock && formProducto) {
+        
+        formProducto.addEventListener('submit', function (e) {
+            var errores = [];
+
+            var precio = parseFloat(inputPrecio.value);
+            if (isNaN(precio) || precio <= 0) {
+                var errorPrecio = 'El precio debe ser un número mayor a 0.';
+                mostrarError(inputPrecio, errorPrecio);
+                errores.push(errorPrecio);
+            } else {
+                mostrarError(inputPrecio, '');
+            }
+
+            var stock = parseFloat(inputStock.value);
+            if (isNaN(stock) || stock < 0 || !Number.isInteger(stock)) {
+                var errorStock = 'El stock debe ser un número entero mayor o igual a 0.';
+                mostrarError(inputStock, errorStock);
+                errores.push(errorStock);
+            } else {
+                mostrarError(inputStock, '');
+            }
+
+            if (errores.length > 0) {
+                e.preventDefault();
+            } else {
+                e.preventDefault();
+                alert('¡Producto validado y guardado correctamente!');
+                formProducto.reset();
+            }
+        });
+
+        inputPrecio.addEventListener('input', function() {
+            var val = parseFloat(this.value);
+            if(isNaN(val) || val <= 0) mostrarError(this, 'Debe ser mayor a 0');
+            else mostrarError(this, '');
+        });
+
+        inputStock.addEventListener('input', function() {
+            var val = parseFloat(this.value);
+            if(isNaN(val) || val < 0 || !Number.isInteger(val)) mostrarError(this, 'Debe ser entero positivo');
+            else mostrarError(this, '');
+        });
+    }
+});
