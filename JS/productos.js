@@ -51,6 +51,14 @@ function validarStockEnVivo() {
 }
 
 function iniciarProductos() {
+    const sesion = exigirSesion();
+    if (!sesion) return;
+
+    const emailSesion = document.getElementById('email-sesion');
+    if (emailSesion) emailSesion.textContent = sesion.email;
+    const btnCerrar = document.getElementById('btn-cerrar-sesion');
+    if (btnCerrar) btnCerrar.addEventListener('click', function (e) { e.preventDefault(); cerrarSesion(); });
+
     const formProducto = document.getElementById('form-producto');
     const inputPrecio = document.getElementById('precio');
     const inputStock = document.getElementById('stock');

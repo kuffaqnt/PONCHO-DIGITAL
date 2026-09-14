@@ -35,3 +35,33 @@ function validarEmail(email) {
     if (!regex.test(email)) return 'Ingrese un correo electrónico válido.';
     return '';
 }
+
+// Sesion demo del artesano (localStorage para que persista en la demo)
+const CLAVE_SESION = 'ponchoUser';
+
+function obtenerSesion() {
+    try {
+        const raw = localStorage.getItem(CLAVE_SESION);
+        return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+function guardarSesion(usuario) {
+    localStorage.setItem(CLAVE_SESION, JSON.stringify(usuario));
+}
+
+function cerrarSesion() {
+    localStorage.removeItem(CLAVE_SESION);
+    location.href = 'login.html';
+}
+
+function exigirSesion() {
+    const sesion = obtenerSesion();
+    if (!sesion) {
+        location.href = 'login.html';
+        return null;
+    }
+    return sesion;
+}

@@ -18,19 +18,24 @@
             <ul>
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="visitantes.html">Visitantes</a></li>
-                <li><a href="registro_artesano.html">Artesanos</a></li>
+                <li><a href="paneldeartesanos.html">Mi Panel</a></li>
+                <li><a href="gestion-productos.html" class="active">Mis Productos</a></li>
             </ul>
         </div>
 
         <div class="nav-acceso">  
-            <span class="pregunta-artesano">¿Sos artesano?</span>
-            <a href="registro_artesano.html" class="nav-btn-link">Registrarse</a>
+            <span class="pregunta-artesano" id="email-sesion">artesano@poncho.com</span>
             <span class="separador">|</span>
-            <a href="login.html" class="nav-btn-link">Iniciar sesion</a>
+            <a href="#" id="btn-cerrar-sesion" class="nav-btn-link">Cerrar sesión</a>
         </div>
     </nav>
 
     <main class="container my-5">
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+            <a href="paneldeartesanos.html" class="btn-poncho-secundario btn-sm">&larr; Volver al Panel</a>
+            <span class="small text-muted">Gestión privada del artesano. Requiere inicio de sesión.</span>
+        </div>
 
         <section class="mb-5">
             <h2 class="titulo-principal">Cargar producto</h2>
