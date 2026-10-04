@@ -1,11 +1,20 @@
 // ACA SOLO HAY LOGICA PARA LOGIN.HTML
 
 // Usuario generico de prueba para la demo del panel artesano
-const USUARIO_DEMO = {
+const USUARIOS = {
+    artesano: {
     email: 'artesano@poncho.com',
     pass: '12345678',
     nombre: 'Artesano Demo',
-    taller: 'Telares del Ambato'
+    taller: 'Telares del Ambato',
+    rol: 'artesano'
+},
+    admin: { 
+    email: 'admin@poncho.com',
+    pass: '987654321',
+    nombre: 'Admin Demo',
+    rol: 'admin'
+}
 };
 
 // primero se revisa que no este vacio y despues el formato con validarEmail de comun.js
@@ -48,18 +57,32 @@ function enviarLogin(evento) {
     const email = inputCorreo.value.trim().toLowerCase();
     const pass = inputContrasenia.value;
 
-    if (email === USUARIO_DEMO.email && pass === USUARIO_DEMO.pass) {
-        guardarSesion({ email: USUARIO_DEMO.email, nombre: USUARIO_DEMO.nombre, taller: USUARIO_DEMO.taller });
+    if (email === USUARIOS.admin.email && pass === USUARIOS.admin.pass) {
+        guardarSesion({ email: USUARIOS.admin.email, nombre: USUARIOS.admin.nombre, rol:'admin' });
+        location.href = 'reportes.html';
+        return;
+    } 
+    
+    if (email === USUARIOS.artesano.email && pass === USUARIOS.artesano.pass) {
+        guardarSesion({ email: USUARIOS.artesano.email, nombre: USUARIOS.artesano.nombre, taller: USUARIOS.artesano.taller, rol:'artesano' });
         location.href = 'paneldeartesanos.html';
-    } else {
+        return;
+    } 
+    
+    else {
         mostrarError(inputContrasenia, 'Credenciales incorrectas. Probá con artesano@poncho.com / 12345678');
     }
 }
 
 function iniciarLogin() {
-    // si ya hay sesion, ir directo al panel
-    if (obtenerSesion()) {
-        location.href = 'paneldeartesanos.html';
+    const sesion = obtenerSesion();
+    if (sesion) {
+        if (sesion.rol = 'admin'){
+            location.href='reportes.html';
+        }
+        else { 
+            location.href = 'paneldeartesanos.html';
+        }
         return;
     }
 

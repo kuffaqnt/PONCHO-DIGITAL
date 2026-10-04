@@ -17,7 +17,6 @@
     box-sizing: border-box;
 }
 
-
 body { 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #fbf8f4;
@@ -278,7 +277,6 @@ header p {
     margin-bottom: 6px;
 }
 
-
 .tarjeta-formulario, .contenedor-tabla {
     background-color: var(--gris-fondo);
     padding: 30px;
@@ -357,7 +355,6 @@ textarea {
     font-size: 0.85rem;
 }
 
-/* Pie de página */
 footer { 
     background: linear-gradient(180deg, var(--poncho-dark) 0%, var(--poncho-darker) 100%);
     color: var(--poncho-cream);
@@ -404,7 +401,6 @@ footer p:last-child {
     font-weight: 400;
 }
 
-/* Ajustes responsivos */
 @media (max-width: 768px) {
     .barra-nav {
         flex-direction: column;
@@ -434,5 +430,131 @@ footer p:last-child {
     .nav-container ul li a {
         padding: 6px 10px;
         font-size: 0.85rem;
+    }
+}
+
+.barra-acciones-reporte {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.subtitulo-reporte {
+    font-size: 1.25rem;
+    color: var(--poncho, #8b261e);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.tarjeta-metrica {
+    background-color: #fdfdfd;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+}
+
+.tarjeta-metrica h4 {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.cifra-metrica {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    color: #333;
+}
+
+.texto-rojo {
+    color: #c0392b !important;
+}
+
+.texto-verde {
+    color: #27ae60 !important;
+}
+
+.cabecera-impresion {
+    display: none;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #333;
+    padding-bottom: 1rem;
+}
+
+@media print {
+    header,
+    nav,
+    footer,
+    .barra-nav,
+    .nav-acceso,
+    .no-imprimir,
+    .barra-acciones-reporte,
+    #btn-imprimir-pdf {
+        display: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    main.container {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    .cabecera-impresion {
+        display: block !important;
+        margin-top: 0 !important;
+    }
+
+    .table-responsive {
+        overflow: visible !important;
+        display: block !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
+
+    tbody, tr, td, th {
+        display: table-row-group !important;
+    }
+
+    tr {
+        display: table-row !important;
+        page-break-inside: avoid !important;
+    }
+
+    td, th {
+        display: table-cell !important;
+        color: #000000 !important;
+        padding: 6px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .h-100 {
+        height: auto !important;
+    }
+
+    .tarjeta-formulario,
+    .tarjeta-metrica {
+        box-shadow: none !important;
+        border: 1px solid #cccccc !important;
+        page-break-inside: avoid !important;
+        margin-bottom: 1rem !important;
     }
 }
