@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+
+# Base de datos local
+db.sqlite3
+
+# Variables de entorno
+.env
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+poncho_digital/bin/
+poncho_digital/lib/
+poncho_digital/include/
+poncho_digital/pyvenv.cfg
