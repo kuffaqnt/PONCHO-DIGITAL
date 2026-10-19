@@ -1,0 +1,164 @@
+{% extends "HTML/base.html" %}
+{% load static %}
+
+{% block title %}Reportes Oficiales - Poncho Digital{% endblock %}
+{% block nav_reportes %}active{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+    <!-- CABECERA EXCLUSIVA PARA IMPRESIÓN / PDF -->
+    <div class="cabecera-impresion">
+        <h2>Fiesta Nacional e Internacional del Poncho 2026</h2>
+        <p>Ministerio de Cultura y Turismo de Catamarca - Reporte Oficial</p>
+        <span id="fecha-impresion"></span>
+    </div>
+
+    <!-- BARRA SUPERIOR -->
+    <div class="barra-acciones-reporte no-imprimir">
+        <div>
+            <h2 class="titulo-principal">Métricas del Predio</h2>
+            <span class="badge bg-danger">Panel Administrador</span>
+        </div>
+        <button type="button" id="btn-imprimir-pdf" class="btn-poncho-principal" onclick="window.print()">
+            Exportar / Descargar PDF
+        </button>
+    </div>
+
+    <!-- HU19: OCUPACIÓN DE STANDS -->
+    <section class="tarjeta-formulario mb-4">
+        <h3 class="subtitulo-reporte">1. Ocupación de Stands en el Predio</h3>
+        
+        <div class="row g-3">
+            <div class="col-12 col-md-4">
+                <div class="tarjeta-metrica">
+                    <h4>Total de Stands</h4>
+                    <p class="cifra-metrica" id="total-stands">{{ total_stands }}</p>
+                    <small>Capacidad registrada</small>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="tarjeta-metrica">
+                    <h4>Stands Ocupados</h4>
+                    <p class="cifra-metrica texto-rojo" id="stands-ocupados">{{ stands_ocupados }}</p>
+                    <small id="porcentaje-ocupacion" class="texto-rojo">{{ porcentaje_ocupacion }}% ocupado</small>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="tarjeta-metrica">
+                    <h4>Stands Disponibles</h4>
+                    <p class="cifra-metrica texto-verde" id="stands-disponibles">{{ stands_disponibles }}</p>
+                    <small class="texto-verde">Listos para asignar</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HU17 Y HU18: LOCALIDADES Y RUBROS EN PARALELO -->
+    <div class="row g-4 mb-4">
+        
+        <!-- HU17: POR LOCALIDAD -->
+        <div class="col-12 col-md-6">
+            <section class="tarjeta-formulario h-100">
+                <h3 class="subtitulo-reporte">2. Artesanos por Localidad</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Localidad de Origen</th>
+                                <th class="text-center">Confirmados</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-localidades">
+                            {% for loc in reporte_localidades %}
+                                <tr>
+                                    <td>{{ loc.nombre }}</td>
+                                    <td class="text-center fw-bold">{{ loc.total }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="2" class="text-center text-muted">Sin datos de localidades cargados</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- HU18: POR RUBRO -->
+        <div class="col-12 col-md-6">
+            <section class="tarjeta-formulario h-100">
+                <h3 class="subtitulo-reporte">3. Distribución por Rubro</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Rubro Artesanal</th>
+                                <th class="text-center">Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-rubros">
+                            {% for rub in reporte_rubros %}
+                                <tr>
+                                    <td>{{ rub.nombre }}</td>
+                                    <td class="text-center fw-bold">{{ rub.total }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="2" class="text-center text-muted">Sin datos de rubros cargados</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- HU20: PRODUCTOS POR ARTESANO -->
+    <section class="tarjeta-formulario mb-4">
+        <h3 class="subtitulo-reporte">4. Catálogo de Productos por Artesano</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Artesano / Taller</th>
+                        <th>Ubicación</th>
+                        <th class="text-center">Productos Declarados</th>
+                        <th class="text-center">Stock Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-productos-artesano">
+                    {% for art in artesanos_productos %}
+                        <tr>
+                            <td>
+                                <strong>{{ art.nombre_taller }}</strong><br>
+                                <small class="text-muted">{{ art.nombre }}</small>
+                            </td>
+                            <td>
+                                {{ art.stand.get_pabellon_display|default:"Sin asignar" }}
+                                {% if art.stand %} - Stand {{ art.stand.numero }}{% endif %}
+                            </td>
+                            <td class="text-center">{{ art.total_productos }}</td>
+                            <td class="text-center fw-bold">{{ art.total_stock|default:0 }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">No hay artesanos registrados</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/reportes.js' %}"></script>
+{% endblock %}
