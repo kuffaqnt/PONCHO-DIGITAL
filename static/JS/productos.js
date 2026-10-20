@@ -1,11 +1,5 @@
 // ACA SOLO HAY LOGICA PARA GESTION-PRODUCTOS.HTML
 
-function validarPrecio(valor) {
-    const precio = parseFloat(valor);
-    if (isNaN(precio) || precio <= 0) return 'El precio debe ser un número mayor a 0.';
-    return '';
-}
-
 function validarStock(valor) {
     const stock = parseFloat(valor);
     if (isNaN(stock) || stock < 0 || !Number.isInteger(stock)) {
@@ -18,26 +12,14 @@ function guardarProducto(evento) {
     evento.preventDefault();
 
     const formProducto = document.getElementById('form-producto');
-    const inputPrecio = document.getElementById('precio');
     const inputStock = document.getElementById('stock');
 
-    const errorPrecio = validarPrecio(inputPrecio.value);
     const errorStock = validarStock(inputStock.value);
-    mostrarError(inputPrecio, errorPrecio);
     mostrarError(inputStock, errorStock);
 
-    if (errorPrecio === '' && errorStock === '') {
+    if (errorStock === '') {
         alert('¡Producto validado y guardado correctamente!');
         formProducto.reset();
-    }
-}
-
-function validarPrecioEnVivo() {
-    const inputPrecio = document.getElementById('precio');
-    if (validarPrecio(inputPrecio.value) !== '') {
-        mostrarError(inputPrecio, 'Debe ser mayor a 0');
-    } else {
-        mostrarError(inputPrecio, '');
     }
 }
 
@@ -60,13 +42,11 @@ function iniciarProductos() {
     if (btnCerrar) btnCerrar.addEventListener('click', function (e) { e.preventDefault(); cerrarSesion(); });
 
     const formProducto = document.getElementById('form-producto');
-    const inputPrecio = document.getElementById('precio');
     const inputStock = document.getElementById('stock');
 
-    if (!formProducto || !inputPrecio || !inputStock) return;
+    if (!formProducto || !inputStock) return;
 
     formProducto.addEventListener('submit', guardarProducto);
-    inputPrecio.addEventListener('input', validarPrecioEnVivo);
     inputStock.addEventListener('input', validarStockEnVivo);
 }
 
