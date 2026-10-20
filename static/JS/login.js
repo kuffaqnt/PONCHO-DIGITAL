@@ -77,7 +77,7 @@ function enviarLogin(evento) {
 function iniciarLogin() {
     const sesion = obtenerSesion();
     if (sesion) {
-        if (sesion.rol = 'admin'){
+        if (sesion.rol === 'admin'){
             location.href='/reportes/';
         }
         else { 
