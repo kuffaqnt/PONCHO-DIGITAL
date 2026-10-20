@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Count, Sum
 from .models import Artesano, Stand
 
@@ -100,3 +100,9 @@ def reportes (request):
     }
 
     return render (request, 'HTML/reportes.html',context)
+
+def detalle_stand (request, artesano_id):
+    artesano = get_object_or_404(
+        Artesano.objects.select_related('stand').prefetch_related('productos'), pk=artesano_id,
+    )
+    return render (request, 'HTML/detalle_stand.html',{'artesano':artesano})

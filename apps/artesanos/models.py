@@ -37,7 +37,6 @@ class Artesano(models.Model):
     nombre_taller = models.CharField(max_length=150)
     rubro = models.CharField(max_length=30, choices=RUBRO_CHOICES)
     localidad = models.CharField(max_length=50, choices=LOCALIDAD_CHOICES)
-    anios_trayectoria = models.PositiveIntegerField(default=0)
     descripcion = models.TextField(blank=True)
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='pendiente')
     fecha_solicitud = models.DateTimeField(auto_now_add=True)
@@ -58,9 +57,9 @@ class Stand(models.Model):
     ]
 
     PABELLON_CHOICES = [
-        ('artesanias_1', 'Pabellón de Artesanías I'),
-        ('artesanias_2', 'Pabellón de Artesanías II'),
-        ('regionales', 'Pabellón de Productos Regionales'),
+        ('pabellon_1', 'Pabellón de Artesanías I'),
+        ('pabellon_2', 'Pabellón de Artesanías II'),
+        ('regional', 'Pabellón de Productos Regionales'),
         ('institucional', 'Pabellón Institucional'),
     ]
 

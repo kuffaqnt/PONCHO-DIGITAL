@@ -70,7 +70,7 @@
         </div>
         <!-- Pop up de coincidencias encontradas-->
         <section id="caja-edificio" class="alert alert-info text-center d-none mb-4" role="alert">
-            <h4 class="mb-1" id="titulo-edificio">Edificio encontrado</h4>
+            <h4 class="mb-1" id="titulo-edificio">Resultado de la busqueda</h4>
             <p class="mb-0" id="texto-edificio"></p>
         </section>
 
@@ -93,7 +93,7 @@
                         <p><strong>Ubicación en el predio:</strong> <span class="fw-bold text-danger">{{ artesano.stand.get_pabellon_display|default:"A coordinar" }}</span></p>
                         <p class="small text-muted">{{artesano.descripcion|default:"Especialidad en artesanías tradicionales catamarqueñas."}}</p>
                         <div class="mt-auto pt-3">
-                            <a href="#" class="btn-poncho-principal w-100">Ver Productos del Stand</a>
+                            <a href="{% url 'detalle_stand' artesano.id%}" class="btn-poncho-principal w-100">Ver Productos del Stand</a>
                         </div>
                     </div>
                 </article>

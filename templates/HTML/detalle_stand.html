@@ -1,0 +1,54 @@
+{% extends 'HTML/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="mb-3">
+        <a href="{% url 'visitantes' %}" class="btn btn-outline-secondary btn-sm">
+            &larr; Volver a la feria
+        </a>
+    </div>
+
+    <!-- Ficha del Stand y Artesano -->
+    <div class="card shadow-sm border-0 mb-4 bg-light">
+        <div class="card-body p-4">
+            <span class="badge bg-secondary mb-2">
+                {{ artesano.stand.get_pabellon_display }} &bull; Stand {{ artesano.stand.numero }}
+            </span>
+            <h2 class="fw-bold mb-1">{{ artesano.nombre_taller }}</h2>
+            <p class="text-muted mb-2"><strong>Expositor/a:</strong> {{ artesano.nombre }}</p>
+            <p class="mb-1"><strong>Origen:</strong> {{ artesano.get_localidad_display }}</p>
+            <p class="mb-0"><strong>Rubro:</strong> {{ artesano.get_rubro_display }}</p>
+            {% if artesano.descripcion %}
+                <hr>
+                <p class="mb-0 text-secondary">{{ artesano.descripcion }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Listado de Productos -->
+    <h4 class="fw-bold mb-3">Catálogo de Productos</h4>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for producto in artesano.productos.all %}
+            <div class="col">
+                <div class="card h-100 shadow-sm border">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title fw-bold mb-0">{{ producto.nombre }}</h5>
+                            <span class="badge bg-success">Stock: {{ producto.stock }}</span>
+                        </div>
+                        <p class="card-text text-muted small">
+                            {{ producto.descripcion|default:"Sin descripción disponible." }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Este expositor no posee productos registrados en el catálogo en este momento.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

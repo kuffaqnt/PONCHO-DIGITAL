@@ -28,4 +28,5 @@ urlpatterns = [
     path('login/', iniciar_sesion, name='login'),
     path('panel/', panel_artesano, name='panel_artesano'),
     path('gestion-productos/', gestion_productos, name='gestion_productos'),
+    path('stand/<int:artesano_id>/', detalle_stand, name='detalle_stand')
 ]
