@@ -5,6 +5,18 @@ from .models import Artesano, Stand
 def inicio(request):
     return render(request, 'HTML/index.html')
 
+# HU-01 a 03, acá se postula el artesano
+def registro_artesano(request):
+    return render(request, 'HTML/registro_artesano.html')
+
+# RU-10, por ahora solo muestra el login
+def iniciar_sesion(request):
+    return render(request, 'HTML/login.html')
+
+# HU-03 y 07, el panel donde ve cómo va su solicitud
+def panel_artesano(request):
+    return render(request, 'HTML/paneldeartesanos.html')
+
 def visitantes(request):
     artesanos = Artesano.objects.filter(stand__isnull = False).select_related('stand')
 

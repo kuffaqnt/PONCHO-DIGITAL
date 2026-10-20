@@ -59,13 +59,13 @@ function enviarLogin(evento) {
 
     if (email === USUARIOS.admin.email && pass === USUARIOS.admin.pass) {
         guardarSesion({ email: USUARIOS.admin.email, nombre: USUARIOS.admin.nombre, rol:'admin' });
-        location.href = 'reportes.html';
+        location.href = '/reportes/';
         return;
     } 
     
     if (email === USUARIOS.artesano.email && pass === USUARIOS.artesano.pass) {
         guardarSesion({ email: USUARIOS.artesano.email, nombre: USUARIOS.artesano.nombre, taller: USUARIOS.artesano.taller, rol:'artesano' });
-        location.href = 'paneldeartesanos.html';
+        location.href = '/panel/';
         return;
     } 
     
@@ -77,11 +77,11 @@ function enviarLogin(evento) {
 function iniciarLogin() {
     const sesion = obtenerSesion();
     if (sesion) {
-        if (sesion.rol = 'admin'){
-            location.href='reportes.html';
+        if (sesion.rol === 'admin'){
+            location.href='/reportes/';
         }
         else { 
-            location.href = 'paneldeartesanos.html';
+            location.href = '/panel/';
         }
         return;
     }

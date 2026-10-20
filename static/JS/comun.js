@@ -54,13 +54,13 @@ function guardarSesion(usuario) {
 
 function cerrarSesion() {
     localStorage.removeItem(CLAVE_SESION);
-    location.href = 'login.html';
+    location.href = '/login/';
 }
 
 function exigirSesion() {
     const sesion = obtenerSesion();
     if (!sesion) {
-        location.href = 'login.html';
+        location.href = '/login/';
         return null;
     }
     return sesion;

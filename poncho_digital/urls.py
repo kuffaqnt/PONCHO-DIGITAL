@@ -23,5 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', inicio, name='inicio'),
     path('visitantes/', visitantes, name='visitantes'),
-    path('reportes/', reportes, name='reportes')
+    path('reportes/', reportes, name='reportes'),
+    path('registro/', registro_artesano, name='registro_artesano'),
+    path('login/', iniciar_sesion, name='login'),
+    path('panel/', panel_artesano, name='panel_artesano'),
+    path('gestion-productos/', gestion_productos, name='gestion_productos'),
 ]
