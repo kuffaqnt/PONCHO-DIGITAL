@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}Reportes Oficiales - Poncho Digital{% endblock %}
-{% block nav_reportes %}active{% endblock %}
+{% block nav_admin %}active{% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -20,9 +20,12 @@
             <h2 class="titulo-principal">Métricas del Predio</h2>
             <span class="badge bg-danger">Panel Administrador</span>
         </div>
-        <button type="button" id="btn-imprimir-pdf" class="btn-poncho-principal" onclick="window.print()">
-            Exportar / Descargar PDF
-        </button>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{% url 'panel_admin' %}" class="btn-poncho-secundario">Volver al panel</a>
+            <button type="button" id="btn-imprimir-pdf" class="btn-poncho-principal" onclick="window.print()">
+                Exportar / Descargar PDF
+            </button>
+        </div>
     </div>
 
     <!-- HU19: OCUPACIÓN DE STANDS -->

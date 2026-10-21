@@ -1,0 +1,74 @@
+{% extends "HTML/base.html" %}
+{% load static %}
+
+{% block title %}Solicitud de {{ artesano.nombre_taller }} - Poncho Digital{% endblock %}
+{% block nav_admin %}active{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9">
+
+            <div class="barra-acciones-reporte">
+                <div>
+                    <h2 class="titulo-principal">{{ artesano.nombre_taller }}</h2>
+                    {% include "HTML/estado_solicitud.html" with estado=artesano.estado nombre=artesano.get_estado_display %}
+                    <small class="text-muted ms-2">Enviada el {{ artesano.fecha_solicitud|date:"d/m/Y H:i" }}</small>
+                </div>
+                <a href="{% url 'panel_admin' %}" class="btn-poncho-secundario">Volver al panel</a>
+            </div>
+
+            {% for mensaje in messages %}
+                <div class="alert {% if mensaje.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}">{{ mensaje }}</div>
+            {% endfor %}
+
+            <!-- HU-04: datos del postulante y del emprendimiento -->
+            <section class="tarjeta-formulario mb-4">
+                <h3 class="subtitulo-reporte">Datos personales</h3>
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Nombre y apellido</dt><dd class="col-sm-8">{{ artesano.nombre }}</dd>
+                    <dt class="col-sm-4">DNI</dt><dd class="col-sm-8">{{ artesano.dni }}</dd>
+                    <dt class="col-sm-4">Teléfono</dt><dd class="col-sm-8">{{ artesano.telefono|default:"-" }}</dd>
+                    <dt class="col-sm-4">Correo electrónico</dt><dd class="col-sm-8">{{ artesano.email }}</dd>
+                    <dt class="col-sm-4">Localidad</dt><dd class="col-sm-8">{{ artesano.get_localidad_display }}</dd>
+                </dl>
+            </section>
+
+            <section class="tarjeta-formulario mb-4">
+                <h3 class="subtitulo-reporte">Datos del emprendimiento</h3>
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Nombre del taller</dt><dd class="col-sm-8">{{ artesano.nombre_taller }}</dd>
+                    <dt class="col-sm-4">Rubro</dt><dd class="col-sm-8">{{ artesano.get_rubro_display }}</dd>
+                    <dt class="col-sm-4">Años de trayectoria</dt><dd class="col-sm-8">{{ artesano.anios_trayectoria }}</dd>
+                    <dt class="col-sm-4">Descripción</dt><dd class="col-sm-8">{{ artesano.descripcion|default:"-"|linebreaksbr }}</dd>
+                </dl>
+            </section>
+
+            <!-- HU-05 a 07: la decisión del admin, solo sobre pendientes -->
+            <section class="tarjeta-formulario">
+                <h3 class="subtitulo-reporte">Evaluación</h3>
+                {% if artesano.estado == 'pendiente' %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="observaciones" class="form-label">Observaciones para el postulante</label>
+                            <textarea id="observaciones" name="observaciones" class="form-control" rows="3" placeholder="Obligatorias si pedís modificaciones. Opcionales al aprobar o rechazar.">{{ observaciones }}</textarea>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="submit" name="accion" value="aprobar" class="btn btn-success">Aprobar</button>
+                            <button type="submit" name="accion" value="modificacion" class="btn btn-outline-dark">Pedir modificaciones</button>
+                            <button type="submit" name="accion" value="rechazar" class="btn btn-danger">Rechazar</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <p class="mb-1">Esta solicitud ya fue evaluada: <strong>{{ artesano.get_estado_display }}</strong>.</p>
+                    {% if artesano.observaciones %}
+                        <p class="mb-0"><strong>Observaciones:</strong> {{ artesano.observaciones|linebreaksbr }}</p>
+                    {% endif %}
+                {% endif %}
+            </section>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
