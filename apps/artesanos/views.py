@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, Sum
 from .forms import PostulacionForm
@@ -61,6 +62,7 @@ def visitantes(request):
 
 
 
+@staff_member_required
 def reportes (request):
     # HU19: Ocupación de Stands
     total_stands = Stand.objects.count()
@@ -122,3 +124,63 @@ def detalle_stand (request, artesano_id):
         Artesano.objects.select_related('stand').prefetch_related('productos'), pk=artesano_id,
     )
     return render (request, 'HTML/detalle_stand.html',{'artesano':artesano})
+
+
+# HU-04, el admin ve las solicitudes (RNF-06, solo entra el staff)
+@staff_member_required
+def panel_admin(request):
+    estado = request.GET.get('estado', 'pendiente')
+    if estado not in dict(Artesano.ESTADO_CHOICES):
+        estado = ''
+
+    solicitudes = Artesano.objects.order_by('-fecha_solicitud')
+    if estado:
+        solicitudes = solicitudes.filter(estado=estado)
+
+    conteo = dict(Artesano.objects.values_list('estado').annotate(total=Count('id')))
+    estados = [
+        {'clave': clave, 'nombre': nombre, 'total': conteo.get(clave, 0)}
+        for clave, nombre in Artesano.ESTADO_CHOICES
+    ]
+
+    context = {
+        'solicitudes': solicitudes,
+        'estados': estados,
+        'estado_seleccionado': estado,
+        'total_solicitudes': sum(conteo.values()),
+    }
+    return render(request, 'HTML/panel_admin.html', context)
+
+
+ACCIONES = {
+    'aprobar': 'aprobada',        # HU-05
+    'rechazar': 'rechazada',      # HU-06
+    'modificacion': 'modificacion',  # HU-07
+}
+
+
+# HU-04 a 07, el detalle de la solicitud y lo que decide el admin
+@staff_member_required
+def detalle_solicitud(request, artesano_id):
+    artesano = get_object_or_404(Artesano, pk=artesano_id)
+    observaciones = artesano.observaciones
+
+    if request.method == 'POST':
+        nuevo_estado = ACCIONES.get(request.POST.get('accion'))
+        observaciones = request.POST.get('observaciones', '').strip()
+
+        if artesano.estado != 'pendiente':
+            messages.error(request, 'Solo se pueden evaluar solicitudes pendientes.')
+        elif nuevo_estado is None:
+            messages.error(request, 'Acción no válida.')
+        elif nuevo_estado == 'modificacion' and not observaciones:
+            messages.error(request, 'Indicá qué tiene que modificar el postulante.')
+        else:
+            artesano.estado = nuevo_estado
+            artesano.observaciones = observaciones
+            artesano.save(update_fields=['estado', 'observaciones'])
+            messages.success(request, f'Solicitud de {artesano.nombre_taller}: {artesano.get_estado_display()}.')
+            return redirect('panel_admin')
+
+    context = {'artesano': artesano, 'observaciones': observaciones}
+    return render(request, 'HTML/detalle_solicitud.html', context)

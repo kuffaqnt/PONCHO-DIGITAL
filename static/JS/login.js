@@ -59,7 +59,7 @@ function enviarLogin(evento) {
 
     if (email === USUARIOS.admin.email && pass === USUARIOS.admin.pass) {
         guardarSesion({ email: USUARIOS.admin.email, nombre: USUARIOS.admin.nombre, rol:'admin' });
-        location.href = '/reportes/';
+        location.href = '/panel-admin/';
         return;
     } 
     
@@ -78,7 +78,7 @@ function iniciarLogin() {
     const sesion = obtenerSesion();
     if (sesion) {
         if (sesion.rol === 'admin'){
-            location.href='/reportes/';
+            location.href='/panel-admin/';
         }
         else { 
             location.href = '/panel/';
