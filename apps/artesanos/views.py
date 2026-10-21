@@ -1,13 +1,29 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, Sum
+from .forms import PostulacionForm
 from .models import Artesano, Stand
 
 def inicio(request):
     return render(request, 'HTML/index.html')
 
-# HU-01 a 03, acá se postula el artesano
+# HU-01 a 03, acá se postula el artesano y queda pendiente
 def registro_artesano(request):
-    return render(request, 'HTML/registro_artesano.html')
+    if request.method == 'POST':
+        form = PostulacionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Solicitud enviada. Queda pendiente hasta que la revise un administrador.')
+            return redirect('registro_artesano')
+    else:
+        form = PostulacionForm()
+
+    context = {
+        'form': form,
+        'localidades': Artesano.LOCALIDAD_CHOICES,
+        'rubros': Artesano.RUBRO_CHOICES,
+    }
+    return render(request, 'HTML/registro_artesano.html', context)
 
 # RU-10, por ahora solo muestra el login
 def iniciar_sesion(request):

@@ -15,6 +15,21 @@
                         Un administrador revisará la solicitud antes de habilitar tu cuenta.
                     </p>
 
+                    {% for mensaje in messages %}
+                        <div class="alert alert-success">{{ mensaje }}</div>
+                    {% endfor %}
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <p class="mb-1 fw-bold">Revisá los datos de la solicitud:</p>
+                            <ul class="mb-0">
+                                {% for campo in form %}{% for error in campo.errors %}
+                                    <li>{{ campo.label }}: {{ error }}</li>
+                                {% endfor %}{% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
                     <form action="{% url 'registro_artesano' %}" method="post">
                         {% csrf_token %}
 
@@ -23,45 +38,32 @@
 
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre y apellido</label>
-                                <input type="text" id="nombre" name="nombre" class="form-control" maxlength="100" placeholder="Ej.: María Elena Quiroga" required>
+                                <input type="text" id="nombre" name="nombre" class="form-control" maxlength="100" placeholder="Ej.: María Elena Quiroga" value="{{ form.nombre.value|default_if_none:'' }}" required>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="dni" class="form-label">DNI</label>
-                                    <input type="text" id="dni" name="dni" class="form-control" inputmode="numeric" pattern="[0-9]{7,8}" maxlength="8" placeholder="Sin puntos ni espacios" required>
+                                    <input type="text" id="dni" name="dni" class="form-control" inputmode="numeric" pattern="[0-9]{7,8}" maxlength="8" placeholder="Sin puntos ni espacios" value="{{ form.dni.value|default_if_none:'' }}" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="telefono" class="form-label">Teléfono</label>
-                                    <input type="tel" id="telefono" name="telefono" class="form-control" maxlength="20" placeholder="Ej.: 3834 123456" required>
+                                    <input type="tel" id="telefono" name="telefono" class="form-control" maxlength="20" placeholder="Ej.: 3834 123456" value="{{ form.telefono.value|default_if_none:'' }}" required>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="email" class="form-label">Correo electrónico</label>
-                                    <input type="email" id="email" name="email" class="form-control" maxlength="150" placeholder="nombre@correo.com" required>
+                                    <input type="email" id="email" name="email" class="form-control" maxlength="150" placeholder="nombre@correo.com" value="{{ form.email.value|default_if_none:'' }}" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="localidad" class="form-label">Localidad</label>
                                     <select id="localidad" name="localidad" class="form-select" required>
                                         <option value="">Seleccioná una localidad</option>
-                                        <option value="ambato">Ambato</option>
-                                        <option value="ancasti">Ancasti</option>
-                                        <option value="andalgalá">Andalgalá</option>
-                                        <option value="antofagasta_de_la_sierra">Antofagasta de la Sierra</option>
-                                        <option value="belén">Belén</option>
-                                        <option value="capayán">Capayán</option>
-                                        <option value="capital">Capital</option>
-                                        <option value="el_alto">El Alto</option>
-                                        <option value="fray_mamerto_esquiú">Fray Mamerto Esquiú</option>
-                                        <option value="la_paz">La Paz</option>
-                                        <option value="paclín">Paclín</option>
-                                        <option value="pomán">Pomán</option>
-                                        <option value="santa_maría">Santa María</option>
-                                        <option value="santa_rosa">Santa Rosa</option>
-                                        <option value="tinogasta">Tinogasta</option>
-                                        <option value="valle_viejo">Valle Viejo</option>
+                                        {% for clave, etiqueta in localidades %}
+                                            <option value="{{ clave }}" {% if form.localidad.value == clave %}selected{% endif %}>{{ etiqueta }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -72,7 +74,7 @@
 
                             <div class="mb-3">
                                 <label for="nombre_taller" class="form-label">Nombre del taller</label>
-                                <input type="text" id="nombre_taller" name="nombre_taller" class="form-control" maxlength="100" placeholder="Ej.: Telares del Ambato" required>
+                                <input type="text" id="nombre_taller" name="nombre_taller" class="form-control" maxlength="100" placeholder="Ej.: Telares del Ambato" value="{{ form.nombre_taller.value|default_if_none:'' }}" required>
                             </div>
 
                             <div class="row">
@@ -80,25 +82,20 @@
                                     <label for="rubro" class="form-label">Rubro artesanal</label>
                                     <select id="rubro" name="rubro" class="form-select" required>
                                         <option value="">Seleccioná un rubro</option>
-                                        <option value="textil">Textil y telar</option>
-                                        <option value="ceramica">Cerámica y alfarería</option>
-                                        <option value="cuero">Talabartería y cuero</option>
-                                        <option value="plateria">Platería y orfebrería</option>
-                                        <option value="madera">Trabajos en madera</option>
-                                        <option value="tejido">Tejido en lana y fibras</option>
-                                        <option value="regional">Productos regionales</option>
-                                        <option value="otro">Otro</option>
+                                        {% for clave, etiqueta in rubros %}
+                                            <option value="{{ clave }}" {% if form.rubro.value == clave %}selected{% endif %}>{{ etiqueta }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="anios_trayectoria" class="form-label">Años de trayectoria</label>
-                                    <input type="number" id="anios_trayectoria" name="anios_trayectoria" class="form-control" min="0" max="80" step="1" placeholder="0" required>
+                                    <input type="number" id="anios_trayectoria" name="anios_trayectoria" class="form-control" min="0" max="80" step="1" placeholder="0" value="{{ form.anios_trayectoria.value|default_if_none:'' }}" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="descripcion" class="form-label">Descripción del emprendimiento</label>
-                                <textarea id="descripcion" name="descripcion" class="form-control" rows="4" maxlength="500" placeholder="Contá qué productos elaborás, con qué técnicas y materiales trabajás." required></textarea>
+                                <textarea id="descripcion" name="descripcion" class="form-control" rows="4" maxlength="500" placeholder="Contá qué productos elaborás, con qué técnicas y materiales trabajás." required>{{ form.descripcion.value|default_if_none:'' }}</textarea>
                             </div>
                         </fieldset>
 

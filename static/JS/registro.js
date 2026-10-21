@@ -12,10 +12,8 @@ function validarFechaEnVivo(evento) {
     mostrarError(input, validarFechaNacimiento(input.value));
 }
 
-// al enviar se valida el titular (DNI + fecha de nacimiento)
+// al enviar se valida el titular (DNI + fecha de nacimiento), si esta todo bien el form va a Django
 function enviarRegistro(evento) {
-    evento.preventDefault();
-
     const inputDniTitular = document.getElementById('dni');
     const inputFechaTitular = document.getElementById('fechaNacimiento');
     const errores = [];
@@ -29,9 +27,8 @@ function enviarRegistro(evento) {
     if (errorFecha) errores.push(errorFecha);
 
     if (errores.length > 0) {
+        evento.preventDefault();
         alert(errores[0]);
-    } else {
-        alert('Solicitud enviada con éxito. ¡Gracias por ser parte del Poncho!');
     }
 }
 

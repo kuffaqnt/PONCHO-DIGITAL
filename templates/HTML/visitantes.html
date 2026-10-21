@@ -27,12 +27,9 @@
                             <label for="filtro-rubro" class="form-label">Rubro:</label>
                             <select id="filtro-rubro" name="rubro" class="form-select">
                                 <option value="">Todos los rubros</option>
-                                <option value="textil">Textil y telar</option>
-                                <option value="ceramica">Cerámica y alfarería</option>
-                                <option value="cuero">Talabartería y cuero</option>
-                                <option value="madera">Trabajos en madera</option>
-                                <option value="plateria">Platería y orfebrería</option>
-                                <option value="regional">Productos regionales</option>
+                                {% for clave, etiqueta in rubros %}
+                                    <option value="{{ clave }}">{{ etiqueta }}</option>
+                                {% endfor %}
                             </select>
                         </div>
 
@@ -40,12 +37,9 @@
                             <label for="filtro-localidad" class="form-label">Localidad de origen:</label>
                             <select id="filtro-localidad" name="localidad" class="form-select">
                                 <option value="">Todas las localidades</option>
-                                <option value="belen">Belén (Cuna del Poncho)</option>
-                                <option value="santa_maria">Santa María</option>
-                                <option value="tinogasta">Tinogasta</option>
-                                <option value="andalgala">Andalgalá</option>
-                                <option value="valle_central">San Fernando del Valle</option>
-                                <option value="el_rodeo">El Rodeo</option>
+                                {% for clave, etiqueta in localidades %}
+                                    <option value="{{ clave }}">{{ etiqueta }}</option>
+                                {% endfor %}
                             </select>
                         </div>
 

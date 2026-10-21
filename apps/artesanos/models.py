@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 
 
@@ -12,15 +13,24 @@ class Artesano(models.Model):
         ('otro', 'Otro'),
     ]
 
+    # los 16 departamentos de Catamarca, igual que en el form de registro
     LOCALIDAD_CHOICES = [
-        ('belen', 'Belén'),
-        ('santa_maria', 'Santa María'),
-        ('tinogasta', 'Tinogasta'),
+        ('ambato', 'Ambato'),
+        ('ancasti', 'Ancasti'),
         ('andalgala', 'Andalgalá'),
-        ('valle_central', 'San Fernando del Valle'),
-        ('el_rodeo', 'El Rodeo'),
-        ('poman', 'Pomán'),
         ('antofagasta', 'Antofagasta de la Sierra'),
+        ('belen', 'Belén'),
+        ('capayan', 'Capayán'),
+        ('capital', 'Capital'),
+        ('el_alto', 'El Alto'),
+        ('fray_mamerto_esquiu', 'Fray Mamerto Esquiú'),
+        ('la_paz', 'La Paz'),
+        ('paclin', 'Paclín'),
+        ('poman', 'Pomán'),
+        ('santa_maria', 'Santa María'),
+        ('santa_rosa', 'Santa Rosa'),
+        ('tinogasta', 'Tinogasta'),
+        ('valle_viejo', 'Valle Viejo'),
     ]
 
     ESTADO_CHOICES = [
@@ -37,8 +47,12 @@ class Artesano(models.Model):
     nombre_taller = models.CharField(max_length=150)
     rubro = models.CharField(max_length=30, choices=RUBRO_CHOICES)
     localidad = models.CharField(max_length=50, choices=LOCALIDAD_CHOICES)
+    # RU-02 / HU-12, el visitante ve la trayectoria
+    anios_trayectoria = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(80)])
     descripcion = models.TextField(blank=True)
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='pendiente')
+    # HU-06 y 07, el motivo que pone el admin al rechazar o pedir cambios
+    observaciones = models.TextField(blank=True)
     fecha_solicitud = models.DateTimeField(auto_now_add=True)
 
     class Meta:
