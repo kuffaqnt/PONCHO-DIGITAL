@@ -1,0 +1,86 @@
+[
+{
+  "model": "artesanos.artesano",
+  "pk": 1,
+  "fields": {
+    "nombre": "Juan Agustin Gallo",
+    "dni": "43878923",
+    "email": "juanagustin09@gmail.com",
+    "telefono": "3834820082",
+    "nombre_taller": "Telar Capital",
+    "rubro": "textil",
+    "localidad": "capital",
+    "anios_trayectoria": 1,
+    "descripcion": "hago telares",
+    "estado": "aprobada",
+    "observaciones": "",
+    "fecha_solicitud": "2026-10-21T19:02:08.573Z"
+  }
+},
+{
+  "model": "artesanos.artesano",
+  "pk": 2,
+  "fields": {
+    "nombre": "Donald Trump",
+    "dni": "4389719",
+    "email": "donaldtrumpoficial@gmail.com",
+    "telefono": "383478850",
+    "nombre_taller": "Taller de Donald",
+    "rubro": "ceramica",
+    "localidad": "andalgala",
+    "anios_trayectoria": 24,
+    "descripcion": "Hago ceramica de Donald trunp",
+    "estado": "aprobada",
+    "observaciones": "",
+    "fecha_solicitud": "2026-10-21T19:18:46.573Z"
+  }
+},
+{
+  "model": "artesanos.artesano",
+  "pk": 3,
+  "fields": {
+    "nombre": "Raul jalil",
+    "dni": "43977299",
+    "email": "raulcito@gmail.com",
+    "telefono": "383465578",
+    "nombre_taller": "Raul's Taller",
+    "rubro": "madera",
+    "localidad": "capayan",
+    "anios_trayectoria": 15,
+    "descripcion": "",
+    "estado": "aprobada",
+    "observaciones": "",
+    "fecha_solicitud": "2026-10-21T19:19:40.780Z"
+  }
+},
+{
+  "model": "artesanos.stand",
+  "pk": 1,
+  "fields": {
+    "numero": 1,
+    "pabellon": "pabellon_1",
+    "estado": "ocupado",
+    "artesano": 2
+  }
+},
+{
+  "model": "artesanos.stand",
+  "pk": 2,
+  "fields": {
+    "numero": 2,
+    "pabellon": "pabellon_1",
+    "estado": "ocupado",
+    "artesano": 3
+  }
+},
+{
+  "model": "artesanos.stand",
+  "pk": 3,
+  "fields": {
+    "numero": 3,
+    "pabellon": "pabellon_2",
+    "estado": "ocupado",
+    "artesano": 1
+  }
+}
+]
