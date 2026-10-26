@@ -9,40 +9,33 @@ function validarStock(valor) {
 }
 
 function guardarProducto(evento) {
-    evento.preventDefault();
-
-    const formProducto = document.getElementById('form-producto');
-    const inputStock = document.getElementById('stock');
+    const inputStock = document.getElementById('id_stock') || document.getElementById('stock');
+    if (!inputStock) return;
 
     const errorStock = validarStock(inputStock.value);
-    mostrarError(inputStock, errorStock);
+    if (typeof mostrarError === 'function') {
+        mostrarError(inputStock, errorStock);
+    }
 
-    if (errorStock === '') {
-        alert('¡Producto validado y guardado correctamente!');
-        formProducto.reset();
+    if (errorStock !== '') {
+        evento.preventDefault(); // Solo frena el envío si hay error
     }
 }
 
 function validarStockEnVivo() {
-    const inputStock = document.getElementById('stock');
-    if (validarStock(inputStock.value) !== '') {
-        mostrarError(inputStock, 'Debe ser entero positivo');
-    } else {
-        mostrarError(inputStock, '');
+    const inputStock = document.getElementById('id_stock') || document.getElementById('stock');
+    if (!inputStock) return;
+    const error = validarStock(inputStock.value) !== '' ? 'Debe ser entero positivo' : '';
+    if (typeof mostrarError === 'function') {
+        mostrarError(inputStock, error);
     }
 }
 
 function iniciarProductos() {
-    const sesion = exigirSesion();
-    if (!sesion) return;
-
-    const emailSesion = document.getElementById('email-sesion');
-    if (emailSesion) emailSesion.textContent = sesion.email;
-    const btnCerrar = document.getElementById('btn-cerrar-sesion');
-    if (btnCerrar) btnCerrar.addEventListener('click', function (e) { e.preventDefault(); cerrarSesion(); });
+    // Se eliminan exigirSesion() y handlers viejos de sesión
 
     const formProducto = document.getElementById('form-producto');
-    const inputStock = document.getElementById('stock');
+    const inputStock = document.getElementById('id_stock') || document.getElementById('stock');
 
     if (!formProducto || !inputStock) return;
 

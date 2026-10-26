@@ -21,14 +21,33 @@
             <ul>
                 <li><a href="{% url 'inicio' %}" class="{% block nav_inicio %}{% endblock %}">Inicio</a></li>
                 <li><a href="{% url 'visitantes' %}" class="{% block nav_visitantes %}{% endblock %}">Visitantes</a></li>
-                <li><a href="{% url 'panel_admin' %}" class="{% block nav_admin %}{% endblock %}">Administración</a></li>
+                
+                {% if user.is_authenticated %}
+                    {% if user.is_staff or user.is_superuser %}
+                        {# Opción exclusiva para administradores #}
+                        <li><a href="{% url 'panel_admin' %}" class="{% block nav_admin %}{% endblock %}">Administración</a></li>
+                    {% else %}
+                        {# Opción exclusiva para artesanos registrados #}
+                        <li><a href="{% url 'panel_artesano' %}" class="{% block nav_artesano %}{% endblock %}">Mi Panel</a></li>
+                    {% endif %}
+                {% endif %}
             </ul>
         </div>
+
         <div class="nav-acceso">
+            {%if user.is_authenticated %}
+
+            <span class="text-white small me-2"> Hola, <strong> {{user.first_name|default:user.username }}</strong></span>
+            <a href="{% url 'logout' %}" class="nav-btn-link text-decoration-none">Cerrar sesión</a>
+
+            {%else%}
+
             <span class="pregunta-artesano">¿Sos artesano?</span>
             <a href="{% url 'login' %}" class="nav-btn-link">Iniciar sesión</a>
             <span class="separador">|</span>
             <a href="{% url 'registro_artesano' %}" class="nav-btn-link">Postularse</a>
+            
+            {%endif%}
         </div>
     </nav>
 

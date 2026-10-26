@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum
 from .forms import PostulacionForm
 from .models import Artesano, Stand
 
 def inicio(request):
-    return render(request, 'HTML/index.html')
+    return render(request, 'index.html')
 
 # HU-01 a 03, acá se postula el artesano y queda pendiente
 def registro_artesano(request):
@@ -24,22 +25,21 @@ def registro_artesano(request):
         'localidades': Artesano.LOCALIDAD_CHOICES,
         'rubros': Artesano.RUBRO_CHOICES,
     }
-    return render(request, 'HTML/registro_artesano.html', context)
-
-# RU-10, por ahora solo muestra el login
-def iniciar_sesion(request):
-    return render(request, 'HTML/login.html')
+    return render(request, 'artesanos/registro_artesano.html', context)
 
 # HU-03 y 07, el panel donde ve cómo va su solicitud
+@login_required(login_url='login')
 def panel_artesano(request):
-    return render(request, 'HTML/paneldeartesanos.html')
+    artesano=Artesano.objects.filter(email=request.user.username).first()
+    return render(request, 'artesanos/paneldeartesanos.html',{'artesano':artesano})
 
 def visitantes(request):
-    artesanos = Artesano.objects.filter(stand__isnull = False).select_related('stand')
+    artesanos = Artesano.objects.filter(estado='aprobada').select_related('stand').prefetch_related()
 
     rubro = request.GET.get('rubro','')
     localidad = request.GET.get('localidad','')
-    busqueda = request.GET.get('q','')
+    busqueda = request.GET.get('q') or request.GET.get('buscar','')
+    busqueda = busqueda.strip()
 
     if rubro: 
         artesanos = artesanos.filter(rubro=rubro)
@@ -56,13 +56,10 @@ def visitantes(request):
         'localidad_seleccionada': localidad,
         'busqueda': busqueda,
     }
-    return render (request, 'HTML/visitantes.html', context)
+    return render (request, 'artesanos/visitantes.html', context)
 
 
-
-
-
-@staff_member_required
+@staff_member_required(login_url='login')
 def reportes (request):
     # HU19: Ocupación de Stands
     total_stands = Stand.objects.count()
@@ -117,39 +114,13 @@ def reportes (request):
         'artesanos_productos': artesanos_productos,
     }
 
-    return render (request, 'HTML/reportes.html',context)
+    return render (request, 'usuario/reportes.html',context)
 
 def detalle_stand (request, artesano_id):
     artesano = get_object_or_404(
         Artesano.objects.select_related('stand').prefetch_related('productos'), pk=artesano_id,
     )
-    return render (request, 'HTML/detalle_stand.html',{'artesano':artesano})
-
-
-# HU-04, el admin ve las solicitudes (RNF-06, solo entra el staff)
-@staff_member_required
-def panel_admin(request):
-    estado = request.GET.get('estado', 'pendiente')
-    if estado not in dict(Artesano.ESTADO_CHOICES):
-        estado = ''
-
-    solicitudes = Artesano.objects.order_by('-fecha_solicitud')
-    if estado:
-        solicitudes = solicitudes.filter(estado=estado)
-
-    conteo = dict(Artesano.objects.values_list('estado').annotate(total=Count('id')))
-    estados = [
-        {'clave': clave, 'nombre': nombre, 'total': conteo.get(clave, 0)}
-        for clave, nombre in Artesano.ESTADO_CHOICES
-    ]
-
-    context = {
-        'solicitudes': solicitudes,
-        'estados': estados,
-        'estado_seleccionado': estado,
-        'total_solicitudes': sum(conteo.values()),
-    }
-    return render(request, 'HTML/panel_admin.html', context)
+    return render (request, 'artesanos/detalle_stand.html',{'artesano':artesano})
 
 
 ACCIONES = {
@@ -158,9 +129,8 @@ ACCIONES = {
     'modificacion': 'modificacion',  # HU-07
 }
 
-
 # HU-04 a 07, el detalle de la solicitud y lo que decide el admin
-@staff_member_required
+@staff_member_required(login_url='login')
 def detalle_solicitud(request, artesano_id):
     artesano = get_object_or_404(Artesano, pk=artesano_id)
     observaciones = artesano.observaciones
@@ -183,4 +153,4 @@ def detalle_solicitud(request, artesano_id):
             return redirect('panel_admin')
 
     context = {'artesano': artesano, 'observaciones': observaciones}
-    return render(request, 'HTML/detalle_solicitud.html', context)
+    return render(request, 'artesanos/detalle_solicitud.html', context)

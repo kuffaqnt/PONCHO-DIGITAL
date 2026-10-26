@@ -1,4 +1,4 @@
-{% extends "HTML/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Iniciar sesión - Poncho Digital{% endblock %}
@@ -7,7 +7,6 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-5">
-
                 <form id="form-login" action="{% url 'login' %}" method="post">
                     {% csrf_token %}
                     <fieldset class="tarjeta-formulario">
@@ -15,12 +14,12 @@
 
                         <div class="mb-3">
                             <label for="correo" class="form-label">Correo electrónico</label>
-                            <input type="email" id="correo" name="correo" class="form-control" placeholder="nombre@correo.com">
+                            <input type="email" id="correo" name="username" class="form-control" placeholder="nombre@correo.com">
                         </div>
 
                         <div class="mb-3">
                             <label for="contrasenia" class="form-label">Contraseña</label>
-                            <input type="password" id="contrasenia" name="contrasenia" class="form-control" placeholder="Mínimo 8 caracteres">
+                            <input type="password" id="contrasenia" name="password" class="form-control" placeholder="Mínimo 8 caracteres">
                         </div>
 
                         <button type="submit" class="btn-poncho-principal">Ingresar</button>
@@ -37,5 +36,5 @@
 
 {% block extra_js %}
     <script src="{% static 'js/comun.js' %}"></script>
-    <script src="{% static 'js/login.js' %}"></script>
+    {#<script src="{% static 'js/login.js' %}"></script>#}
 {% endblock %}

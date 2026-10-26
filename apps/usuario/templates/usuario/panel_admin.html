@@ -1,4 +1,4 @@
-{% extends "HTML/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Panel de Administración - Poncho Digital{% endblock %}
@@ -14,9 +14,8 @@
         </div>
         <div class="d-flex flex-wrap gap-2">
             <a href="{% url 'reportes' %}" class="btn-poncho-principal">Ver reportes</a>
-            <form action="{% url 'admin:logout' %}" method="post">
+            <a href="{% url 'logout' %}" class="btn-poncho-secundario text-decoration-none">Cerrar sesión</a>
                 {% csrf_token %}
-                <button type="submit" class="btn-poncho-secundario">Cerrar sesión</button>
             </form>
         </div>
     </div>
@@ -66,7 +65,7 @@
                             <td>{{ solicitud.get_rubro_display }}</td>
                             <td>{{ solicitud.get_localidad_display }}</td>
                             <td>{{ solicitud.fecha_solicitud|date:"d/m/Y" }}</td>
-                            <td>{% include "HTML/estado_solicitud.html" with estado=solicitud.estado nombre=solicitud.get_estado_display %}</td>
+                            <td>{% include "usuario/estado_solicitud.html" with estado=solicitud.estado nombre=solicitud.get_estado_display %}</td>
                             <td class="text-end">
                                 <a href="{% url 'detalle_solicitud' solicitud.id %}" class="btn btn-sm btn-outline-dark">
                                     {% if solicitud.estado == 'pendiente' %}Evaluar{% else %}Ver{% endif %}

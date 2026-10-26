@@ -16,3 +16,5 @@ poncho_digital/bin/
 poncho_digital/lib/
 poncho_digital/include/
 poncho_digital/pyvenv.cfg
+
+cargar_datos.py

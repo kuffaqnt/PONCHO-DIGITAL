@@ -75,6 +75,7 @@ class Stand(models.Model):
         ('pabellon_2', 'Pabellón de Artesanías II'),
         ('regional', 'Pabellón de Productos Regionales'),
         ('institucional', 'Pabellón Institucional'),
+    
     ]
 
     numero = models.PositiveIntegerField()

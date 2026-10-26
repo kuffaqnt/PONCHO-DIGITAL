@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Gestión de productos - Poncho Digital{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <a href="{% url 'panel_artesano' %}" class="btn-poncho-secundario btn-sm">&larr; Volver al Panel</a>
+        <span class="small text-muted">Taller: <strong>{{ artesano.nombre_taller }}</strong></span>
+    </div>
+
+    {% for mensaje in messages %}
+        <div class="alert {% if mensaje.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+            {{ mensaje }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    <!-- Formulario de Carga -->
+    <section class="mb-5">
+        <h2 class="titulo-principal">Cargar producto</h2>
+        <p class="text-center mx-auto mb-4" style="max-width: 700px;">
+            Completá los datos del producto que querés exhibir en tu stand.
+        </p>
+
+        <form id="form-producto" action="{% url 'gestion_productos' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <fieldset class="tarjeta-formulario p-4 border rounded bg-white shadow-sm">
+                        <legend class="float-none w-auto px-2 fw-bold fs-5">Datos del producto</legend>
+
+                        <div class="mb-3">
+                            <label for="{{ form.nombre.id_for_label }}" class="form-label fw-semibold">Nombre del producto</label>
+                            {{ form.nombre }}
+                            {{ form.nombre.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.stock.id_for_label }}" class="form-label fw-semibold">Stock disponible</label>
+                            {{ form.stock }}
+                            {{ form.stock.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.descripcion.id_for_label }}" class="form-label fw-semibold">Descripción</label>
+                            {{ form.descripcion }}
+                            {{ form.descripcion.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.imagen.id_for_label }}" class="form-label fw-semibold">Imagen del producto</label>
+                            {{ form.imagen }}
+                            {{ form.imagen.errors }}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                <button type="submit" class="btn-poncho-principal">Guardar producto</button>
+                <button type="reset" class="btn-poncho-secundario">Limpiar formulario</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Tabla de Productos Publicados -->
+    <section>
+        <h2 class="titulo-principal mb-3">Productos publicados</h2>
+
+        <div class="table-responsive bg-white rounded shadow-sm border p-3">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" style="width: 70px;">Foto</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col" class="text-center">Stock</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <td>
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            {% else %}
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center text-muted small border" style="width: 50px; height: 50px;">
+                                    S/F
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td class="fw-semibold">{{ producto.nombre }}</td>
+                        <td class="text-muted small text-truncate" style="max-width: 250px;">
+                            {{ producto.descripcion|default:"-" }}
+                        </td>
+                        <td class="text-center">
+                            <span class="badge {% if producto.stock > 0 %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ producto.stock }} unid.
+                            </span>
+                        </td>
+                        <td class="text-center text-nowrap">
+                            <form action="{% url 'eliminar_producto' producto.id %}" method="post" class="d-inline" onsubmit="return confirm('¿Seguro que querés eliminar {{ producto.nombre }}?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">Todavía no tenés productos cargados en tu stand.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/comun.js' %}"></script>
+    {#<script src="{% static 'js/productos.js' %}"></script>#}
+{% endblock %}
