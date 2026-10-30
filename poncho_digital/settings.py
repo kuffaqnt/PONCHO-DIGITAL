@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/6.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
+import os
 import sys
 from pathlib import Path
 
@@ -76,12 +77,26 @@ WSGI_APPLICATION = 'poncho_digital.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+# RNF-09, PostgreSQL. Los datos de conexión se pueden cambiar con variables de entorno
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'poncho_digital'),
+        'USER': os.environ.get('DB_USER', 'poncho'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'poncho'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
+
+# con DB_SQLITE=1 se sigue usando el archivo local, por si no hay servidor
+if os.environ.get('DB_SQLITE') == '1':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
