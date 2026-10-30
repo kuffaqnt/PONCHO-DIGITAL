@@ -18,4 +18,4 @@ class Producto(models.Model):
         ordering = ('nombre',)
 
     def __str__(self):
-        return f"{self.nombre} - ${self.descripcion}"
+        return f"{self.nombre} ({self.artesano.nombre_taller})"

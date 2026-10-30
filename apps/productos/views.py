@@ -1,9 +1,3 @@
-from django.shortcuts import render
-from apps.artesanos.models import Artesano
-from .models import Producto
-
-# HU-08 a 10, alta/edición/baja de productos
-# por ahora lista todos, cuando haya login se filtra por el artesano logueado
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -11,6 +5,7 @@ from apps.artesanos.models import Artesano
 from .models import Producto
 from .forms import ProductoForm
 
+# HU-08 a 10, alta/edición/baja de productos
 @login_required(login_url='login')
 def gestion_productos(request):
     artesano = Artesano.objects.filter(email=request.user.username).first()
