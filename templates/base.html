@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Poncho Digital - Fiesta Nacional e Internacional del Poncho{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="{% static 'IMG/icono-poncho.svg' %}">
     <link rel="stylesheet" href="{% static 'CSS/estilos.css' %}">
     
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <header>
-        <h1><a href="{% url 'inicio' %}">Poncho Digital</a></h1>
+        <h1><a href="{% url 'inicio' %}"><img src="{% static 'IMG/icono-poncho.svg' %}" alt="" class="icono-header">Poncho Digital</a></h1>
         <p>Fiesta Nacional e Internacional del Poncho</p>
     </header>
 
@@ -22,14 +23,9 @@
                 <li><a href="{% url 'inicio' %}" class="{% block nav_inicio %}{% endblock %}">Inicio</a></li>
                 <li><a href="{% url 'visitantes' %}" class="{% block nav_visitantes %}{% endblock %}">Visitantes</a></li>
                 
-                {% if user.is_authenticated %}
-                    {% if user.is_staff or user.is_superuser %}
-                        {# Opción exclusiva para administradores #}
-                        <li><a href="{% url 'panel_admin' %}" class="{% block nav_admin %}{% endblock %}">Administración</a></li>
-                    {% else %}
-                        {# Opción exclusiva para artesanos registrados #}
-                        <li><a href="{% url 'panel_artesano' %}" class="{% block nav_artesano %}{% endblock %}">Mi Panel</a></li>
-                    {% endif %}
+                {% if user.is_authenticated and not user.is_staff %}
+                    {# Opción exclusiva para artesanos registrados #}
+                    <li><a href="{% url 'panel_artesano' %}" class="{% block nav_artesano %}{% endblock %}">Mi Panel</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -38,6 +34,10 @@
             {%if user.is_authenticated %}
 
             <span class="text-white small me-2"> Hola, <strong> {{user.first_name|default:user.username }}</strong></span>
+            {% if user.is_staff %}
+            <a href="{% url 'panel_admin' %}" class="nav-btn-link text-decoration-none">Panel</a>
+            <span class="separador">|</span>
+            {% endif %}
             <a href="{% url 'logout' %}" class="nav-btn-link text-decoration-none">Cerrar sesión</a>
 
             {%else%}
