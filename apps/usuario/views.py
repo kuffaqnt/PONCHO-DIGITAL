@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from apps.artesanos.models import Artesano
 from django.db.models import Count
@@ -13,7 +13,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password) #si encuentra el usuario devuelve en user
         if user is not None: 
             login(request, user)
-            if user.is_staff or user.is_superuser:
+            if user.has_perm('artesanos.evaluar_solicitud'):
                 return redirect('panel_admin')
             return redirect(("panel_artesano"))
         else:
@@ -24,7 +24,8 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
-@staff_member_required(login_url='login')
+@login_required(login_url='login')
+@permission_required('artesanos.evaluar_solicitud', raise_exception=True)
 def panel_admin(request):
     estado = request.GET.get('estado', 'pendiente')
     if estado not in dict(Artesano.ESTADO_CHOICES):

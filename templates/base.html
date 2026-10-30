@@ -23,7 +23,7 @@
                 <li><a href="{% url 'inicio' %}" class="{% block nav_inicio %}{% endblock %}">Inicio</a></li>
                 <li><a href="{% url 'visitantes' %}" class="{% block nav_visitantes %}{% endblock %}">Visitantes</a></li>
                 
-                {% if user.is_authenticated and not user.is_staff %}
+                {% if user.is_authenticated and not perms.artesanos.evaluar_solicitud %}
                     {# Opción exclusiva para artesanos registrados #}
                     <li><a href="{% url 'panel_artesano' %}" class="{% block nav_artesano %}{% endblock %}">Mi Panel</a></li>
                 {% endif %}
@@ -34,7 +34,7 @@
             {%if user.is_authenticated %}
 
             <span class="text-white small me-2"> Hola, <strong> {{user.first_name|default:user.username }}</strong></span>
-            {% if user.is_staff %}
+            {% if perms.artesanos.evaluar_solicitud %}
             <a href="{% url 'panel_admin' %}" class="nav-btn-link text-decoration-none">Panel</a>
             <span class="separador">|</span>
             {% endif %}

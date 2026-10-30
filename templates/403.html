@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Sin permiso - Poncho Digital{% endblock %}
+
+{% block content %}
+    <div class="container my-5 text-center">
+        <section class="tarjeta-formulario">
+            <h2>No tenés permiso para entrar acá</h2>
+            <p class="text-muted">Esta sección no corresponde a tu perfil de usuario.</p>
+            <a href="{% url 'inicio' %}" class="btn-poncho-principal">Volver al inicio</a>
+        </section>
+    </div>
+{% endblock %}

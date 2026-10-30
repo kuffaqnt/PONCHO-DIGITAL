@@ -1,7 +1,6 @@
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Count, Sum
 from .forms import PostulacionForm
 from .models import Artesano, Stand
@@ -59,7 +58,8 @@ def visitantes(request):
     return render (request, 'artesanos/visitantes.html', context)
 
 
-@staff_member_required(login_url='login')
+@login_required(login_url='login')
+@permission_required('artesanos.ver_reportes', raise_exception=True)
 def reportes (request):
     # HU19: Ocupación de Stands
     total_stands = Stand.objects.count()
@@ -130,7 +130,8 @@ ACCIONES = {
 }
 
 # HU-04 a 07, el detalle de la solicitud y lo que decide el admin
-@staff_member_required(login_url='login')
+@login_required(login_url='login')
+@permission_required('artesanos.evaluar_solicitud', raise_exception=True)
 def detalle_solicitud(request, artesano_id):
     artesano = get_object_or_404(Artesano, pk=artesano_id)
     observaciones = artesano.observaciones

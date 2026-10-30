@@ -59,6 +59,11 @@ class Artesano(models.Model):
         verbose_name = 'Artesano'
         verbose_name_plural = 'Artesanos'
         ordering = ('nombre_taller',)
+        # RU-10, permisos que Django no trae hechos
+        permissions = [
+            ('evaluar_solicitud', 'Puede evaluar solicitudes'),
+            ('ver_reportes', 'Puede ver reportes'),
+        ]
 
     def __str__(self):
         return f"{self.nombre_taller} ({self.nombre})"
