@@ -54,7 +54,7 @@ def corregir_solicitud(request):
     return render(request, 'artesanos/corregir_solicitud.html', {'form': form, 'artesano': artesano})
 
 def visitantes(request):
-    artesanos = Artesano.objects.filter(estado='aprobada').select_related('stand').prefetch_related()
+    artesanos = Artesano.objects.filter(estado='aprobada').select_related('stand').prefetch_related('productos')
 
     rubro = request.GET.get('rubro','')
     localidad = request.GET.get('localidad','')
@@ -68,8 +68,20 @@ def visitantes(request):
     if busqueda:
         artesanos = artesanos.filter(nombre_taller__icontains = busqueda)
     
+    # HU-15, buscar un stand por número
+    numero_stand = request.GET.get('stand', '').strip()
+    stands_encontrados = []
+    if numero_stand.isdigit():
+        stands_encontrados = Stand.objects.filter(numero=numero_stand).select_related('artesano')
+
     context = { 
         'artesanos': artesanos, 
+        # HU-16, los stands asignados que tienen lugar marcado en el plano
+        'stands_plano': Stand.objects.filter(
+            artesano__estado='aprobada', plano_x__isnull=False, plano_y__isnull=False,
+        ).select_related('artesano'),
+        'numero_stand': numero_stand,
+        'stands_encontrados': stands_encontrados,
         'rubros': Artesano.RUBRO_CHOICES,
         'localidades': Artesano.LOCALIDAD_CHOICES,
         'rubro_seleccionado': rubro,

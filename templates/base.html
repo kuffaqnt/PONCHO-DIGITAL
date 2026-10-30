@@ -22,6 +22,7 @@
             <ul>
                 <li><a href="{% url 'inicio' %}" class="{% block nav_inicio %}{% endblock %}">Inicio</a></li>
                 <li><a href="{% url 'visitantes' %}" class="{% block nav_visitantes %}{% endblock %}">Visitantes</a></li>
+                <li><a href="{% url 'catalogo' %}" class="{% block nav_catalogo %}{% endblock %}">Productos</a></li>
                 
                 {% if user.is_authenticated and not perms.artesanos.evaluar_solicitud %}
                     {# Opción exclusiva para artesanos registrados #}

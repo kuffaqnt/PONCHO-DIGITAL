@@ -27,6 +27,8 @@ urlpatterns = [
     path('panel-admin/', usuario_views.panel_admin, name='panel_admin'),
 
     # App Productos
+    path('catalogo/', productos_views.catalogo, name='catalogo'),
+    path('catalogo/<int:producto_id>/', productos_views.ficha_producto, name='ficha_producto'),
     path('gestion-productos/', productos_views.gestion_productos, name='gestion_productos'),
     path('gestion-productos/editar/<int:producto_id>/', productos_views.editar_producto, name='editar_producto'),
     path('gestion-productos/eliminar/<int:producto_id>/', productos_views.eliminar_producto, name='eliminar_producto'),

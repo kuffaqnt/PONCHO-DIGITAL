@@ -98,7 +98,13 @@ class Stand(models.Model):
     numero = models.PositiveIntegerField()
     pabellon = models.CharField(max_length=50, choices=PABELLON_CHOICES)
     estado = models.CharField(max_length=20, choices=ESTADO_STAND, default='disponible')
-    
+    dimensiones = models.CharField(max_length=30, blank=True)
+    # HU-15, referencia para encontrarlo, por ejemplo "pasillo central, frente a la entrada"
+    ubicacion = models.CharField(max_length=150, blank=True)
+    # HU-16, posición en el plano, en porcentaje desde la izquierda y desde arriba
+    plano_x = models.PositiveSmallIntegerField(null=True, blank=True, validators=[MaxValueValidator(100)], help_text='De 0 a 100, desde la izquierda de la imagen.')
+    plano_y = models.PositiveSmallIntegerField(null=True, blank=True, validators=[MaxValueValidator(100)], help_text='De 0 a 100, desde arriba de la imagen.')
+
     artesano = models.OneToOneField(
         'Artesano',
         on_delete=models.SET_NULL,

@@ -20,7 +20,7 @@ class ArtesanoAdmin(admin.ModelAdmin):
 class StandForm(forms.ModelForm):
     class Meta:
         model = Stand
-        fields = ('numero', 'pabellon', 'artesano')
+        fields = ('numero', 'pabellon', 'dimensiones', 'ubicacion', 'plano_x', 'plano_y', 'artesano')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

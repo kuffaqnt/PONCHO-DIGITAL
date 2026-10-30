@@ -620,3 +620,35 @@ footer p:last-child {
         margin-bottom: 1rem !important;
     }
 }
+.foto-producto {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* HU-16, los marcadores se ubican en porcentaje sobre la imagen del plano */
+.plano-contenedor {
+    position: relative;
+    display: inline-block;
+}
+
+.marcador-stand {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    min-width: 26px;
+    padding: 2px 5px;
+    background-color: var(--poncho-darker);
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 13px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.marcador-stand:hover {
+    background-color: var(--poncho);
+    color: #ffffff;
+}

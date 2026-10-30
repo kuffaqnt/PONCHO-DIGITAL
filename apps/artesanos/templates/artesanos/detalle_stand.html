@@ -11,13 +11,16 @@
     <!-- Ficha del Stand y Artesano -->
     <div class="card shadow-sm border-0 mb-4 bg-light">
         <div class="card-body p-4">
-            <span class="badge bg-secondary mb-2">
-                {{ artesano.stand.get_pabellon_display }} &bull; Stand {{ artesano.stand.numero }}
-            </span>
+            {% if artesano.stand %}
+                <span class="badge bg-secondary mb-2">
+                    {{ artesano.stand.get_pabellon_display }} &bull; Stand {{ artesano.stand.numero }}
+                </span>
+            {% endif %}
             <h2 class="fw-bold mb-1">{{ artesano.nombre_taller }}</h2>
             <p class="text-muted mb-2"><strong>Expositor/a:</strong> {{ artesano.nombre }}</p>
             <p class="mb-1"><strong>Origen:</strong> {{ artesano.get_localidad_display }}</p>
-            <p class="mb-0"><strong>Rubro:</strong> {{ artesano.get_rubro_display }}</p>
+            <p class="mb-1"><strong>Rubro:</strong> {{ artesano.get_rubro_display }}</p>
+            <p class="mb-0"><strong>Trayectoria:</strong> {{ artesano.anios_trayectoria }} año{{ artesano.anios_trayectoria|pluralize }}</p>
             {% if artesano.descripcion %}
                 <hr>
                 <p class="mb-0 text-secondary">{{ artesano.descripcion }}</p>

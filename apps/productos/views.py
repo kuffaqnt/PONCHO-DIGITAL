@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from apps.artesanos.models import Artesano
 from .models import Producto
 from .forms import ProductoForm
@@ -84,3 +85,38 @@ def volver_a(usuario, producto):
     if producto.artesano.email == usuario.username:
         return 'gestion_productos'
     return 'admin:productos_producto_changelist'
+
+
+# HU-11 y RU-12, catálogo público con filtros
+def catalogo(request):
+    productos = Producto.objects.filter(visible=True, artesano__estado='aprobada').select_related('artesano')
+
+    rubro = request.GET.get('rubro', '')
+    localidad = request.GET.get('localidad', '')
+    busqueda = request.GET.get('q', '').strip()
+
+    if rubro:
+        productos = productos.filter(artesano__rubro=rubro)
+    if localidad:
+        productos = productos.filter(artesano__localidad=localidad)
+    if busqueda:
+        productos = productos.filter(Q(nombre__icontains=busqueda) | Q(descripcion__icontains=busqueda))
+
+    context = {
+        'productos': productos,
+        'rubros': Artesano.RUBRO_CHOICES,
+        'localidades': Artesano.LOCALIDAD_CHOICES,
+        'rubro_seleccionado': rubro,
+        'localidad_seleccionada': localidad,
+        'busqueda': busqueda,
+    }
+    return render(request, 'productos/catalogo.html', context)
+
+
+# HU-11, ficha del producto con los datos del artesano
+def ficha_producto(request, producto_id):
+    producto = get_object_or_404(
+        Producto.objects.select_related('artesano'),
+        id=producto_id, visible=True, artesano__estado='aprobada',
+    )
+    return render(request, 'productos/ficha-producto.html', {'producto': producto})
