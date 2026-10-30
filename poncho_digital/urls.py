@@ -15,6 +15,7 @@ urlpatterns = [
     path('', artesanos_views.inicio, name='inicio'),
     path('visitantes/', artesanos_views.visitantes, name='visitantes'),
     path('reportes/', artesanos_views.reportes, name='reportes'),
+    path('reportes/excel/', artesanos_views.reportes_excel, name='reportes_excel'),
     path('registro/', artesanos_views.registro_artesano, name='registro_artesano'),
     path('panel/', artesanos_views.panel_artesano, name='panel_artesano'),
     path('panel/corregir/', artesanos_views.corregir_solicitud, name='corregir_solicitud'),

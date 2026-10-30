@@ -1,9 +1,12 @@
+from openpyxl import Workbook
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Count, Q, Sum
 from .forms import CorreccionForm, PostulacionForm
 from .models import Artesano, Stand
+from .notificaciones import avisar_estado, avisar_nueva_solicitud
 
 def inicio(request):
     return render(request, 'index.html')
@@ -13,7 +16,8 @@ def registro_artesano(request):
     if request.method == 'POST':
         form = PostulacionForm(request.POST)
         if form.is_valid():
-            form.save()
+            artesano = form.save()
+            avisar_nueva_solicitud(artesano)
             messages.success(request, 'Solicitud enviada. Ingresá con tu correo y contraseña para ver cómo va.')
             return redirect('login')
     else:
@@ -46,6 +50,7 @@ def corregir_solicitud(request):
             artesano = form.save(commit=False)
             artesano.estado = 'pendiente'
             artesano.save()
+            avisar_nueva_solicitud(artesano)
             messages.success(request, 'Solicitud corregida. Queda pendiente de evaluación.')
             return redirect('panel_artesano')
     else:
@@ -91,9 +96,7 @@ def visitantes(request):
     return render (request, 'artesanos/visitantes.html', context)
 
 
-@login_required(login_url='login')
-@permission_required('artesanos.ver_reportes', raise_exception=True)
-def reportes (request):
+def datos_reportes():
     # HU19: Ocupación de Stands
     total_stands = Stand.objects.count()
     stands_ocupados = Stand.objects.filter(estado='ocupado').count()
@@ -146,8 +149,48 @@ def reportes (request):
         'reporte_rubros': reporte_rubros,
         'artesanos_productos': artesanos_productos,
     }
+    return context
 
-    return render (request, 'usuario/reportes.html',context)
+
+@login_required(login_url='login')
+@permission_required('artesanos.ver_reportes', raise_exception=True)
+def reportes (request):
+    return render (request, 'usuario/reportes.html', datos_reportes())
+
+# RU-13, descarga los mismos reportes en un Excel con una hoja por cada uno
+@login_required(login_url='login')
+@permission_required('artesanos.ver_reportes', raise_exception=True)
+def reportes_excel(request):
+    datos = datos_reportes()
+    libro = Workbook()
+
+    hoja = libro.active
+    hoja.title = 'Ocupación'
+    hoja.append(['Stands totales', datos['total_stands']])
+    hoja.append(['Ocupados', datos['stands_ocupados']])
+    hoja.append(['Disponibles', datos['stands_disponibles']])
+    hoja.append(['Porcentaje de ocupación', datos['porcentaje_ocupacion']])
+
+    hoja = libro.create_sheet('Localidades')
+    hoja.append(['Localidad', 'Artesanos'])
+    for fila in datos['reporte_localidades']:
+        hoja.append([fila['nombre'], fila['total']])
+
+    hoja = libro.create_sheet('Rubros')
+    hoja.append(['Rubro', 'Artesanos'])
+    for fila in datos['reporte_rubros']:
+        hoja.append([fila['nombre'], fila['total']])
+
+    hoja = libro.create_sheet('Productos')
+    hoja.append(['Taller', 'Productos', 'Stock'])
+    for artesano in datos['artesanos_productos']:
+        hoja.append([artesano.nombre_taller, artesano.total_productos, artesano.total_stock or 0])
+
+    respuesta = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    respuesta['Content-Disposition'] = 'attachment; filename="reportes_poncho.xlsx"'
+    libro.save(respuesta)
+    return respuesta
+
 
 def detalle_stand (request, artesano_id):
     # HU-12, el visitante solo ve artesanos aprobados
@@ -186,6 +229,7 @@ def detalle_solicitud(request, artesano_id):
             artesano.observaciones = observaciones
             artesano.save(update_fields=['estado', 'observaciones'])
             artesano.actualizar_grupo()
+            avisar_estado(artesano)
             messages.success(request, f'Solicitud de {artesano.nombre_taller}: {artesano.get_estado_display()}.')
             return redirect('panel_admin')
 
