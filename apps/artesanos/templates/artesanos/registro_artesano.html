@@ -12,7 +12,7 @@
                     <h2>Datos de la solicitud</h2>
                     <p class="text-muted mb-4">
                         Completá el formulario con tus datos personales y los de tu emprendimiento.
-                        Un administrador revisará la solicitud antes de habilitar tu cuenta.
+                        Un administrador revisará la solicitud antes de habilitar tus productos.
                     </p>
 
                     {% for mensaje in messages %}
@@ -98,6 +98,29 @@
                                 <textarea id="descripcion" name="descripcion" class="form-control" rows="4" maxlength="500" placeholder="Contá qué productos elaborás, con qué técnicas y materiales trabajás." required>{{ form.descripcion.value|default_if_none:'' }}</textarea>
                             </div>
                         </fieldset>
+
+                        <fieldset class="mb-4 p-3 border rounded">
+                            <legend class="float-none w-auto px-2 fw-bold fs-5">Tu cuenta</legend>
+                            <p class="small text-muted">Vas a ingresar con tu correo y esta contraseña para ver el estado de tu solicitud.</p>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="contrasenia" class="form-label">Contraseña</label>
+                                    <input type="password" id="contrasenia" name="contrasenia" class="form-control" minlength="8" autocomplete="new-password" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="repetir_contrasenia" class="form-label">Repetir contraseña</label>
+                                    <input type="password" id="repetir_contrasenia" name="repetir_contrasenia" class="form-control" minlength="8" autocomplete="new-password" required>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-check mb-4">
+                            <input type="checkbox" id="consentimiento" name="consentimiento" class="form-check-input" required>
+                            <label for="consentimiento" class="form-check-label">
+                                Doy mi consentimiento para que mis datos personales se usen en la evaluación de mi solicitud, según la Ley N° 25.326 de Protección de Datos Personales.
+                            </label>
+                        </div>
 
                         <div class="d-flex gap-3">
                             <button type="submit" class="btn-poncho-principal">Enviar solicitud</button>

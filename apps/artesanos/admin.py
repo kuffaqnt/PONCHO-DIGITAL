@@ -11,6 +11,11 @@ class ArtesanoAdmin(admin.ModelAdmin):
     list_filter = ('estado', 'rubro', 'localidad')
     search_fields = ('nombre_taller', 'nombre', 'dni', 'email')
 
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        # si cambian el estado desde acá también se actualizan los permisos
+        obj.actualizar_grupo()
+
 
 class StandForm(forms.ModelForm):
     class Meta:

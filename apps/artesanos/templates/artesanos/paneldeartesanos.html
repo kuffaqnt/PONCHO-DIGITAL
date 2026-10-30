@@ -9,17 +9,32 @@
         <section class="tarjeta-info-evento mb-4">
             <h4 id="titulo-bienvenida">Hola, {{user.first_name}}</h4>
             <p class="mb-1" id="texto-bienvenida">
-                Bienvenido a tu panel. Desde acá gestionás tu stand, tus productos y tu equipo.
+                Bienvenido a tu panel. Desde acá seguís tu solicitud y gestionás tus productos.
             </p>
             <p class="mb-0 small">
                 <strong>Taller:</strong> <span id="taller-nombre">{{artesano.nombre_taller}}</span> &bull;
-                <strong>Estado solicitud:</strong> <span class="badge bg-success">{{artesano.get_estado_display}}</span> &bull;
-                <strong>Mi stand:</strong> {{artesano.stand.get_pabellon_display}}-{{artesano.stand.numero}}
+                <strong>Estado solicitud:</strong>
+                <span class="badge {% if artesano.estado == 'aprobada' %}bg-success{% elif artesano.estado == 'rechazada' %}bg-danger{% elif artesano.estado == 'modificacion' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">{{artesano.get_estado_display}}</span>
+                {% if artesano.stand %}
+                    &bull; <strong>Mi stand:</strong> {{artesano.stand.get_pabellon_display}}-{{artesano.stand.numero}}
+                {% endif %}
             </p>
         </section>
 
+        {# HU-07, lo que escribió el administrador #}
+        {% if artesano.observaciones %}
+            <section class="alert {% if artesano.estado == 'modificacion' %}alert-warning{% else %}alert-light border{% endif %} mb-4">
+                <p class="fw-bold mb-1">Observaciones del administrador:</p>
+                <p class="mb-0">{{ artesano.observaciones|linebreaksbr }}</p>
+                {% if artesano.estado == 'modificacion' %}
+                    <a href="{% url 'corregir_solicitud' %}" class="btn-poncho-principal mt-3">Corregir mi solicitud</a>
+                {% endif %}
+            </section>
+        {% endif %}
+
         <div class="row g-4 mb-5">
 
+            {% if perms.productos.add_producto %}
             <section class="col-12 col-md-4">
                 <div class="tarjeta-acceso h-100">
                     <h3>Mis Productos</h3>
@@ -33,6 +48,7 @@
                     </div>
                 </div>
             </section>
+            {% endif %}
 
             <section class="col-12 col-md-4">
                 <div class="tarjeta-acceso h-100">

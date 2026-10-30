@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Count, Sum
-from .forms import PostulacionForm
+from .forms import CorreccionForm, PostulacionForm
 from .models import Artesano, Stand
 
 def inicio(request):
@@ -14,8 +14,8 @@ def registro_artesano(request):
         form = PostulacionForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Solicitud enviada. Queda pendiente hasta que la revise un administrador.')
-            return redirect('registro_artesano')
+            messages.success(request, 'Solicitud enviada. Ingresá con tu correo y contraseña para ver cómo va.')
+            return redirect('login')
     else:
         form = PostulacionForm()
 
@@ -30,7 +30,28 @@ def registro_artesano(request):
 @login_required(login_url='login')
 def panel_artesano(request):
     artesano=Artesano.objects.filter(email=request.user.username).first()
+    if artesano is None:
+        return redirect('inicio')
     return render(request, 'artesanos/paneldeartesanos.html',{'artesano':artesano})
+
+
+# HU-07, el postulante corrige lo que le pidieron y vuelve a quedar pendiente
+@login_required(login_url='login')
+def corregir_solicitud(request):
+    artesano = get_object_or_404(Artesano, email=request.user.username, estado='modificacion')
+
+    if request.method == 'POST':
+        form = CorreccionForm(request.POST, instance=artesano)
+        if form.is_valid():
+            artesano = form.save(commit=False)
+            artesano.estado = 'pendiente'
+            artesano.save()
+            messages.success(request, 'Solicitud corregida. Queda pendiente de evaluación.')
+            return redirect('panel_artesano')
+    else:
+        form = CorreccionForm(instance=artesano)
+
+    return render(request, 'artesanos/corregir_solicitud.html', {'form': form, 'artesano': artesano})
 
 def visitantes(request):
     artesanos = Artesano.objects.filter(estado='aprobada').select_related('stand').prefetch_related()
@@ -150,6 +171,7 @@ def detalle_solicitud(request, artesano_id):
             artesano.estado = nuevo_estado
             artesano.observaciones = observaciones
             artesano.save(update_fields=['estado', 'observaciones'])
+            artesano.actualizar_grupo()
             messages.success(request, f'Solicitud de {artesano.nombre_taller}: {artesano.get_estado_display()}.')
             return redirect('panel_admin')
 

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group, User
 from django.core.validators import MaxValueValidator
 from django.db import models
 
@@ -67,6 +68,17 @@ class Artesano(models.Model):
 
     def __str__(self):
         return f"{self.nombre_taller} ({self.nombre})"
+
+    # HU-05, solo el artesano aprobado queda en el grupo con permisos de productos
+    def actualizar_grupo(self):
+        usuario = User.objects.filter(username=self.email).first()
+        if usuario is None:
+            return
+        grupo = Group.objects.get(name='Artesanos')
+        if self.estado == 'aprobada':
+            usuario.groups.add(grupo)
+        else:
+            usuario.groups.remove(grupo)
 
 
 class Stand(models.Model):

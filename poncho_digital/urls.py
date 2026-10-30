@@ -17,6 +17,7 @@ urlpatterns = [
     path('reportes/', artesanos_views.reportes, name='reportes'),
     path('registro/', artesanos_views.registro_artesano, name='registro_artesano'),
     path('panel/', artesanos_views.panel_artesano, name='panel_artesano'),
+    path('panel/corregir/', artesanos_views.corregir_solicitud, name='corregir_solicitud'),
     path('stand/<int:artesano_id>/', artesanos_views.detalle_stand, name='detalle_stand'),
     path('panel-admin/solicitud/<int:artesano_id>/', artesanos_views.detalle_solicitud, name='detalle_solicitud'),
 
