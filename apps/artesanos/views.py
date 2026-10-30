@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
-from django.db.models import Count, Sum
+from django.db.models import Count, Q, Sum
 from .forms import CorreccionForm, PostulacionForm
 from .models import Artesano, Stand
 
@@ -118,8 +118,8 @@ def reportes (request):
     # HU20: Productos y Stock por Artesano
     artesanos_productos = (
         Artesano.objects.annotate(
-            total_productos=Count('productos'),
-            total_stock=Sum('productos__stock'),
+            total_productos=Count('productos', filter=Q(productos__visible=True)),
+            total_stock=Sum('productos__stock', filter=Q(productos__visible=True)),
         )
         .select_related('stand')
         .order_by('nombre_taller')
@@ -138,10 +138,12 @@ def reportes (request):
     return render (request, 'usuario/reportes.html',context)
 
 def detalle_stand (request, artesano_id):
+    # HU-12, el visitante solo ve artesanos aprobados
     artesano = get_object_or_404(
-        Artesano.objects.select_related('stand').prefetch_related('productos'), pk=artesano_id,
+        Artesano.objects.select_related('stand'), pk=artesano_id, estado='aprobada',
     )
-    return render (request, 'artesanos/detalle_stand.html',{'artesano':artesano})
+    productos = artesano.productos.filter(visible=True)
+    return render (request, 'artesanos/detalle_stand.html',{'artesano':artesano, 'productos':productos})
 
 
 ACCIONES = {

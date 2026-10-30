@@ -31,11 +31,22 @@ function validarStockEnVivo() {
     }
 }
 
-function iniciarProductos() {
-    // Se eliminan exigirSesion() y handlers viejos de sesión
+// pide confirmacion antes de eliminar, el nombre sale del data-nombre del form
+function confirmarEliminar(evento) {
+    const nombre = evento.currentTarget.dataset.nombre;
+    if (!confirm('¿Seguro que querés eliminar ' + nombre + '?')) {
+        evento.preventDefault();
+    }
+}
 
+function iniciarProductos() {
     const formProducto = document.getElementById('form-producto');
     const inputStock = document.getElementById('id_stock') || document.getElementById('stock');
+    const formsEliminar = document.querySelectorAll('.form-eliminar');
+
+    for (let i = 0; i < formsEliminar.length; i++) {
+        formsEliminar[i].addEventListener('submit', confirmarEliminar);
+    }
 
     if (!formProducto || !inputStock) return;
 

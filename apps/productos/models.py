@@ -10,7 +10,8 @@ class Producto(models.Model):
     descripcion = models.TextField(blank=True)
     stock = models.PositiveIntegerField(default=0)
     imagen = models.ImageField(upload_to='productos/', blank=True, null=True)
-
+    # HU-10, al eliminar el producto se oculta y no se borra
+    visible = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Producto'

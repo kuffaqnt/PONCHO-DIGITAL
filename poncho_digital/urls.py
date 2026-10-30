@@ -28,6 +28,7 @@ urlpatterns = [
 
     # App Productos
     path('gestion-productos/', productos_views.gestion_productos, name='gestion_productos'),
+    path('gestion-productos/editar/<int:producto_id>/', productos_views.editar_producto, name='editar_producto'),
     path('gestion-productos/eliminar/<int:producto_id>/', productos_views.eliminar_producto, name='eliminar_producto'),
 ]
 
