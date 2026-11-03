@@ -3,15 +3,15 @@
   "model": "artesanos.artesano",
   "pk": 1,
   "fields": {
-    "nombre": "Juan Agustin Gallo",
-    "dni": "43878923",
-    "email": "juanagustin09@gmail.com",
-    "telefono": "3834820082",
-    "nombre_taller": "Telar Capital",
+    "nombre": "Rosa Quiroga",
+    "dni": "30111222",
+    "email": "rosa.quiroga@ejemplo.com",
+    "telefono": "3834000001",
+    "nombre_taller": "Telares del Valle",
     "rubro": "textil",
-    "localidad": "capital",
-    "anios_trayectoria": 1,
-    "descripcion": "hago telares",
+    "localidad": "belen",
+    "anios_trayectoria": 25,
+    "descripcion": "Ponchos y mantas en telar criollo con lana de oveja y llama.",
     "estado": "aprobada",
     "observaciones": "",
     "fecha_solicitud": "2026-10-21T19:02:08.573Z"
@@ -21,15 +21,15 @@
   "model": "artesanos.artesano",
   "pk": 2,
   "fields": {
-    "nombre": "Donald Trump",
-    "dni": "4389719",
-    "email": "donaldtrumpoficial@gmail.com",
-    "telefono": "383478850",
-    "nombre_taller": "Taller de Donald",
+    "nombre": "Martín Herrera",
+    "dni": "28333444",
+    "email": "martin.herrera@ejemplo.com",
+    "telefono": "3834000002",
+    "nombre_taller": "Barro Andalgalá",
     "rubro": "ceramica",
     "localidad": "andalgala",
-    "anios_trayectoria": 24,
-    "descripcion": "Hago ceramica de Donald trunp",
+    "anios_trayectoria": 18,
+    "descripcion": "Cerámica utilitaria y decorativa con técnicas de la zona.",
     "estado": "aprobada",
     "observaciones": "",
     "fecha_solicitud": "2026-10-21T19:18:46.573Z"
@@ -39,18 +39,36 @@
   "model": "artesanos.artesano",
   "pk": 3,
   "fields": {
-    "nombre": "Raul jalil",
-    "dni": "43977299",
-    "email": "raulcito@gmail.com",
-    "telefono": "383465578",
-    "nombre_taller": "Raul's Taller",
+    "nombre": "Lucía Barrionuevo",
+    "dni": "35555666",
+    "email": "lucia.barrionuevo@ejemplo.com",
+    "telefono": "3834000003",
+    "nombre_taller": "Algarrobo Tallado",
     "rubro": "madera",
     "localidad": "capayan",
-    "anios_trayectoria": 15,
-    "descripcion": "",
+    "anios_trayectoria": 12,
+    "descripcion": "Piezas talladas en algarrobo y quebracho.",
     "estado": "aprobada",
     "observaciones": "",
     "fecha_solicitud": "2026-10-21T19:19:40.780Z"
+  }
+},
+{
+  "model": "artesanos.artesano",
+  "pk": 4,
+  "fields": {
+    "nombre": "Diego Carrizo",
+    "dni": "40777888",
+    "email": "diego.carrizo@ejemplo.com",
+    "telefono": "3834000004",
+    "nombre_taller": "Dulces de Pomán",
+    "rubro": "regional",
+    "localidad": "poman",
+    "anios_trayectoria": 5,
+    "descripcion": "Dulces y nueces confitadas de elaboración familiar.",
+    "estado": "pendiente",
+    "observaciones": "",
+    "fecha_solicitud": "2026-10-22T14:30:00.000Z"
   }
 },
 {
@@ -60,6 +78,10 @@
     "numero": 1,
     "pabellon": "pabellon_1",
     "estado": "ocupado",
+    "dimensiones": "3 x 3 m",
+    "ubicacion": "Pasillo central, frente a la entrada",
+    "plano_x": 64,
+    "plano_y": 44,
     "artesano": 2
   }
 },
@@ -70,6 +92,10 @@
     "numero": 2,
     "pabellon": "pabellon_1",
     "estado": "ocupado",
+    "dimensiones": "3 x 3 m",
+    "ubicacion": "Al fondo, junto al Pabellón Diseño",
+    "plano_x": 69,
+    "plano_y": 42,
     "artesano": 3
   }
 },
@@ -80,7 +106,73 @@
     "numero": 3,
     "pabellon": "pabellon_2",
     "estado": "ocupado",
+    "dimensiones": "4 x 3 m",
+    "ubicacion": "Primer pasillo a la derecha",
+    "plano_x": 53,
+    "plano_y": 51,
     "artesano": 1
+  }
+},
+{
+  "model": "artesanos.stand",
+  "pk": 4,
+  "fields": {
+    "numero": 4,
+    "pabellon": "regional",
+    "estado": "disponible",
+    "dimensiones": "3 x 2 m",
+    "ubicacion": "Entrada del sector de productos regionales",
+    "plano_x": 43,
+    "plano_y": 55,
+    "artesano": null
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 1,
+  "fields": {
+    "artesano": 1,
+    "nombre": "Poncho de lana de llama",
+    "descripcion": "Tejido en telar criollo, teñido con tintes naturales.",
+    "stock": 4,
+    "imagen": "",
+    "visible": true
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 2,
+  "fields": {
+    "artesano": 1,
+    "nombre": "Manta de oveja",
+    "descripcion": "Manta de dos plazas con guarda tradicional.",
+    "stock": 6,
+    "imagen": "",
+    "visible": true
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 3,
+  "fields": {
+    "artesano": 2,
+    "nombre": "Vasija de barro cocido",
+    "descripcion": "Pieza decorativa pintada a mano.",
+    "stock": 10,
+    "imagen": "",
+    "visible": true
+  }
+},
+{
+  "model": "productos.producto",
+  "pk": 4,
+  "fields": {
+    "artesano": 3,
+    "nombre": "Mate tallado en algarrobo",
+    "descripcion": "Con virola de alpaca.",
+    "stock": 15,
+    "imagen": "",
+    "visible": true
   }
 }
 ]
