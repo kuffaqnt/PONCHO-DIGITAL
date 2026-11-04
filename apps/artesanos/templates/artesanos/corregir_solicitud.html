@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Corregir solicitud - Poncho Digital{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <section class="tarjeta-formulario">
+                    <h2>Corregir solicitud</h2>
+
+                    <div class="alert alert-warning">
+                        <p class="fw-bold mb-1">Observaciones del administrador:</p>
+                        <p class="mb-0">{{ artesano.observaciones|linebreaksbr }}</p>
+                    </div>
+
+                    <form action="{% url 'corregir_solicitud' %}" method="post">
+                        {% csrf_token %}
+                        {% for campo in form %}
+                            <div class="mb-3">
+                                <label for="{{ campo.id_for_label }}" class="form-label">{{ campo.label }}</label>
+                                {{ campo }}
+                                {{ campo.errors }}
+                            </div>
+                        {% endfor %}
+
+                        <div class="d-flex gap-3">
+                            <button type="submit" class="btn-poncho-principal">Reenviar solicitud</button>
+                            <a href="{% url 'panel_artesano' %}" class="btn-poncho-secundario">Volver</a>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

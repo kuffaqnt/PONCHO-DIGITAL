@@ -103,7 +103,8 @@
                             </span>
                         </td>
                         <td class="text-center text-nowrap">
-                            <form action="{% url 'eliminar_producto' producto.id %}" method="post" class="d-inline" onsubmit="return confirm('¿Seguro que querés eliminar {{ producto.nombre }}?');">
+                            <a href="{% url 'editar_producto' producto.id %}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                            <form action="{% url 'eliminar_producto' producto.id %}" method="post" class="d-inline form-eliminar" data-nombre="{{ producto.nombre }}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
                             </form>
@@ -123,6 +124,6 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'js/comun.js' %}"></script>
-    {#<script src="{% static 'js/productos.js' %}"></script>#}
+    <script src="{% static 'JS/comun.js' %}"></script>
+    <script src="{% static 'JS/productos.js' %}"></script>
 {% endblock %}

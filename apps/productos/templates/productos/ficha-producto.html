@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ producto.nombre }} - Poncho Digital{% endblock %}
+{% block nav_catalogo %} active {% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="mb-3">
+        <a href="{% url 'catalogo' %}" class="btn btn-outline-secondary btn-sm">&larr; Volver al catálogo</a>
+    </div>
+
+    <section class="tarjeta-formulario">
+        <div class="row g-4">
+            {% if producto.imagen %}
+                <div class="col-12 col-md-5">
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="foto-producto">
+                </div>
+            {% endif %}
+            <div class="col">
+                <h2 class="mb-2">{{ producto.nombre }}</h2>
+                <p>{{ producto.descripcion|default:"Sin descripción disponible." }}</p>
+                <p><span class="badge bg-success">Stock: {{ producto.stock }}</span></p>
+                <hr>
+                <p class="mb-1"><strong>Taller:</strong> {{ producto.artesano.nombre_taller }}</p>
+                <p class="mb-1"><strong>Artesano/a:</strong> {{ producto.artesano.nombre }}</p>
+                <p><strong>Origen:</strong> {{ producto.artesano.get_localidad_display }}</p>
+                <a href="{% url 'detalle_stand' producto.artesano.id %}" class="btn-poncho-principal">Ver el stand</a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

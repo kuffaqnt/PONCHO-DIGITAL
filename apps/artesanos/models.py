@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group, User
 from django.core.validators import MaxValueValidator
 from django.db import models
 
@@ -59,9 +60,25 @@ class Artesano(models.Model):
         verbose_name = 'Artesano'
         verbose_name_plural = 'Artesanos'
         ordering = ('nombre_taller',)
+        # RU-10, permisos que Django no trae hechos
+        permissions = [
+            ('evaluar_solicitud', 'Puede evaluar solicitudes'),
+            ('ver_reportes', 'Puede ver reportes'),
+        ]
 
     def __str__(self):
         return f"{self.nombre_taller} ({self.nombre})"
+
+    # HU-05, solo el artesano aprobado queda en el grupo con permisos de productos
+    def actualizar_grupo(self):
+        usuario = User.objects.filter(username=self.email).first()
+        if usuario is None:
+            return
+        grupo = Group.objects.get(name='Artesanos')
+        if self.estado == 'aprobada':
+            usuario.groups.add(grupo)
+        else:
+            usuario.groups.remove(grupo)
 
 
 class Stand(models.Model):
@@ -81,7 +98,13 @@ class Stand(models.Model):
     numero = models.PositiveIntegerField()
     pabellon = models.CharField(max_length=50, choices=PABELLON_CHOICES)
     estado = models.CharField(max_length=20, choices=ESTADO_STAND, default='disponible')
-    
+    dimensiones = models.CharField(max_length=30, blank=True)
+    # HU-15, referencia para encontrarlo, por ejemplo "pasillo central, frente a la entrada"
+    ubicacion = models.CharField(max_length=150, blank=True)
+    # HU-16, posición en el plano, en porcentaje desde la izquierda y desde arriba
+    plano_x = models.PositiveSmallIntegerField(null=True, blank=True, validators=[MaxValueValidator(100)], help_text='De 0 a 100, desde la izquierda de la imagen.')
+    plano_y = models.PositiveSmallIntegerField(null=True, blank=True, validators=[MaxValueValidator(100)], help_text='De 0 a 100, desde arriba de la imagen.')
+
     artesano = models.OneToOneField(
         'Artesano',
         on_delete=models.SET_NULL,

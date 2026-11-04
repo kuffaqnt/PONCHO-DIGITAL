@@ -55,13 +55,43 @@
                 <section class="tarjeta-formulario h-100 text-center">
                     <h2>Plano del Predio Ferial</h2>
                     <p class="texto-bajada">Ubicación general de pabellones y sectores.</p>
-                    <div class="mt-3">
-                        <img src="{%static 'img/Plano-Poncho-2024-scaled.jpg'%}" alt="Plano del Predio Ferial" class="img-fluid rounded border">
+                    <div class="mt-3 plano-contenedor">
+                        <img src="{%static 'IMG/Plano-Poncho-2024-scaled.jpg'%}" alt="Plano del Predio Ferial" class="img-fluid rounded border">
+                        {% for stand in stands_plano %}
+                            <a href="{% url 'detalle_stand' stand.artesano.id %}" class="marcador-stand" style="left: {{ stand.plano_x }}%; top: {{ stand.plano_y }}%;" title="Stand {{ stand.numero }} - {{ stand.artesano.nombre_taller }}">{{ stand.numero }}</a>
+                        {% endfor %}
                     </div>
                 </section>
             </div>
 
         </div>
+        <!-- HU-15, localizar un stand por numero -->
+        <section class="tarjeta-formulario p-3 mb-4">
+            <form method="get" action="{% url 'visitantes' %}" class="row g-2 align-items-end">
+                <div class="col-12 col-sm">
+                    <label for="stand" class="form-label">Localizar un stand por número:</label>
+                    <input type="text" id="stand" name="stand" class="form-control" inputmode="numeric" value="{{ numero_stand }}" placeholder="Ej: 12">
+                </div>
+                <div class="col-12 col-sm-auto">
+                    <button type="submit" class="btn-poncho-principal">Localizar</button>
+                </div>
+            </form>
+
+            {% if numero_stand %}
+                <div class="mt-3">
+                    {% for stand in stands_encontrados %}
+                        <div class="alert alert-info mb-2">
+                            <strong>Stand {{ stand.numero }}</strong> &bull; {{ stand.get_pabellon_display }}
+                            {% if stand.ubicacion %} &bull; {{ stand.ubicacion }}{% endif %}
+                            {% if stand.artesano and stand.artesano.estado == 'aprobada' %} &bull; {{ stand.artesano.nombre_taller }}{% endif %}
+                        </div>
+                    {% empty %}
+                        <div class="alert alert-warning mb-0">No se encontró el stand solicitado.</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </section>
+
         <!-- Pop up de coincidencias encontradas-->
         <section id="caja-edificio" class="alert alert-info text-center d-none mb-4" role="alert">
             <h4 class="mb-1" id="titulo-edificio">Resultado de la busqueda</h4>
@@ -78,13 +108,13 @@
                          data-edificio="{{artesano.stand.get_pabellon_display}}" 
                          data-rubro="{{artesano.rubro}}" 
                          data-localidad="{{artesano.localidad}}"
-                         data-texto="{{artesano.nombre_taller}} {{artesano.nombre}}">
+                         data-texto="{{artesano.nombre_taller}} {{artesano.nombre}}{% for producto in artesano.productos.all %}{% if producto.visible %} {{producto.nombre}}{% endif %}{% endfor %}">
                     <div class="tarjeta-acceso h-100">
                         <span class="badge bg-secondary mb-2 align-self-start">{{ artesano.stand.get_pabellon_display|default:"Sin pabellón" }} &bull; Stand {{ artesano.stand.numero|default:"S/N" }}</span>
                         <h3>{{artesano.nombre_taller}}</h3>
                         <p><strong>Artesano/a:</strong> {{artesano.nombre}}</p>
                         <p><strong>Origen:</strong> {{artesano.get_localidad_display}}</p>
-                        <p><strong>Ubicación en el predio:</strong> <span class="fw-bold text-danger">{{ artesano.stand.get_pabellon_display|default:"A coordinar" }}</span></p>
+                        <p><strong>Ubicación en el predio:</strong> <span class="fw-bold text-danger">{{ artesano.stand.ubicacion|default:artesano.stand.get_pabellon_display|default:"A coordinar" }}</span></p>
                         <p class="small text-muted">{{artesano.descripcion|default:"Especialidad en artesanías tradicionales catamarqueñas."}}</p>
                         <div class="mt-auto pt-3">
                             <a href="{% url 'detalle_stand' artesano.id%}" class="btn-poncho-principal w-100">Ver Productos del Stand</a>
@@ -103,6 +133,6 @@
     </div>
 {%endblock%}
 
-{%block extra_js%} <script src = "{% static 'js/visitantes.js' %}"></script> 
+{%block extra_js%} <script src = "{% static 'JS/visitantes.js' %}"></script> 
 
 {%endblock%}

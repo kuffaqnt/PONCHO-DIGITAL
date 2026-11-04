@@ -15,8 +15,10 @@ urlpatterns = [
     path('', artesanos_views.inicio, name='inicio'),
     path('visitantes/', artesanos_views.visitantes, name='visitantes'),
     path('reportes/', artesanos_views.reportes, name='reportes'),
+    path('reportes/excel/', artesanos_views.reportes_excel, name='reportes_excel'),
     path('registro/', artesanos_views.registro_artesano, name='registro_artesano'),
     path('panel/', artesanos_views.panel_artesano, name='panel_artesano'),
+    path('panel/corregir/', artesanos_views.corregir_solicitud, name='corregir_solicitud'),
     path('stand/<int:artesano_id>/', artesanos_views.detalle_stand, name='detalle_stand'),
     path('panel-admin/solicitud/<int:artesano_id>/', artesanos_views.detalle_solicitud, name='detalle_solicitud'),
 
@@ -26,7 +28,10 @@ urlpatterns = [
     path('panel-admin/', usuario_views.panel_admin, name='panel_admin'),
 
     # App Productos
+    path('catalogo/', productos_views.catalogo, name='catalogo'),
+    path('catalogo/<int:producto_id>/', productos_views.ficha_producto, name='ficha_producto'),
     path('gestion-productos/', productos_views.gestion_productos, name='gestion_productos'),
+    path('gestion-productos/editar/<int:producto_id>/', productos_views.editar_producto, name='editar_producto'),
     path('gestion-productos/eliminar/<int:producto_id>/', productos_views.eliminar_producto, name='eliminar_producto'),
 ]
 

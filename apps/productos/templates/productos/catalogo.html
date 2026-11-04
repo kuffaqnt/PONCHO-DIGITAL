@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Catálogo de productos - Poncho Digital{% endblock %}
+{% block nav_catalogo %} active {% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="titulo-principal">Catálogo de productos</h2>
+
+    <form method="get" action="{% url 'catalogo' %}" class="tarjeta-formulario p-3 mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-12 col-md-4">
+                <label for="q" class="form-label">Buscar producto:</label>
+                <input type="text" id="q" name="q" class="form-control" value="{{ busqueda }}" placeholder="Ej: poncho, vasija...">
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <label for="rubro" class="form-label">Rubro:</label>
+                <select id="rubro" name="rubro" class="form-select">
+                    <option value="">Todos los rubros</option>
+                    {% for clave, etiqueta in rubros %}
+                        <option value="{{ clave }}" {% if clave == rubro_seleccionado %}selected{% endif %}>{{ etiqueta }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <label for="localidad" class="form-label">Localidad:</label>
+                <select id="localidad" name="localidad" class="form-select">
+                    <option value="">Todas las localidades</option>
+                    {% for clave, etiqueta in localidades %}
+                        <option value="{{ clave }}" {% if clave == localidad_seleccionada %}selected{% endif %}>{{ etiqueta }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12 col-md-2">
+                <button type="submit" class="btn-poncho-principal w-100">Filtrar</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row g-4">
+        {% for producto in productos %}
+            <article class="col-12 col-md-6 col-lg-4">
+                <div class="tarjeta-acceso h-100">
+                    {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="foto-producto mb-3">
+                    {% endif %}
+                    <h3>{{ producto.nombre }}</h3>
+                    <p class="mb-1"><strong>Taller:</strong> {{ producto.artesano.nombre_taller }}</p>
+                    <p class="small text-muted">{{ producto.artesano.get_rubro_display }} &bull; {{ producto.artesano.get_localidad_display }}</p>
+                    <div class="mt-auto pt-3">
+                        <a href="{% url 'ficha_producto' producto.id %}" class="btn-poncho-principal w-100 text-center">Ver producto</a>
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-secondary text-center py-4">No se encontraron productos.</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
