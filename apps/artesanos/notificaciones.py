@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.db.models import Q
 
 
 # RU-11, avisa al postulante cómo quedó su solicitud
@@ -11,9 +12,11 @@ def avisar_estado(artesano):
 
 
 # CU-01, avisa a los administradores que hay una solicitud para evaluar
+# (los del grupo Administradores y el superusuario, igual que los permisos)
 def avisar_nueva_solicitud(artesano):
     correos = []
-    for usuario in User.objects.filter(is_staff=True).exclude(email=''):
+    administradores = User.objects.filter(Q(groups__name='Administradores') | Q(is_superuser=True)).distinct()
+    for usuario in administradores.exclude(email=''):
         correos.append(usuario.email)
     if correos:
         mensaje = f'{artesano.nombre_taller} envió una solicitud y está pendiente de evaluación.'
