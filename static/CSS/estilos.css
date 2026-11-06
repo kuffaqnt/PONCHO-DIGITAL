@@ -245,15 +245,6 @@ header p::after {
     margin-bottom: 14px;
 }
 
-/* franja con el dibujo de un telar */
-.guarda-poncho {
-    width: 180px;
-    height: 10px;
-    margin: 0 auto 18px;
-    background: repeating-linear-gradient(135deg, var(--rojo-poncho) 0 10px, var(--dorado) 10px 20px);
-    border-radius: 2px;
-}
-
 .dato-predio {
     height: 100%;
     padding: 16px;
