@@ -21,11 +21,13 @@ urlpatterns = [
     path('panel/corregir/', artesanos_views.corregir_solicitud, name='corregir_solicitud'),
     path('stand/<int:artesano_id>/', artesanos_views.detalle_stand, name='detalle_stand'),
     path('panel-admin/solicitud/<int:artesano_id>/', artesanos_views.detalle_solicitud, name='detalle_solicitud'),
+    path('panel-artesano/editar-perfil/', artesanos_views.editar_perfil_artesano, name='editar_perfil_artesano'),
 
     # App Usuario
     path('login/', usuario_views.login_view, name='login'),
     path('logout/', usuario_views.logout_view, name='logout'),
     path('panel-admin/', usuario_views.panel_admin, name='panel_admin'),
+    path('panel-admin/stands/', artesanos_views.gestion_stands, name='gestion_stands'),
 
     # App Productos
     path('catalogo/', productos_views.catalogo, name='catalogo'),

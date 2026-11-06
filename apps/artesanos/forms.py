@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.db import transaction
-from .models import Artesano
+from .models import Artesano, Stand
 
 
 # HU-01 y 02, los datos que manda el postulante (el estado lo pone el modelo)
@@ -70,3 +70,29 @@ class CorreccionForm(forms.ModelForm):
                 campo.widget.attrs['class'] = 'form-select'
             else:
                 campo.widget.attrs['class'] = 'form-control'
+class StandForm(forms.ModelForm):
+    class Meta:
+        model = Stand
+        fields = ['numero', 'pabellon', 'dimensiones', 'ubicacion', 'plano_x', 'plano_y']
+        widgets = {
+            'numero': forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Ej: 4'}),
+            'pabellon': forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'dimensiones': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Ej: 3x3 mts'}),
+            'ubicacion': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Ej: Pasillo Central - Entrada A'}),
+            'plano_x': forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Porcentaje horizontal (0-100)'}),
+            'plano_y': forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Porcentaje vertical (0-100)'}),
+        }
+
+class PerfilArtesanoForm(forms.ModelForm):
+    class Meta:
+        model = Artesano
+        fields = ['nombre', 'telefono', 'localidad', 'nombre_taller', 'rubro', 'anios_trayectoria', 'descripcion']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
+            'localidad': forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'nombre_taller': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
+            'rubro': forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'anios_trayectoria': forms.NumberInput(attrs={'class': 'form-control form-control-sm'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control form-control-sm', 'rows': 3}),
+        }

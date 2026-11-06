@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Count, Q, Sum
-from .forms import CorreccionForm, PostulacionForm
+from .forms import CorreccionForm, PostulacionForm,PerfilArtesanoForm, StandForm
 from .models import Artesano, Stand
 from .notificaciones import avisar_estado, avisar_nueva_solicitud
 
@@ -245,3 +245,41 @@ def detalle_solicitud(request, artesano_id):
 
     context = {'artesano': artesano, 'observaciones': observaciones, 'stands_disponibles':stands_disponibles,}
     return render(request, 'artesanos/detalle_solicitud.html', context)
+
+
+@login_required(login_url='login')
+@permission_required('artesanos.evaluar_solicitud', raise_exception=True)
+def gestion_stands(request):
+    stands = Stand.objects.select_related('artesano').order_by('pabellon', 'numero')
+    form = StandForm()
+
+    if request.method == 'POST':
+        form = StandForm(request.POST)
+        if form.is_valid():
+            stand = form.save(commit=False)
+            stand.estado = 'disponible'
+            stand.save()
+            messages.success(request, f'Stand N° {stand.numero} ({stand.get_pabellon_display()}) creado correctamente.')
+            return redirect('gestion_stands')
+        else:
+            messages.error(request, 'Hubo un error al registrar el stand. Verificá los campos.')
+
+    context = {
+        'stands': stands,
+        'form': form,
+    }
+    return render(request, 'artesanos/gestion_stands.html', context)
+
+@login_required(login_url='login')
+def editar_perfil_artesano(request):
+    artesano = get_object_or_404(Artesano, email=request.user.email)
+    form = PerfilArtesanoForm(instance=artesano)
+
+    if request.method == 'POST':
+        form = PerfilArtesanoForm(request.POST, instance=artesano)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos personales actualizados correctamente.')
+            return redirect('panel_artesano')
+
+    return render(request, 'artesanos/editar_perfil.html', {'form': form, 'artesano': artesano})

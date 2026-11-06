@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Editar Datos | Poncho Digital{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0 bg-white">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+                        <h4 class="h5 fw-bold mb-0 text-dark">Modificar Datos Personales</h4>
+                        <a href="{% url 'panel_artesano' %}" class="btn-poncho-secundario">Volver</a>
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <h6 class="text-secondary fw-semibold text-uppercase small mb-2">Datos de Contacto</h6>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Nombre Completo</label>
+                            {{ form.nombre }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Teléfono</label>
+                            {{ form.telefono }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Localidad / Provincia</label>
+                            {{ form.localidad }}
+                        </div>
+
+                        <h6 class="text-secondary fw-semibold text-uppercase small mt-4 mb-2">Datos del Taller</h6>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Nombre del Taller</label>
+                            {{ form.nombre_taller }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Rubro</label>
+                            {{ form.rubro }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Años de Trayectoria</label>
+                            {{ form.anios_trayectoria }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Descripción</label>
+                            {{ form.descripcion }}
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-success btn-sm">Guardar Cambios</button>
+                            <a href="{% url 'panel_artesano' %}" class="btn btn-light btn-sm border">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

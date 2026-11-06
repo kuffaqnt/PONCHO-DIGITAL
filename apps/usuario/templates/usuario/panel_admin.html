@@ -13,6 +13,7 @@
             <span class="badge bg-danger">Panel Administrador</span>
         </div>
         <div class="d-flex flex-wrap gap-2">
+            <a href="{% url 'gestion_stands' %}" class="btn-poncho-principal text-decoration-none"> Gestionar Stands </a>
             <a href="{% url 'reportes' %}" class="btn-poncho-principal">Ver reportes</a>
             <a href="{% url 'logout' %}" class="btn-poncho-secundario text-decoration-none">Cerrar sesión</a>
                 {% csrf_token %}
