@@ -6,11 +6,18 @@
     --poncho-cream: #f9efe7;
     --poncho-suave: #e7d3c1;
     --gris-texto: #4e443c;
-    --gris-fondo: #f7f1ea;
     --gris-boton: #ece0d2;
     --gris-borde: #d9c4b1;
     --sombra-suave: rgba(110, 52, 24, 0.08);
     --sombra-media: rgba(110, 52, 24, 0.14);
+    /* acentos tomados del sitio oficial y la imagen 2026 de la fiesta */
+    --dorado: #c9962b;
+    --rojo-poncho: #aa3030;
+    --fondo-pagina: #f4ece2;
+    --fondo-tarjeta: #ffffff;
+    /* los links de Bootstrap con el rojo del sitio en vez del azul */
+    --bs-link-color-rgb: 170, 48, 48;
+    --bs-link-hover-color-rgb: 138, 37, 37;
 }
 
 * { 
@@ -19,13 +26,18 @@
 
 body { 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fbf8f4;
+    background-color: var(--fondo-pagina);
     color: var(--gris-texto);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 0;
     padding: 0;
+}
+
+/* misma tipografía de títulos que fiestadelponcho.gob.ar */
+h1, h2, h3, .barra-nav, .btn-poncho-principal, .btn-poncho-secundario, .etiqueta-portada {
+    font-family: 'Montserrat', 'Segoe UI', sans-serif;
 }
 
 main {
@@ -35,16 +47,38 @@ main {
 }
 
 header {
-    background: linear-gradient(180deg, rgba(158, 83, 49, 0.60) 0%, rgba(131, 63, 33, 0.70) 100%), 
+    background: linear-gradient(180deg, rgba(30, 15, 8, 0.35) 0%, rgba(30, 15, 8, 0.65) 100%), 
                 url("../IMG/poncho.jpeg");
     background-size: cover;
     background-position: center 25%;
     background-repeat: no-repeat;
     text-align: center;
-    padding: 55px 15px;
+    padding: 55px 15px 67px;
     color: #ffffff;
     margin: 0;
-    box-shadow: 0 2px 8px var(--sombra-media);
+    position: relative;
+}
+
+/* franja de rombos como la guarda de un poncho, abajo del encabezado y arriba del pie */
+header::after,
+footer::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background-color: var(--poncho-darker);
+    background-image:
+        repeating-linear-gradient(45deg, transparent 0 7px, var(--dorado) 7px 8px),
+        repeating-linear-gradient(-45deg, transparent 0 7px, var(--dorado) 7px 8px);
+}
+
+header::after {
+    bottom: 0;
+}
+
+footer::before {
+    top: 0;
 }
 
 header h1, header p {
@@ -52,9 +86,10 @@ header h1, header p {
 }
 
 header h1 {
-    font-size: 2.3rem;
+    font-size: 2.6rem;
     font-weight: 700;
-    margin: 0 0 6px 0;
+    letter-spacing: 1px;
+    margin: 0 0 10px 0;
 }
 
 header h1 a { 
@@ -67,22 +102,29 @@ header h1 a:hover {
     color: var(--poncho-light);
 }
 
-.icono-header {
-    width: 1.5em;
-    height: 1.5em;
-    margin-right: 10px;
-    vertical-align: middle;
-    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
-}
-
 header p {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     color: var(--poncho-cream);
 }
 
+/* líneas finas a los costados del subtítulo */
+header p::before,
+header p::after {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    margin: 0 14px;
+    vertical-align: middle;
+    background-color: var(--dorado);
+}
+
 .barra-nav {
-    background-color: var(--poncho-dark);
+    background-color: var(--poncho-darker);
     width: 100%;
     margin: 0;
     padding: 0 24px;
@@ -106,17 +148,18 @@ header p {
 .nav-container ul li a {
     display: inline-block;
     color: #ffffff;
-    padding: 8px 14px;
+    padding: 12px 14px 9px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.92rem;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.2s ease;
 }
 
+/* la página actual se marca con una línea dorada abajo */
 .nav-container ul li a:hover,
 .nav-container ul li a.active {
-    background-color: var(--poncho);
+    border-bottom-color: var(--dorado);
     color: #ffffff;
 }
 
@@ -145,8 +188,7 @@ header p {
 }
 
 .nav-btn-link:hover {
-    background-color: var(--poncho);
-    color: #ffffff;
+    color: var(--dorado);
 }
 
 .separador {
@@ -162,7 +204,7 @@ header p {
 }
 
 .tarjeta-acceso {
-    background-color: var(--gris-fondo);
+    background-color: var(--fondo-tarjeta);
     padding: 30px;
     border-radius: 8px;
     border: 1px solid var(--gris-borde);
@@ -180,28 +222,15 @@ header p {
 }
 
 .portal-visitante {
-    border-top-color: #b07a4e;
+    border-top-color: var(--dorado);
 }
 
 .portal-artesano {
     border-top-color: var(--poncho);
 }
 
-.icono-portal {
-    width: 72px;
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.2rem;
-    line-height: 1;
-    margin-bottom: 14px;
-    background-color: var(--poncho-light);
-    border-radius: 50%;
-}
-
 .etiqueta-portada {
-    color: var(--poncho-dark);
+    color: var(--rojo-poncho);
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 1px;
@@ -216,26 +245,12 @@ header p {
     margin-bottom: 14px;
 }
 
-/* franja con el dibujo de un telar */
-.guarda-poncho {
-    width: 180px;
-    height: 10px;
-    margin: 0 auto 18px;
-    background: repeating-linear-gradient(135deg, var(--poncho) 0 10px, var(--poncho-light) 10px 20px);
-    border-radius: 2px;
-}
-
 .dato-predio {
     height: 100%;
     padding: 16px;
-    background-color: var(--gris-fondo);
+    background-color: var(--fondo-tarjeta);
     border: 1px solid var(--gris-borde);
     border-radius: 8px;
-}
-
-.dato-predio span {
-    display: block;
-    font-size: 1.6rem;
 }
 
 .dato-predio strong {
@@ -340,7 +355,7 @@ header p {
 }
 
 .tarjeta-formulario, .contenedor-tabla {
-    background-color: var(--gris-fondo);
+    background-color: var(--fondo-tarjeta);
     padding: 30px;
     border-radius: 8px;
     border: 1px solid var(--gris-borde);
@@ -421,9 +436,9 @@ footer {
     background: linear-gradient(180deg, var(--poncho-dark) 0%, var(--poncho-darker) 100%);
     color: var(--poncho-cream);
     text-align: center;
-    padding: 28px 16px 24px;
+    padding: 40px 16px 24px;
     margin-top: auto;
-    border-top: 3px solid var(--poncho-suave);
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -451,8 +466,7 @@ footer p:first-child::after {
     display: block;
     width: 48px;
     height: 2px;
-    background-color: var(--poncho-suave);
-    opacity: 0.7;
+    background-color: var(--dorado);
     border-radius: 2px;
     margin: 10px auto 2px;
 }
@@ -482,7 +496,13 @@ footer p:last-child {
     }
 
     header p {
-        font-size: 0.95rem;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+    }
+
+    header p::before,
+    header p::after {
+        display: none;
     }
 
     .tarjeta-acceso, .tarjeta-formulario {

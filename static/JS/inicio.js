@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let horaActual = new Date().getHours();
         if (horaActual >= 14 && horaActual < 23) {
             contenedorEstado.className = 'alert alert-success d-inline-block px-4 py-2 my-2 fw-bold';
-            contenedorEstado.textContent = '🟢 Predio Ferial Abierto (14:00 a 23:00 hs)';
+            contenedorEstado.textContent = 'Predio Ferial Abierto (14:00 a 23:00 hs)';
         } else {
             contenedorEstado.className = 'alert alert-danger d-inline-block px-4 py-2 my-2 fw-bold';
-            contenedorEstado.textContent = '🔴 Predio Cerrado. Apertura: 14:00 hs';
+            contenedorEstado.textContent = 'Predio Cerrado. Apertura: 14:00 hs';
         }
     }
 
