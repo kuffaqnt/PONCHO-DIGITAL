@@ -41,10 +41,24 @@ header {
     background-position: center 25%;
     background-repeat: no-repeat;
     text-align: center;
-    padding: 55px 15px;
+    padding: 55px 15px 67px;
     color: #ffffff;
     margin: 0;
-    box-shadow: 0 2px 8px var(--sombra-media);
+    position: relative;
+}
+
+/* franja de rombos al pie del encabezado, como la guarda de un poncho */
+header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 12px;
+    background-color: var(--poncho-darker);
+    background-image:
+        repeating-linear-gradient(45deg, transparent 0 7px, var(--poncho-light) 7px 8px),
+        repeating-linear-gradient(-45deg, transparent 0 7px, var(--poncho-light) 7px 8px);
 }
 
 header h1, header p {
@@ -52,9 +66,10 @@ header h1, header p {
 }
 
 header h1 {
-    font-size: 2.3rem;
+    font-size: 2.6rem;
     font-weight: 700;
-    margin: 0 0 6px 0;
+    letter-spacing: 1px;
+    margin: 0 0 10px 0;
 }
 
 header h1 a { 
@@ -67,18 +82,25 @@ header h1 a:hover {
     color: var(--poncho-light);
 }
 
-.icono-header {
-    width: 1.5em;
-    height: 1.5em;
-    margin-right: 10px;
-    vertical-align: middle;
-    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
-}
-
 header p {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     color: var(--poncho-cream);
+}
+
+/* líneas finas a los costados del subtítulo */
+header p::before,
+header p::after {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    margin: 0 14px;
+    vertical-align: middle;
+    background-color: var(--poncho-cream);
 }
 
 .barra-nav {
@@ -464,7 +486,13 @@ footer p:last-child {
     }
 
     header p {
-        font-size: 0.95rem;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+    }
+
+    header p::before,
+    header p::after {
+        display: none;
     }
 
     .tarjeta-acceso, .tarjeta-formulario {
