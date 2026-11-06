@@ -6,11 +6,19 @@
     --poncho-cream: #f9efe7;
     --poncho-suave: #e7d3c1;
     --gris-texto: #4e443c;
-    --gris-fondo: #f7f1ea;
     --gris-boton: #ece0d2;
     --gris-borde: #d9c4b1;
     --sombra-suave: rgba(110, 52, 24, 0.08);
     --sombra-media: rgba(110, 52, 24, 0.14);
+    /* acentos tomados del sitio oficial y la imagen 2026 de la fiesta */
+    --dorado: #c9962b;
+    --rojo-poncho: #aa3030;
+    --rojo-poncho-dark: #8a2525;
+    --fondo-pagina: #f4ece2;
+    --fondo-tarjeta: #ffffff;
+    /* los links de Bootstrap con el rojo del sitio en vez del azul */
+    --bs-link-color-rgb: 170, 48, 48;
+    --bs-link-hover-color-rgb: 138, 37, 37;
 }
 
 * { 
@@ -19,7 +27,7 @@
 
 body { 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fbf8f4;
+    background-color: var(--fondo-pagina);
     color: var(--gris-texto);
     min-height: 100vh;
     display: flex;
@@ -52,18 +60,26 @@ header {
     position: relative;
 }
 
-/* franja de rombos al pie del encabezado, como la guarda de un poncho */
-header::after {
+/* franja de rombos como la guarda de un poncho, abajo del encabezado y arriba del pie */
+header::after,
+footer::before {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
     height: 12px;
     background-color: var(--poncho-darker);
     background-image:
-        repeating-linear-gradient(45deg, transparent 0 7px, var(--poncho-light) 7px 8px),
-        repeating-linear-gradient(-45deg, transparent 0 7px, var(--poncho-light) 7px 8px);
+        repeating-linear-gradient(45deg, transparent 0 7px, var(--dorado) 7px 8px),
+        repeating-linear-gradient(-45deg, transparent 0 7px, var(--dorado) 7px 8px);
+}
+
+header::after {
+    bottom: 0;
+}
+
+footer::before {
+    top: 0;
 }
 
 header h1, header p {
@@ -105,11 +121,11 @@ header p::after {
     height: 1px;
     margin: 0 14px;
     vertical-align: middle;
-    background-color: var(--poncho-cream);
+    background-color: var(--dorado);
 }
 
 .barra-nav {
-    background-color: var(--poncho-dark);
+    background-color: var(--poncho-darker);
     width: 100%;
     margin: 0;
     padding: 0 24px;
@@ -133,17 +149,18 @@ header p::after {
 .nav-container ul li a {
     display: inline-block;
     color: #ffffff;
-    padding: 8px 14px;
+    padding: 12px 14px 9px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.92rem;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.2s ease;
 }
 
+/* la página actual se marca con una línea dorada abajo */
 .nav-container ul li a:hover,
 .nav-container ul li a.active {
-    background-color: var(--poncho);
+    border-bottom-color: var(--dorado);
     color: #ffffff;
 }
 
@@ -172,8 +189,7 @@ header p::after {
 }
 
 .nav-btn-link:hover {
-    background-color: var(--poncho);
-    color: #ffffff;
+    color: var(--dorado);
 }
 
 .separador {
@@ -189,7 +205,7 @@ header p::after {
 }
 
 .tarjeta-acceso {
-    background-color: var(--gris-fondo);
+    background-color: var(--fondo-tarjeta);
     padding: 30px;
     border-radius: 8px;
     border: 1px solid var(--gris-borde);
@@ -207,7 +223,7 @@ header p::after {
 }
 
 .portal-visitante {
-    border-top-color: #b07a4e;
+    border-top-color: var(--dorado);
 }
 
 .portal-artesano {
@@ -215,7 +231,7 @@ header p::after {
 }
 
 .etiqueta-portada {
-    color: var(--poncho-dark);
+    color: var(--rojo-poncho);
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 1px;
@@ -235,14 +251,14 @@ header p::after {
     width: 180px;
     height: 10px;
     margin: 0 auto 18px;
-    background: repeating-linear-gradient(135deg, var(--poncho) 0 10px, var(--poncho-light) 10px 20px);
+    background: repeating-linear-gradient(135deg, var(--rojo-poncho) 0 10px, var(--dorado) 10px 20px);
     border-radius: 2px;
 }
 
 .dato-predio {
     height: 100%;
     padding: 16px;
-    background-color: var(--gris-fondo);
+    background-color: var(--fondo-tarjeta);
     border: 1px solid var(--gris-borde);
     border-radius: 8px;
 }
@@ -282,7 +298,7 @@ header p::after {
 
 .btn-poncho-principal {
     display: inline-block;
-    background-color: var(--poncho);
+    background-color: var(--rojo-poncho);
     color: #ffffff;
     border: none;
     padding: 10px 22px;
@@ -295,9 +311,9 @@ header p::after {
 }
 
 .btn-poncho-principal:hover {
-    background-color: var(--poncho-dark);
+    background-color: var(--rojo-poncho-dark);
     color: #ffffff;
-    box-shadow: 0 4px 10px rgba(131, 63, 33, 0.35);
+    box-shadow: 0 4px 10px rgba(170, 48, 48, 0.35);
 }
 
 .btn-poncho-principal:active,
@@ -349,7 +365,7 @@ header p::after {
 }
 
 .tarjeta-formulario, .contenedor-tabla {
-    background-color: var(--gris-fondo);
+    background-color: var(--fondo-tarjeta);
     padding: 30px;
     border-radius: 8px;
     border: 1px solid var(--gris-borde);
@@ -430,9 +446,9 @@ footer {
     background: linear-gradient(180deg, var(--poncho-dark) 0%, var(--poncho-darker) 100%);
     color: var(--poncho-cream);
     text-align: center;
-    padding: 28px 16px 24px;
+    padding: 40px 16px 24px;
     margin-top: auto;
-    border-top: 3px solid var(--poncho-suave);
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -460,8 +476,7 @@ footer p:first-child::after {
     display: block;
     width: 48px;
     height: 2px;
-    background-color: var(--poncho-suave);
-    opacity: 0.7;
+    background-color: var(--dorado);
     border-radius: 2px;
     margin: 10px auto 2px;
 }
