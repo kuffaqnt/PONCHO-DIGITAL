@@ -13,7 +13,6 @@
     /* acentos tomados del sitio oficial y la imagen 2026 de la fiesta */
     --dorado: #c9962b;
     --rojo-poncho: #aa3030;
-    --rojo-poncho-dark: #8a2525;
     --fondo-pagina: #f4ece2;
     --fondo-tarjeta: #ffffff;
     /* los links de Bootstrap con el rojo del sitio en vez del azul */
@@ -298,7 +297,7 @@ header p::after {
 
 .btn-poncho-principal {
     display: inline-block;
-    background-color: var(--rojo-poncho);
+    background-color: var(--poncho);
     color: #ffffff;
     border: none;
     padding: 10px 22px;
@@ -311,9 +310,9 @@ header p::after {
 }
 
 .btn-poncho-principal:hover {
-    background-color: var(--rojo-poncho-dark);
+    background-color: var(--poncho-dark);
     color: #ffffff;
-    box-shadow: 0 4px 10px rgba(170, 48, 48, 0.35);
+    box-shadow: 0 4px 10px rgba(131, 63, 33, 0.35);
 }
 
 .btn-poncho-principal:active,
