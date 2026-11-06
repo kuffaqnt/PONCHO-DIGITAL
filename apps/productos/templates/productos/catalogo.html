@@ -22,15 +22,6 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-12 col-sm-6 col-md-3">
-                <label for="localidad" class="form-label">Localidad:</label>
-                <select id="localidad" name="localidad" class="form-select">
-                    <option value="">Todas las localidades</option>
-                    {% for clave, etiqueta in localidades %}
-                        <option value="{{ clave }}" {% if clave == localidad_seleccionada %}selected{% endif %}>{{ etiqueta }}</option>
-                    {% endfor %}
-                </select>
-            </div>
             <div class="col-12 col-md-2">
                 <button type="submit" class="btn-poncho-principal w-100">Filtrar</button>
             </div>

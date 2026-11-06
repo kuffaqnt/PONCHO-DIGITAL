@@ -85,6 +85,21 @@
                         <form method="post">
                             {% csrf_token %}
                             <div class="mb-3">
+                                <label for="stand_id" class="form-label small fw-semibold">Asignar Stand (opcional al aprobar)</label>
+                                <select id="stand_id" name="stand_id" class="form-select form-select-sm">
+                                    <option value="">-- Sin asignar por ahora --</option>
+                                    {% for stand in stands_disponibles %}
+                                        <option value="{{ stand.id }}">
+                                            {{ stand.get_pabellon_display }} - Stand N° {{ stand.numero }} {% if stand.ubicacion %}({{ stand.ubicacion }}){% endif %}
+                                        </option>
+                                    {% empty %}
+                                        <option value="" disabled>No hay stands libres disponibles</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text small">Si aprobás la solicitud, el stand seleccionado pasará a estar ocupado y quedará asignado a este artesano.</div>
+                            </div>
+                            
+                            <div class="mb-3">
                                 <label for="observaciones" class="form-label small fw-semibold">Observaciones para el postulante</label>
                                 <textarea id="observaciones" name="observaciones" class="form-control form-control-sm" rows="2" placeholder="Obligatorias si pedís modificaciones. Opcionales al aprobar o rechazar.">{{ observaciones }}</textarea>
                             </div>

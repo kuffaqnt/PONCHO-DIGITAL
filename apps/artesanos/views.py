@@ -213,10 +213,12 @@ ACCIONES = {
 def detalle_solicitud(request, artesano_id):
     artesano = get_object_or_404(Artesano, pk=artesano_id)
     observaciones = artesano.observaciones
+    stands_disponibles = Stand.objects.filter(estado__iexact='disponible', artesano__isnull=True)
 
     if request.method == 'POST':
         nuevo_estado = ACCIONES.get(request.POST.get('accion'))
         observaciones = request.POST.get('observaciones', '').strip()
+        stand_id = request.POST.get('stand_id')
 
         if artesano.estado != 'pendiente':
             messages.error(request, 'Solo se pueden evaluar solicitudes pendientes.')
@@ -229,9 +231,17 @@ def detalle_solicitud(request, artesano_id):
             artesano.observaciones = observaciones
             artesano.save(update_fields=['estado', 'observaciones'])
             artesano.actualizar_grupo()
+
+            if nuevo_estado == 'aprobada' and stand_id: 
+                stand = Stand.objects.filter(id=stand_id, estado='disponible').first()
+                if stand: 
+                    stand.artesano = artesano
+                    stand.estado = 'ocupado'
+                    stand.save(update_fields=['artesano','estado'])
+
             avisar_estado(artesano)
             messages.success(request, f'Solicitud de {artesano.nombre_taller}: {artesano.get_estado_display()}.')
             return redirect('panel_admin')
 
-    context = {'artesano': artesano, 'observaciones': observaciones}
+    context = {'artesano': artesano, 'observaciones': observaciones, 'stands_disponibles':stands_disponibles,}
     return render(request, 'artesanos/detalle_solicitud.html', context)

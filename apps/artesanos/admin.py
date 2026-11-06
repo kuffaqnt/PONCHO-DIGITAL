@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
-
 from .models import Artesano, Stand
+
 
 
 # RNF-11, el admin gestiona artesanos y stands desde Django Admin
@@ -15,6 +15,27 @@ class ArtesanoAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
         # si cambian el estado desde acá también se actualizan los permisos
         obj.actualizar_grupo()
+
+    def delete_queryset(self, request, queryset):
+        """
+        Se ejecuta ÚNICAMENTE al seleccionar artesanos con checkbox y pulsar Ejecutar.
+        Libera todos los stands de los artesanos seleccionados antes de borrarlos.
+        """
+        Stand.objects.filter(artesano__in=queryset).update(
+            artesano=None,
+            estado='disponible'
+        )
+        super().delete_queryset(request, queryset)
+
+    def delete_model(self, request, obj):
+        """
+        Se ejecuta si entrás al detalle de un artesano y tocás el botón rojo 'Eliminar'.
+        """
+        Stand.objects.filter(artesano=obj).update(
+            artesano=None,
+            estado='disponible'
+        )
+        super().delete_model(request, obj)
 
 
 class StandForm(forms.ModelForm):

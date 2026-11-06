@@ -1,22 +1,5 @@
 // ACA SOLO HAY LOGICA PARA LOGIN.HTML
 
-// Usuario generico de prueba para la demo del panel artesano
-const USUARIOS = {
-    artesano: {
-    email: 'artesano@poncho.com',
-    pass: '12345678',
-    nombre: 'Artesano Demo',
-    taller: 'Telares del Ambato',
-    rol: 'artesano'
-},
-    admin: { 
-    email: 'admin@poncho.com',
-    pass: '987654321',
-    nombre: 'Admin Demo',
-    rol: 'admin'
-}
-};
-
 // primero se revisa que no este vacio y despues el formato con validarEmail de comun.js
 function validarCorreo(correo) {
     if (correo === '') return 'Debe ingresar el correo electrónico.';

@@ -1,6 +1,8 @@
 from django.contrib.auth.models import Group, User
 from django.core.validators import MaxValueValidator
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
 
 class Artesano(models.Model):
@@ -32,6 +34,29 @@ class Artesano(models.Model):
         ('santa_rosa', 'Santa Rosa'),
         ('tinogasta', 'Tinogasta'),
         ('valle_viejo', 'Valle Viejo'),
+        ('buenos_aires', 'Buenos Aires'),
+        ('caba', 'Ciudad Autónoma de Buenos Aires'),
+        ('chaco', 'Chaco'),
+        ('chubut', 'Chubut'),
+        ('cordoba', 'Córdoba'),
+        ('corrientes', 'Corrientes'),
+        ('entre_rios', 'Entre Ríos'),
+        ('formosa', 'Formosa'),
+        ('jujuy', 'Jujuy'),
+        ('la_pampa', 'La Pampa'),
+        ('la_rioja', 'La Rioja'),
+        ('mendoza', 'Mendoza'),
+        ('misiones', 'Misiones'),
+        ('neuquen', 'Neuquén'),
+        ('rio_negro', 'Río Negro'),
+        ('salta', 'Salta'),
+        ('san_juan', 'San Juan'),
+        ('san_luis', 'San Luis'),
+        ('santa_cruz', 'Santa Cruz'),
+        ('santa_fe', 'Santa Fe'),
+        ('santiago_del_estero', 'Santiago del Estero'),
+        ('tierra_del_fuego', 'Tierra del Fuego'),
+        ('tucuman', 'Tucumán'),
     ]
 
     ESTADO_CHOICES = [
@@ -79,6 +104,14 @@ class Artesano(models.Model):
             usuario.groups.add(grupo)
         else:
             usuario.groups.remove(grupo)
+    
+    def delete(self, *args, **kwargs):
+        if hasattr(self, 'stand') and self.stand:
+            stand = self.stand
+            stand.artesano = None
+            stand.estado = 'disponible'
+            stand.save(update_fields=['artesano', 'estado'])
+        super().delete(*args, **kwargs)
 
 
 class Stand(models.Model):
@@ -121,3 +154,4 @@ class Stand(models.Model):
 
     def __str__(self):
         return f"{self.pabellon} - Stand {self.numero} ({self.estado})"
+    
